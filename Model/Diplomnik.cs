@@ -15,5 +15,11 @@ namespace asugaksharp.Model
         public string Tema { get; set; } = String.Empty;                  
         public float OrigVkr { get; set; }
         public float Srball { get; set; }
+
+        //от таблицы Персон 
+
+        public int PersonId { get; set; }   
+        public Person? Person { get; set; }
+
     }
 }

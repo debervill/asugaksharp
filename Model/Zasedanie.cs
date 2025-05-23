@@ -13,6 +13,10 @@ namespace asugaksharp.Model
         public int GakID { get; set; }
         public Gak? Gak { get; set; }
 
+        //связь с персон
+        public ICollection<Person>? Persons { get; set; }
+
+
         
     }
 }
