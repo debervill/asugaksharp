@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿
 
 namespace asugaksharp.Model
 {
-    internal class Zasedanie
+    public class Zasedanie
     { 
         public int Id { get; set; }
         public string NapravleniePodgotovki { get; set; } =string.Empty;

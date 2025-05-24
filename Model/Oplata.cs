@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace asugaksharp.Model
 {
-    internal class Oplata
+    public class Oplata
     {
         public int Id { get; set; } 
         public float Stavka { get; set; }

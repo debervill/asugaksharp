@@ -36,5 +36,14 @@ namespace asugaksharp
         {
 
         }
+
+        private void êîìñèèÿToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void äîáàâèòüToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

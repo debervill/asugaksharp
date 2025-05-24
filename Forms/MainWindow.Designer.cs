@@ -30,68 +30,62 @@
         {
             menuStrip1 = new MenuStrip();
             главнаяToolStripMenuItem = new ToolStripMenuItem();
-            комсиияToolStripMenuItem = new ToolStripMenuItem();
             оплатаToolStripMenuItem = new ToolStripMenuItem();
             настройкиToolStripMenuItem = new ToolStripMenuItem();
-            добавитьКомиссиюToolStripMenuItem = new ToolStripMenuItem();
-            добавитьПреподавателяToolStripMenuItem = new ToolStripMenuItem();
+            персоныToolStripMenuItem = new ToolStripMenuItem();
+            добавитьToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(24, 24);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { главнаяToolStripMenuItem, комсиияToolStripMenuItem, оплатаToolStripMenuItem, настройкиToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { главнаяToolStripMenuItem, оплатаToolStripMenuItem, настройкиToolStripMenuItem, персоныToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1000, 33);
+            menuStrip1.Padding = new Padding(5, 2, 0, 2);
+            menuStrip1.Size = new Size(800, 28);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
             // главнаяToolStripMenuItem
             // 
             главнаяToolStripMenuItem.Name = "главнаяToolStripMenuItem";
-            главнаяToolStripMenuItem.Size = new Size(92, 29);
+            главнаяToolStripMenuItem.Size = new Size(79, 24);
             главнаяToolStripMenuItem.Text = "Главная";
-            // 
-            // комсиияToolStripMenuItem
-            // 
-            комсиияToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { добавитьКомиссиюToolStripMenuItem, добавитьПреподавателяToolStripMenuItem });
-            комсиияToolStripMenuItem.Name = "комсиияToolStripMenuItem";
-            комсиияToolStripMenuItem.Size = new Size(99, 29);
-            комсиияToolStripMenuItem.Text = "Комсиия";
             // 
             // оплатаToolStripMenuItem
             // 
             оплатаToolStripMenuItem.Name = "оплатаToolStripMenuItem";
-            оплатаToolStripMenuItem.Size = new Size(86, 29);
+            оплатаToolStripMenuItem.Size = new Size(73, 24);
             оплатаToolStripMenuItem.Text = "Оплата";
             // 
             // настройкиToolStripMenuItem
             // 
             настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            настройкиToolStripMenuItem.Size = new Size(116, 29);
+            настройкиToolStripMenuItem.Size = new Size(98, 24);
             настройкиToolStripMenuItem.Text = "Настройки";
             // 
-            // добавитьКомиссиюToolStripMenuItem
+            // персоныToolStripMenuItem
             // 
-            добавитьКомиссиюToolStripMenuItem.Name = "добавитьКомиссиюToolStripMenuItem";
-            добавитьКомиссиюToolStripMenuItem.Size = new Size(320, 34);
-            добавитьКомиссиюToolStripMenuItem.Text = "Добавить комиссию";
+            персоныToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { добавитьToolStripMenuItem });
+            персоныToolStripMenuItem.Name = "персоныToolStripMenuItem";
+            персоныToolStripMenuItem.Size = new Size(87, 24);
+            персоныToolStripMenuItem.Text = "Персоны";
             // 
-            // добавитьПреподавателяToolStripMenuItem
+            // добавитьToolStripMenuItem
             // 
-            добавитьПреподавателяToolStripMenuItem.Name = "добавитьПреподавателяToolStripMenuItem";
-            добавитьПреподавателяToolStripMenuItem.Size = new Size(320, 34);
-            добавитьПреподавателяToolStripMenuItem.Text = "Добавить преподавателя";
+            добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
+            добавитьToolStripMenuItem.Size = new Size(224, 26);
+            добавитьToolStripMenuItem.Text = "Добавить";
+            добавитьToolStripMenuItem.Click += добавитьToolStripMenuItem_Click;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1000, 562);
+            ClientSize = new Size(800, 450);
             Controls.Add(menuStrip1);
-            Margin = new Padding(4);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
@@ -105,10 +99,9 @@
 
         private MenuStrip menuStrip1;
         private ToolStripMenuItem главнаяToolStripMenuItem;
-        private ToolStripMenuItem комсиияToolStripMenuItem;
         private ToolStripMenuItem оплатаToolStripMenuItem;
         private ToolStripMenuItem настройкиToolStripMenuItem;
-        private ToolStripMenuItem добавитьКомиссиюToolStripMenuItem;
-        private ToolStripMenuItem добавитьПреподавателяToolStripMenuItem;
+        private ToolStripMenuItem персоныToolStripMenuItem;
+        private ToolStripMenuItem добавитьToolStripMenuItem;
     }
 }

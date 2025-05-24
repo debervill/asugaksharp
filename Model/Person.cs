@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-
+﻿
 namespace asugaksharp.Model
 {
-    internal class Person
+    public class Person
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
@@ -18,7 +12,7 @@ namespace asugaksharp.Model
 
         //от таблицы заседание
 
-        public ICollection<Zasedanie> Zasedanies { get; set; }
+        public ICollection<Zasedanie>? Zasedanies { get; set; }
        
         //от таблицы докс
         public ICollection<Docs>? Docs { get; set; }
