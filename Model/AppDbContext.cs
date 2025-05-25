@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace asugaksharp.Model
 {
-    public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+    public class AppDbContext : DbContext
     {
-        [Required]    
+        
         public DbSet<Diplomnik> Diplomnik { get; set; } 
         public DbSet<Docs> Docs { get; set; }
         public DbSet<Gak> Gak { get; set; }
@@ -15,6 +15,17 @@ namespace asugaksharp.Model
         public DbSet<Person> Person { get; set; }   
         public DbSet<Zasedanie> Zasedanie  { get; set; }
 
+        public AppDbContext() { }
+
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlite("Data Source=C:\\Users\\Danamir\\source\\repos\\debervill\\asugaksharp\\asugak.db");
+            }
+        }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,3 +1,5 @@
+using asugaksharp.Forms;
+
 namespace asugaksharp
 {
     public partial class Form1 : Form
@@ -43,6 +45,17 @@ namespace asugaksharp
 
         private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+        }
+
+
+
+        private void добавитьToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            //Добавление периода заседаний
+            
+            AddPeriodZasedania form = new AddPeriodZasedania();
+            form.Show();
 
         }
     }

@@ -7,7 +7,8 @@ namespace asugaksharp.Model
         public int Id { get; set; }
         public string Name { get; set; } = String.Empty;
 
-        public DateTime Date { get; set; }
+        public DateOnly DateStart { get; set; }
+        public DateOnly DateEnd { get; set; }
         public string Primechanie { get; set; } = String.Empty;
 
         //1 ко многим к таблице гэк

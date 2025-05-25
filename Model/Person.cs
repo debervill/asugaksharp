@@ -7,7 +7,9 @@ namespace asugaksharp.Model
         public string Name { get; set; } = string.Empty;
         public string Stepen { get; set; } = string.Empty;
         public string Zvanie { get; set; } = string.Empty;
-        public string Role { get; set; } = string.Empty;
+        public bool IsPredsed { get; set; }
+        public bool IsZavKaf { get; set; }
+
 
 
         //от таблицы заседание
