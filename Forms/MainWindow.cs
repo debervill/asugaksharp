@@ -53,10 +53,18 @@ namespace asugaksharp
         private void добавитьToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             //Добавление периода заседаний
-            
+
             AddPeriodZasedania form = new AddPeriodZasedania();
             form.Show();
 
+        }
+
+        private void добавиьЛюдейToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Добавление персон
+
+            AddPerson form = new AddPerson();
+            form.Show();
         }
     }
 }

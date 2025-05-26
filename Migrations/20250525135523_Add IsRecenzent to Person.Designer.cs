@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using asugaksharp.Model;
 
@@ -10,20 +11,22 @@ using asugaksharp.Model;
 namespace asugaksharp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250525135523_Add IsRecenzent to Person")]
+    partial class AddIsRecenzenttoPerson
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.5");
 
             modelBuilder.Entity("GakPerson", b =>
                 {
-                    b.Property<Guid>("GakId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("GakId")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<Guid>("PersonsId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("PersonsId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("GakId", "PersonsId");
 
@@ -34,11 +37,11 @@ namespace asugaksharp.Migrations
 
             modelBuilder.Entity("PersonZasedanie", b =>
                 {
-                    b.Property<Guid>("PersonsId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("PersonsId")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<Guid>("ZasedaniesId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("ZasedaniesId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("PersonsId", "ZasedaniesId");
 
@@ -49,9 +52,9 @@ namespace asugaksharp.Migrations
 
             modelBuilder.Entity("asugaksharp.Model.Diplomnik", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -63,8 +66,8 @@ namespace asugaksharp.Migrations
                     b.Property<int>("Pages")
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid>("PersonId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("PersonId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Sex")
                         .IsRequired()
@@ -86,9 +89,9 @@ namespace asugaksharp.Migrations
 
             modelBuilder.Entity("asugaksharp.Model.Docs", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Data")
                         .IsRequired()
@@ -101,8 +104,8 @@ namespace asugaksharp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("PersonId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("PersonId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -113,12 +116,12 @@ namespace asugaksharp.Migrations
 
             modelBuilder.Entity("asugaksharp.Model.Gak", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
-                    b.Property<Guid>("KafedraID")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("KafedraID")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("KolvoBudget")
                         .HasColumnType("INTEGER");
@@ -130,8 +133,8 @@ namespace asugaksharp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("PeriodZasedaniaId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("PeriodZasedaniaId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -144,9 +147,9 @@ namespace asugaksharp.Migrations
 
             modelBuilder.Entity("asugaksharp.Model.Kafedra", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -171,9 +174,9 @@ namespace asugaksharp.Migrations
 
             modelBuilder.Entity("asugaksharp.Model.Oplata", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("DogovorNumber")
                         .HasColumnType("INTEGER");
@@ -187,8 +190,8 @@ namespace asugaksharp.Migrations
                     b.Property<float>("Ndfl")
                         .HasColumnType("REAL");
 
-                    b.Property<Guid>("PersonId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("PersonId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<float>("Stavka")
                         .HasColumnType("REAL");
@@ -202,9 +205,9 @@ namespace asugaksharp.Migrations
 
             modelBuilder.Entity("asugaksharp.Model.PeriodZasedania", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateOnly>("DateEnd")
                         .HasColumnType("TEXT");
@@ -227,9 +230,9 @@ namespace asugaksharp.Migrations
 
             modelBuilder.Entity("asugaksharp.Model.Person", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Dolgnost")
                         .IsRequired()
@@ -266,15 +269,15 @@ namespace asugaksharp.Migrations
 
             modelBuilder.Entity("asugaksharp.Model.Zasedanie", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateOnly>("Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("GakID")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("GakID")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Kvalificacia")
                         .IsRequired()

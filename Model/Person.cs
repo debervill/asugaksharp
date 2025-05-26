@@ -1,14 +1,22 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace asugaksharp.Model
 {
     public class Person
     {
-        public int Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Stepen { get; set; } = string.Empty;
         public string Zvanie { get; set; } = string.Empty;
+        public string Dolgnost { get; set; } = string.Empty;
         public bool IsPredsed { get; set; }
         public bool IsZavKaf { get; set; }
+        public bool IsSecretar { get; set; }
+        public bool IsRecenzent { get; set; }
 
 
 

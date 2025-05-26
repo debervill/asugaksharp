@@ -30,12 +30,13 @@
         {
             menuStrip1 = new MenuStrip();
             главнаяToolStripMenuItem = new ToolStripMenuItem();
+            настройкиToolStripMenuItem = new ToolStripMenuItem();
             комиссииToolStripMenuItem = new ToolStripMenuItem();
             добавитьToolStripMenuItem = new ToolStripMenuItem();
+            гЭКиToolStripMenuItem = new ToolStripMenuItem();
             добавиьЛюдейToolStripMenuItem = new ToolStripMenuItem();
             добавитьToolStripMenuItem1 = new ToolStripMenuItem();
             label1 = new Label();
-            гЭКиToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -52,9 +53,16 @@
             // 
             // главнаяToolStripMenuItem
             // 
+            главнаяToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { настройкиToolStripMenuItem });
             главнаяToolStripMenuItem.Name = "главнаяToolStripMenuItem";
             главнаяToolStripMenuItem.Size = new Size(63, 20);
             главнаяToolStripMenuItem.Text = "Главная";
+            // 
+            // настройкиToolStripMenuItem
+            // 
+            настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
+            настройкиToolStripMenuItem.Size = new Size(134, 22);
+            настройкиToolStripMenuItem.Text = "Настройки";
             // 
             // комиссииToolStripMenuItem
             // 
@@ -66,37 +74,38 @@
             // добавитьToolStripMenuItem
             // 
             добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
-            добавитьToolStripMenuItem.Size = new Size(174, 22);
+            добавитьToolStripMenuItem.Size = new Size(180, 22);
             добавитьToolStripMenuItem.Text = "Период заседания";
             добавитьToolStripMenuItem.Click += добавитьToolStripMenuItem_Click_1;
+            // 
+            // гЭКиToolStripMenuItem
+            // 
+            гЭКиToolStripMenuItem.Name = "гЭКиToolStripMenuItem";
+            гЭКиToolStripMenuItem.Size = new Size(180, 22);
+            гЭКиToolStripMenuItem.Text = "ГЭКи";
             // 
             // добавиьЛюдейToolStripMenuItem
             // 
             добавиьЛюдейToolStripMenuItem.Name = "добавиьЛюдейToolStripMenuItem";
-            добавиьЛюдейToolStripMenuItem.Size = new Size(174, 22);
+            добавиьЛюдейToolStripMenuItem.Size = new Size(180, 22);
             добавиьЛюдейToolStripMenuItem.Text = "Люди";
+            добавиьЛюдейToolStripMenuItem.Click += добавиьЛюдейToolStripMenuItem_Click;
             // 
             // добавитьToolStripMenuItem1
             // 
             добавитьToolStripMenuItem1.Name = "добавитьToolStripMenuItem1";
-            добавитьToolStripMenuItem1.Size = new Size(174, 22);
+            добавитьToolStripMenuItem1.Size = new Size(180, 22);
             добавитьToolStripMenuItem1.Text = "Списки студентов";
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 55F);
-            label1.Location = new Point(78, 110);
+            label1.Location = new Point(94, 114);
             label1.Name = "label1";
             label1.Size = new Size(516, 99);
             label1.TabIndex = 1;
             label1.Text = "ДА БУДЕТ ГЭК";
-            // 
-            // гЭКиToolStripMenuItem
-            // 
-            гЭКиToolStripMenuItem.Name = "гЭКиToolStripMenuItem";
-            гЭКиToolStripMenuItem.Size = new Size(174, 22);
-            гЭКиToolStripMenuItem.Text = "ГЭКи";
             // 
             // Form1
             // 
@@ -125,5 +134,6 @@
         private ToolStripMenuItem добавитьToolStripMenuItem1;
         private Label label1;
         private ToolStripMenuItem гЭКиToolStripMenuItem;
+        private ToolStripMenuItem настройкиToolStripMenuItem;
     }
 }

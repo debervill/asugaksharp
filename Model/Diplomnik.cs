@@ -1,8 +1,13 @@
-﻿namespace asugaksharp.Model
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace asugaksharp.Model
 {
     public class Diplomnik
     {
-        public int Id {  get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Sex { get; set; } = String.Empty;
         public int Pages { get; set; }
@@ -12,7 +17,7 @@
 
         //от таблицы Персон 
 
-        public int PersonId { get; set; }   
+        public Guid PersonId { get; set; }   
         public Person? Person { get; set; }
 
     }

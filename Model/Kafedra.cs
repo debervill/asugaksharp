@@ -1,8 +1,13 @@
-﻿namespace asugaksharp.Model
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace asugaksharp.Model
 {
     public class Kafedra
     {
-        public int Id { get; set; } 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Phone { get; set; } = string.Empty;
         public string Email {  get; set; } = string.Empty;

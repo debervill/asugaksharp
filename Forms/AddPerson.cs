@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using asugaksharp.Model;
+using System.Reflection.Metadata;
 
 namespace asugaksharp.Forms
 {
@@ -23,6 +16,44 @@ namespace asugaksharp.Forms
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnAdd_Click(object sender, EventArgs e)
+        {
+            using var db = new Model.AppDbContext();
+
+            var SomePerson = new Person
+            {
+                Name = FioText.Text,
+                Stepen = UchStepenBox.Text,
+                Zvanie = UchZvanBox.Text,
+                Dolgnost = DolgnostBox.Text,
+                IsPredsed = PredsedBox.Checked,
+                IsZavKaf = ZavKafBox.Checked,
+                IsSecretar = IsSecretarBox.Checked
+
+            };
+
+            db.Person.Add(SomePerson);
+            db.SaveChanges();
+
+            MessageBox.Show("Добавлено");
+
+        }
+
+        private void BtnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void AddPerson_Load(object sender, EventArgs e)
         {
 
         }
