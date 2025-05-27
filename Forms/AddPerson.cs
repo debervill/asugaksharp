@@ -45,7 +45,7 @@ namespace asugaksharp.Forms
             db.SaveChanges();
 
             MessageBox.Show("Добавлено");
-
+            // TODO: Сделать очистку формы после добавления в базу 
         }
 
         private void BtnExit_Click(object sender, EventArgs e)

@@ -1,4 +1,5 @@
 using asugaksharp.Forms;
+using System.Windows.Forms;
 
 namespace asugaksharp
 {
@@ -65,6 +66,12 @@ namespace asugaksharp
 
             AddPerson form = new AddPerson();
             form.Show();
+        }
+
+        private void ëèñòÁîêñToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           twolistbox form = new twolistbox();
+           form.Show();
         }
     }
 }
