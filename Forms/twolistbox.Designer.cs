@@ -1,4 +1,5 @@
-﻿namespace asugaksharp.Forms
+﻿
+namespace asugaksharp.Forms
 {
     partial class twolistbox
     {
@@ -89,6 +90,8 @@
             Text = "twolistbox";
             ResumeLayout(false);
         }
+
+
 
         #endregion
 

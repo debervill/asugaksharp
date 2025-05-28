@@ -8,7 +8,8 @@ namespace asugaksharp.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+        public string FioImen { get; set; } = string.Empty;
+        public string FioRodit { get; set; } = string.Empty;
         public string Sex { get; set; } = String.Empty;
         public int Pages { get; set; }
         public string Tema { get; set; } = String.Empty;                  

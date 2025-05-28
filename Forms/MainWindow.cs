@@ -70,8 +70,15 @@ namespace asugaksharp
 
         private void ëèñòÁîêñToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           twolistbox form = new twolistbox();
-           form.Show();
+            twolistbox form = new twolistbox();
+            form.Show();
+        }
+
+        private void äîáàâèòüToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            //Ñòóäåíòû
+            Students form = new Students();
+            form.Show();
         }
     }
 }

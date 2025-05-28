@@ -33,23 +33,14 @@ namespace asugaksharp.Forms
 
             listBox1.DataSource = availablePeople;
             listBox1.DisplayMember = "Name";
+            listBox1.ValueMember = "Id";
 
             listBox2.DataSource = selectedPeople;
             listBox2.DisplayMember = "Name";
+            listBox2.ValueMember = "Id";
 
         }
 
-        private void listBox1_Click(object sender, EventArgs e)
-        {
-            if (listBox1.SelectedIndex == -1 && listBox1.Items.Count > 0)
-                listBox1.SelectedIndex = 0;
-        }
-
-        private void listBox2_Click(object sender, EventArgs e)
-        {
-            if (listBox2.SelectedIndex == -1 && listBox2.Items.Count > 0)
-                listBox2.SelectedIndex = 0;
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -60,8 +51,9 @@ namespace asugaksharp.Forms
                 availablePeople.Remove(person);
             }
 
-            if (listBox1.Items.Count > 0)
-                listBox1.SelectedIndex = 0;
+            if (listBox1.SelectedIndex == -1 && listBox1.Items.Count > 0) { 
+            listBox1.SelectedIndex = 0;
+             }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -73,9 +65,10 @@ namespace asugaksharp.Forms
                 availablePeople.Add(person);
                 selectedPeople.Remove(person);
             }
+            if (listBox2.SelectedIndex == -1 && listBox2.Items.Count > 0) { 
 
-            if (listBox2.Items.Count > 0)
-                listBox2.SelectedIndex = 0;
+            listBox2.SelectedIndex = 0;
+            }
         }
     }
 }
