@@ -17,6 +17,9 @@ namespace asugaksharp.Model
         public bool IsZavKaf { get; set; }
         public bool IsSecretar { get; set; }
         public bool IsRecenzent { get; set; }
+        public bool IsVneshniy { get; set; }
+
+
 
 
 

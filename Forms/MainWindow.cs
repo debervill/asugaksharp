@@ -99,5 +99,11 @@ namespace asugaksharp
             ProfiliPodgootovkiForm form = new ProfiliPodgootovkiForm();
             form.Show();
         }
+
+        private void ÓÔÎ‡Ú‡ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OplataMainForm form = new OplataMainForm();
+            form.Show();    
+        }
     }
 }

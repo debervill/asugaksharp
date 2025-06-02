@@ -44,9 +44,19 @@
             BtnAdd = new Button();
             BtnExit = new Button();
             IsSecretarBox = new CheckBox();
-            dataGridView1 = new DataGridView();
+            PersonGridView = new DataGridView();
+            nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            stepenDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            zvanieDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            dolgnostDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            isPredsedDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            isZavKafDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            isSecretarDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            isRecenzentDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            isVneshniyDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            isVeshnBox = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)personBindingSource).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PersonGridView).BeginInit();
             SuspendLayout();
             // 
             // personBindingSource
@@ -150,7 +160,7 @@
             // PredsedBox
             // 
             PredsedBox.AutoSize = true;
-            PredsedBox.Location = new Point(405, 135);
+            PredsedBox.Location = new Point(405, 128);
             PredsedBox.Name = "PredsedBox";
             PredsedBox.Size = new Size(160, 19);
             PredsedBox.TabIndex = 11;
@@ -180,28 +190,96 @@
             // IsSecretarBox
             // 
             IsSecretarBox.AutoSize = true;
-            IsSecretarBox.Location = new Point(405, 168);
+            IsSecretarBox.Location = new Point(405, 153);
             IsSecretarBox.Name = "IsSecretarBox";
             IsSecretarBox.Size = new Size(104, 19);
             IsSecretarBox.TabIndex = 14;
             IsSecretarBox.Text = "Секретарь Гэк";
             IsSecretarBox.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // PersonGridView
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(69, 299);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(588, 150);
-            dataGridView1.TabIndex = 15;
+            PersonGridView.AutoGenerateColumns = false;
+            PersonGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            PersonGridView.Columns.AddRange(new DataGridViewColumn[] { nameDataGridViewTextBoxColumn, stepenDataGridViewTextBoxColumn, zvanieDataGridViewTextBoxColumn, dolgnostDataGridViewTextBoxColumn, isPredsedDataGridViewCheckBoxColumn, isZavKafDataGridViewCheckBoxColumn, isSecretarDataGridViewCheckBoxColumn, isRecenzentDataGridViewCheckBoxColumn, isVneshniyDataGridViewCheckBoxColumn });
+            PersonGridView.DataSource = personBindingSource;
+            PersonGridView.Location = new Point(25, 297);
+            PersonGridView.Name = "PersonGridView";
+            PersonGridView.Size = new Size(956, 150);
+            PersonGridView.TabIndex = 15;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // stepenDataGridViewTextBoxColumn
+            // 
+            stepenDataGridViewTextBoxColumn.DataPropertyName = "Stepen";
+            stepenDataGridViewTextBoxColumn.HeaderText = "Stepen";
+            stepenDataGridViewTextBoxColumn.Name = "stepenDataGridViewTextBoxColumn";
+            // 
+            // zvanieDataGridViewTextBoxColumn
+            // 
+            zvanieDataGridViewTextBoxColumn.DataPropertyName = "Zvanie";
+            zvanieDataGridViewTextBoxColumn.HeaderText = "Zvanie";
+            zvanieDataGridViewTextBoxColumn.Name = "zvanieDataGridViewTextBoxColumn";
+            // 
+            // dolgnostDataGridViewTextBoxColumn
+            // 
+            dolgnostDataGridViewTextBoxColumn.DataPropertyName = "Dolgnost";
+            dolgnostDataGridViewTextBoxColumn.HeaderText = "Dolgnost";
+            dolgnostDataGridViewTextBoxColumn.Name = "dolgnostDataGridViewTextBoxColumn";
+            // 
+            // isPredsedDataGridViewCheckBoxColumn
+            // 
+            isPredsedDataGridViewCheckBoxColumn.DataPropertyName = "IsPredsed";
+            isPredsedDataGridViewCheckBoxColumn.HeaderText = "IsPredsed";
+            isPredsedDataGridViewCheckBoxColumn.Name = "isPredsedDataGridViewCheckBoxColumn";
+            // 
+            // isZavKafDataGridViewCheckBoxColumn
+            // 
+            isZavKafDataGridViewCheckBoxColumn.DataPropertyName = "IsZavKaf";
+            isZavKafDataGridViewCheckBoxColumn.HeaderText = "IsZavKaf";
+            isZavKafDataGridViewCheckBoxColumn.Name = "isZavKafDataGridViewCheckBoxColumn";
+            // 
+            // isSecretarDataGridViewCheckBoxColumn
+            // 
+            isSecretarDataGridViewCheckBoxColumn.DataPropertyName = "IsSecretar";
+            isSecretarDataGridViewCheckBoxColumn.HeaderText = "IsSecretar";
+            isSecretarDataGridViewCheckBoxColumn.Name = "isSecretarDataGridViewCheckBoxColumn";
+            // 
+            // isRecenzentDataGridViewCheckBoxColumn
+            // 
+            isRecenzentDataGridViewCheckBoxColumn.DataPropertyName = "IsRecenzent";
+            isRecenzentDataGridViewCheckBoxColumn.HeaderText = "IsRecenzent";
+            isRecenzentDataGridViewCheckBoxColumn.Name = "isRecenzentDataGridViewCheckBoxColumn";
+            // 
+            // isVneshniyDataGridViewCheckBoxColumn
+            // 
+            isVneshniyDataGridViewCheckBoxColumn.DataPropertyName = "IsVneshniy";
+            isVneshniyDataGridViewCheckBoxColumn.HeaderText = "IsVneshniy";
+            isVneshniyDataGridViewCheckBoxColumn.Name = "isVneshniyDataGridViewCheckBoxColumn";
+            // 
+            // isVeshnBox
+            // 
+            isVeshnBox.AutoSize = true;
+            isVeshnBox.Location = new Point(405, 178);
+            isVeshnBox.Name = "isVeshnBox";
+            isVeshnBox.Size = new Size(78, 19);
+            isVeshnBox.TabIndex = 16;
+            isVeshnBox.Text = "Внешний";
+            isVeshnBox.UseVisualStyleBackColor = true;
             // 
             // AddPerson
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(700, 563);
-            Controls.Add(dataGridView1);
+            ClientSize = new Size(1002, 563);
+            Controls.Add(isVeshnBox);
+            Controls.Add(PersonGridView);
             Controls.Add(IsSecretarBox);
             Controls.Add(BtnExit);
             Controls.Add(BtnAdd);
@@ -220,7 +298,7 @@
             Name = "AddPerson";
             Text = "AddPerson";
             ((System.ComponentModel.ISupportInitialize)personBindingSource).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PersonGridView).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -241,6 +319,16 @@
         private Button BtnAdd;
         private Button BtnExit;
         private CheckBox IsSecretarBox;
-        private DataGridView dataGridView1;
+        private DataGridView PersonGridView;
+        private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn stepenDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn zvanieDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn dolgnostDataGridViewTextBoxColumn;
+        private DataGridViewCheckBoxColumn isPredsedDataGridViewCheckBoxColumn;
+        private DataGridViewCheckBoxColumn isZavKafDataGridViewCheckBoxColumn;
+        private DataGridViewCheckBoxColumn isSecretarDataGridViewCheckBoxColumn;
+        private DataGridViewCheckBoxColumn isRecenzentDataGridViewCheckBoxColumn;
+        private DataGridViewCheckBoxColumn isVneshniyDataGridViewCheckBoxColumn;
+        private CheckBox isVeshnBox;
     }
 }

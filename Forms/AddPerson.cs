@@ -8,6 +8,14 @@ namespace asugaksharp.Forms
         public AddPerson()
         {
             InitializeComponent();
+            LoadExistingData();
+        }
+
+        private void LoadExistingData() {
+            using var db = new Model.AppDbContext();
+            var data = db.Person.ToList();
+            PersonGridView.DataSource = data;
+
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -37,13 +45,15 @@ namespace asugaksharp.Forms
                 Dolgnost = DolgnostBox.Text,
                 IsPredsed = PredsedBox.Checked,
                 IsZavKaf = ZavKafBox.Checked,
-                IsSecretar = IsSecretarBox.Checked
+                IsSecretar = IsSecretarBox.Checked,
+                IsVneshniy = isVeshnBox.Checked
 
             };
 
             db.Person.Add(SomePerson);
             db.SaveChanges();
 
+            LoadExistingData();
             MessageBox.Show("Добавлено");
             // TODO: Сделать очистку формы после добавления в базу 
         }
