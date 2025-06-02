@@ -5,7 +5,7 @@ namespace asugaksharp.Model
 {
     public class AppDbContext : DbContext
     {
-        
+
         public DbSet<Diplomnik> Diplomnik { get; set; } 
         public DbSet<Docs> Docs { get; set; }
         public DbSet<Gak> Gak { get; set; }
@@ -14,6 +14,11 @@ namespace asugaksharp.Model
         public DbSet<PeriodZasedania> PeriodZasedania { get; set; }
         public DbSet<Person> Person { get; set; }   
         public DbSet<Zasedanie> Zasedanie  { get; set; }
+        public DbSet<NapravleniePodgotovki> NapravleniePodgotovki { get; set; }
+        public DbSet<ProfilPodgotovki> ProfilPodgotovki { get; set; }   
+
+        
+        
 
         public AppDbContext() { }
 
@@ -76,20 +81,6 @@ namespace asugaksharp.Model
                 .HasMany(z => z.Persons)
                 .WithMany(p => p.Zasedanies);
 
-            // Пример: Если нужно явно задать join-таблицы:
-            // Gak-Person many-to-many join table (если нужен доступ к join-сущности — иначе можно не явно)
-            // modelBuilder.Entity<Gak>()
-            //     .HasMany(g => g.Persons)
-            //     .WithMany()
-            //     .UsingEntity(j => j.ToTable("GakPersons"));
-
-            // Zasedanie-Person many-to-many join table
-            // modelBuilder.Entity<Zasedanie>()
-            //     .HasMany(z => z.Persons)
-            //     .WithMany(p => p.Zasedanies)
-            //     .UsingEntity(j => j.ToTable("ZasedaniePersons"));
-
-            // Остальные сущности не требуют дополнительной настройки, EF сам их разберёт.
         }
 
 

@@ -5,19 +5,14 @@
 namespace asugaksharp.Migrations
 {
     /// <inheritdoc />
-    public partial class AddFioRodtoDiplomnik : Migration
+    public partial class _11111 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "Name",
-                table: "Diplomnik",
-                newName: "FioRodit");
-
             migrationBuilder.AddColumn<string>(
-                name: "FioImen",
-                table: "Diplomnik",
+                name: "ShifrPodgot",
+                table: "ProfilPodgotovki",
                 type: "TEXT",
                 nullable: false,
                 defaultValue: "");
@@ -27,13 +22,8 @@ namespace asugaksharp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "FioImen",
-                table: "Diplomnik");
-
-            migrationBuilder.RenameColumn(
-                name: "FioRodit",
-                table: "Diplomnik",
-                newName: "Name");
+                name: "ShifrPodgot",
+                table: "ProfilPodgotovki");
         }
     }
 }

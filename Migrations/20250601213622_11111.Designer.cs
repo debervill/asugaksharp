@@ -11,8 +11,8 @@ using asugaksharp.Model;
 namespace asugaksharp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250528055735_Add FioRod to Diplomnik")]
-    partial class AddFioRodtoDiplomnik
+    [Migration("20250601213622_11111")]
+    partial class _11111
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -176,6 +176,25 @@ namespace asugaksharp.Migrations
                     b.ToTable("Kafedra");
                 });
 
+            modelBuilder.Entity("asugaksharp.Model.NapravleniePodgotovki", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nazvanie")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ShifrNapr")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NapravleniePodgotovki");
+                });
+
             modelBuilder.Entity("asugaksharp.Model.Oplata", b =>
                 {
                     b.Property<Guid>("Id")
@@ -269,6 +288,25 @@ namespace asugaksharp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Person");
+                });
+
+            modelBuilder.Entity("asugaksharp.Model.ProfilPodgotovki", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ShifrPodgot")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProfilPodgotovki");
                 });
 
             modelBuilder.Entity("asugaksharp.Model.Zasedanie", b =>

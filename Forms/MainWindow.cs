@@ -1,4 +1,5 @@
 using asugaksharp.Forms;
+using asugaksharp.Model;
 using System.Windows.Forms;
 
 namespace asugaksharp
@@ -78,6 +79,24 @@ namespace asugaksharp
         {
             //Студенты
             Students form = new Students();
+            form.Show();
+        }
+
+        private void гЭКиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GakForm form = new GakForm();
+            form.Show();
+        }
+
+        private void направленияПодготовкиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NapravleniaPogotovki form = new NapravleniaPogotovki();
+            form.Show();
+        }
+
+        private void профилиПодготовкиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProfiliPodgootovkiForm form = new ProfiliPodgootovkiForm();
             form.Show();
         }
     }

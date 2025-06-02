@@ -44,7 +44,9 @@
             BtnAdd = new Button();
             BtnExit = new Button();
             IsSecretarBox = new CheckBox();
+            dataGridView1 = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)personBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // personBindingSource
@@ -157,17 +159,17 @@
             // 
             // BtnAdd
             // 
-            BtnAdd.Location = new Point(213, 242);
+            BtnAdd.Location = new Point(317, 220);
             BtnAdd.Name = "BtnAdd";
             BtnAdd.Size = new Size(75, 23);
             BtnAdd.TabIndex = 12;
-            BtnAdd.Text = "Добавить";
+            BtnAdd.Text = "Сохранить";
             BtnAdd.UseVisualStyleBackColor = true;
             BtnAdd.Click += BtnAdd_Click;
             // 
             // BtnExit
             // 
-            BtnExit.Location = new Point(405, 242);
+            BtnExit.Location = new Point(600, 518);
             BtnExit.Name = "BtnExit";
             BtnExit.Size = new Size(75, 23);
             BtnExit.TabIndex = 13;
@@ -185,12 +187,21 @@
             IsSecretarBox.Text = "Секретарь Гэк";
             IsSecretarBox.UseVisualStyleBackColor = true;
             // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(69, 299);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(588, 150);
+            dataGridView1.TabIndex = 15;
+            // 
             // AddPerson
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(700, 295);
+            ClientSize = new Size(700, 563);
+            Controls.Add(dataGridView1);
             Controls.Add(IsSecretarBox);
             Controls.Add(BtnExit);
             Controls.Add(BtnAdd);
@@ -209,6 +220,7 @@
             Name = "AddPerson";
             Text = "AddPerson";
             ((System.ComponentModel.ISupportInitialize)personBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -229,5 +241,6 @@
         private Button BtnAdd;
         private Button BtnExit;
         private CheckBox IsSecretarBox;
+        private DataGridView dataGridView1;
     }
 }

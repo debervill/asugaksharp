@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace asugaksharp.Model
 {
-    internal class NapravleniePodgotovki
+    public class NapravleniePodgotovki
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
-        String Name { get; set; } = String.Empty;
-        
-        
+        public string Nazvanie { get; set; } = String.Empty;
+        public string ShifrNapr { get; set; } = String.Empty;
 
-
+        public ICollection<ProfilPodgotovki> ProfilPodgotovkis { get; set; }    
+        
         
 
     }

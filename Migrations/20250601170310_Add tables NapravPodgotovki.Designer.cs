@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using asugaksharp.Model;
 
@@ -10,9 +11,11 @@ using asugaksharp.Model;
 namespace asugaksharp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250601170310_Add tables NapravPodgotovki")]
+    partial class AddtablesNapravPodgotovki
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.5");
@@ -179,14 +182,6 @@ namespace asugaksharp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Nazvanie")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ShifrNapr")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.ToTable("NapravleniePodgotovki");
@@ -293,20 +288,7 @@ namespace asugaksharp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("NapravleniePodgotovkiID")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ShifrPodgot")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("NapravleniePodgotovkiID");
 
                     b.ToTable("ProfilPodgotovki");
                 });
@@ -420,17 +402,6 @@ namespace asugaksharp.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.ProfilPodgotovki", b =>
-                {
-                    b.HasOne("asugaksharp.Model.NapravleniePodgotovki", "NapravleniePodgotovki")
-                        .WithMany("ProfilPodgotovkis")
-                        .HasForeignKey("NapravleniePodgotovkiID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("NapravleniePodgotovki");
-                });
-
             modelBuilder.Entity("asugaksharp.Model.Zasedanie", b =>
                 {
                     b.HasOne("asugaksharp.Model.Gak", "Gak")
@@ -450,11 +421,6 @@ namespace asugaksharp.Migrations
             modelBuilder.Entity("asugaksharp.Model.Kafedra", b =>
                 {
                     b.Navigation("Gaks");
-                });
-
-            modelBuilder.Entity("asugaksharp.Model.NapravleniePodgotovki", b =>
-                {
-                    b.Navigation("ProfilPodgotovkis");
                 });
 
             modelBuilder.Entity("asugaksharp.Model.PeriodZasedania", b =>
