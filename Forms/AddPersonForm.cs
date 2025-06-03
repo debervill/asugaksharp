@@ -73,6 +73,7 @@ namespace asugaksharp.Forms
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             using var db = new Model.AppDbContext();
+            Guid kafid = (Guid)KafBox.SelectedValue;
 
             var SomePerson = new Person
             {
@@ -83,9 +84,11 @@ namespace asugaksharp.Forms
                 IsPredsed = PredsedBox.Checked,
                 IsZavKaf = ZavKafBox.Checked,
                 IsSecretar = IsSecretarBox.Checked,
-                IsVneshniy = isVeshnBox.Checked
+                IsVneshniy = isVeshnBox.Checked,
+                KafedraID = kafid
 
-            };
+
+                };
 
             db.Person.Add(SomePerson);
             db.SaveChanges();
