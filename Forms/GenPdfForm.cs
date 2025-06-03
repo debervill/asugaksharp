@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace asugaksharp.Forms
 {
-    public partial class GenPdf : Form
+    public partial class GenPdfForm : Form
     {
-        public GenPdf()
+        public GenPdfForm()
         {
             InitializeComponent();
         }

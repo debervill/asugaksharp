@@ -1,6 +1,6 @@
 ﻿namespace asugaksharp.Forms
 {
-    partial class AddPeriodZasedania
+    partial class AddPeriodZasedaniaForm
     {
         /// <summary>
         /// Required designer variable.

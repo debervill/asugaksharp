@@ -13,9 +13,9 @@ using System.Windows.Forms;
 
 namespace asugaksharp.Forms
 {
-    public partial class Students : Form
+    public partial class StudentsForm : Form
     {
-        public Students()
+        public StudentsForm()
         {
             InitializeComponent();
         }

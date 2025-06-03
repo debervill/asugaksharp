@@ -19,8 +19,11 @@ namespace asugaksharp.Model
         public bool IsRecenzent { get; set; }
         public bool IsVneshniy { get; set; }
 
+        
+        //от таблицы кафедра
 
-
+        public Guid KafedraID { get; set; }
+        public Kafedra? Kafedra { get; set; }
 
 
         //от таблицы заседание
@@ -36,9 +39,13 @@ namespace asugaksharp.Model
         //от таблицы оплата
 
         public ICollection<Oplata>? Oplatas { get; set; }
-        
 
 
-     
+        public ICollection<Gak>? Gaks { get; set; }
+
+
+
+
+
     }
 }

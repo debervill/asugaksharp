@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace asugaksharp.Forms
 {
-    public partial class NapravleniaPogotovki : Form
+    public partial class NapravleniaPogotovkiForm : Form
     {
-        public NapravleniaPogotovki()
+        public NapravleniaPogotovkiForm()
         {
             InitializeComponent();
             InitializeData();

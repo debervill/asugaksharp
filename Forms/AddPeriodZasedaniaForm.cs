@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace asugaksharp.Forms
 {
-    public partial class AddPeriodZasedania : Form
+    public partial class AddPeriodZasedaniaForm : Form
     {
-        public AddPeriodZasedania()
+        public AddPeriodZasedaniaForm()
         {
             InitializeComponent();
         }

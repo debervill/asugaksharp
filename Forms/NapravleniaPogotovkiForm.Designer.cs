@@ -1,6 +1,6 @@
 ﻿namespace asugaksharp.Forms
 {
-    partial class NapravleniaPogotovki
+    partial class NapravleniaPogotovkiForm
     {
         /// <summary>
         /// Required designer variable.

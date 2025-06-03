@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace asugaksharp.Forms
 {
-    public partial class Zasedanie : Form
+    public partial class ZasedanieForm : Form
     {
-        public Zasedanie()
+        public ZasedanieForm()
         {
             InitializeComponent();
         }

@@ -1,6 +1,6 @@
 ﻿namespace asugaksharp.Forms
 {
-    partial class GenPdf
+    partial class GenPdfForm
     {
         /// <summary>
         /// Required designer variable.

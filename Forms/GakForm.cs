@@ -24,7 +24,7 @@ namespace asugaksharp.Forms
 
         private void BtnAddZasedanie_Click(object sender, EventArgs e)
         {
-            Zasedanie form = new Zasedanie();   
+            ZasedanieForm form = new ZasedanieForm();   
             form.ShowDialog();
         }
     }

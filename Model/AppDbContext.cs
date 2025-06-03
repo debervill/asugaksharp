@@ -35,52 +35,66 @@ namespace asugaksharp.Model
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             // Diplomnik - Person (many-to-one)
             modelBuilder.Entity<Diplomnik>()
                 .HasOne(d => d.Person)
                 .WithMany(p => p.Diplomniks)
-                .HasForeignKey(d => d.PersonId);
+                .HasForeignKey(d => d.PersonId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Docs - Person (many-to-one)
             modelBuilder.Entity<Docs>()
                 .HasOne(d => d.Person)
                 .WithMany(p => p.Docs)
-                .HasForeignKey(d => d.PersonId);
+                .HasForeignKey(d => d.PersonId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Oplata - Person (many-to-one)
             modelBuilder.Entity<Oplata>()
                 .HasOne(o => o.Person)
                 .WithMany(p => p.Oplatas)
-                .HasForeignKey(o => o.PersonId);
+                .HasForeignKey(o => o.PersonId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Gak - Kafedra (many-to-one)
             modelBuilder.Entity<Gak>()
                 .HasOne(g => g.Kafedra)
                 .WithMany(k => k.Gaks)
-                .HasForeignKey(g => g.KafedraID);
+                .HasForeignKey(g => g.KafedraID)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Gak - PeriodZasedania (many-to-one)
             modelBuilder.Entity<Gak>()
                 .HasOne(g => g.PeriodZasedania)
                 .WithMany(pz => pz.Gaks)
-                .HasForeignKey(g => g.PeriodZasedaniaId);
+                .HasForeignKey(g => g.PeriodZasedaniaId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Gak - Person (many-to-many)
             modelBuilder.Entity<Gak>()
                 .HasMany(g => g.Persons)
-                .WithMany(); // No explicit navigation on Person
+                .WithMany(p => p.Gaks); // Требует добавления свойства в модель Person
 
             // Zasedanie - Gak (many-to-one)
             modelBuilder.Entity<Zasedanie>()
                 .HasOne(z => z.Gak)
                 .WithMany(g => g.Zasedanies)
-                .HasForeignKey(z => z.GakID);
+                .HasForeignKey(z => z.GakID)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Zasedanie - Person (many-to-many)
             modelBuilder.Entity<Zasedanie>()
                 .HasMany(z => z.Persons)
                 .WithMany(p => p.Zasedanies);
 
+            // Person - Kafedra (many-to-one)
+            modelBuilder.Entity<Person>()
+                .HasOne(p => p.Kafedra)
+                .WithMany(k => k.Persons)
+                .HasForeignKey(p => p.KafedraID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
 

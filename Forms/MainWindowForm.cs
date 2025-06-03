@@ -56,7 +56,7 @@ namespace asugaksharp
         {
             //Добавление периода заседаний
 
-            AddPeriodZasedania form = new AddPeriodZasedania();
+            AddPeriodZasedaniaForm form = new AddPeriodZasedaniaForm();
             form.Show();
 
         }
@@ -65,7 +65,7 @@ namespace asugaksharp
         {
             //Добавление персон
 
-            AddPerson form = new AddPerson();
+            AddPersonForm form = new AddPersonForm();
             form.Show();
         }
 
@@ -78,7 +78,7 @@ namespace asugaksharp
         private void добавитьToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             //Студенты
-            Students form = new Students();
+            StudentsForm form = new StudentsForm();
             form.Show();
         }
 
@@ -90,7 +90,7 @@ namespace asugaksharp
 
         private void направленияПодготовкиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            NapravleniaPogotovki form = new NapravleniaPogotovki();
+            NapravleniaPogotovkiForm form = new NapravleniaPogotovkiForm();
             form.Show();
         }
 
@@ -103,7 +103,13 @@ namespace asugaksharp
         private void оплатаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OplataMainForm form = new OplataMainForm();
-            form.Show();    
+            form.Show();
+        }
+
+        private void кафедрыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            KafedraForms forms = new KafedraForms();
+            forms.Show();
         }
     }
 }

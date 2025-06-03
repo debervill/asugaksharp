@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using asugaksharp.Model;
 
@@ -10,22 +11,24 @@ using asugaksharp.Model;
 namespace asugaksharp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250603063348_RemovePhoneFromKafedra")]
+    partial class RemovePhoneFromKafedra
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.5");
 
             modelBuilder.Entity("GakPerson", b =>
                 {
-                    b.Property<Guid>("GaksId")
+                    b.Property<Guid>("GakId")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("PersonsId")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("GaksId", "PersonsId");
+                    b.HasKey("GakId", "PersonsId");
 
                     b.HasIndex("PersonsId");
 
@@ -338,7 +341,7 @@ namespace asugaksharp.Migrations
                 {
                     b.HasOne("asugaksharp.Model.Gak", null)
                         .WithMany()
-                        .HasForeignKey("GaksId")
+                        .HasForeignKey("GakId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -391,13 +394,13 @@ namespace asugaksharp.Migrations
                     b.HasOne("asugaksharp.Model.Kafedra", "Kafedra")
                         .WithMany("Gaks")
                         .HasForeignKey("KafedraID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("asugaksharp.Model.PeriodZasedania", "PeriodZasedania")
                         .WithMany("Gaks")
                         .HasForeignKey("PeriodZasedaniaId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Kafedra");
@@ -421,7 +424,7 @@ namespace asugaksharp.Migrations
                     b.HasOne("asugaksharp.Model.Kafedra", "Kafedra")
                         .WithMany("Persons")
                         .HasForeignKey("KafedraID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Kafedra");

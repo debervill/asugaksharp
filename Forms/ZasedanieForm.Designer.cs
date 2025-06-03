@@ -1,6 +1,6 @@
 ﻿namespace asugaksharp.Forms
 {
-    partial class Zasedanie
+    partial class ZasedanieForm
     {
         /// <summary>
         /// Required designer variable.
