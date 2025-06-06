@@ -45,15 +45,6 @@
             BtnExit = new Button();
             IsSecretarBox = new CheckBox();
             PersonGridView = new DataGridView();
-            nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            stepenDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            zvanieDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            dolgnostDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            isPredsedDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
-            isZavKafDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
-            isSecretarDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
-            isRecenzentDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
-            isVneshniyDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             isVeshnBox = new CheckBox();
             label6 = new Label();
             label7 = new Label();
@@ -82,9 +73,28 @@
             label17 = new Label();
             KafBox = new ComboBox();
             kafedraBindingSource = new BindingSource(components);
+            personBindingSource1 = new BindingSource(components);
+            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            stepenDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            zvanieDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            dolgnostDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            isPredsedDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            isZavKafDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            isSecretarDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            isRecenzentDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            isVneshniyDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            kafedraIDDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            kafedraDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            zasedaniesDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            docsDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            diplomniksDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            oplatasDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            gaksDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)personBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)PersonGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kafedraBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)personBindingSource1).BeginInit();
             SuspendLayout();
             // 
             // personBindingSource
@@ -229,66 +239,12 @@
             // 
             PersonGridView.AutoGenerateColumns = false;
             PersonGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            PersonGridView.Columns.AddRange(new DataGridViewColumn[] { nameDataGridViewTextBoxColumn, stepenDataGridViewTextBoxColumn, zvanieDataGridViewTextBoxColumn, dolgnostDataGridViewTextBoxColumn, isPredsedDataGridViewCheckBoxColumn, isZavKafDataGridViewCheckBoxColumn, isSecretarDataGridViewCheckBoxColumn, isRecenzentDataGridViewCheckBoxColumn, isVneshniyDataGridViewCheckBoxColumn });
-            PersonGridView.DataSource = personBindingSource;
+            PersonGridView.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nameDataGridViewTextBoxColumn, stepenDataGridViewTextBoxColumn, zvanieDataGridViewTextBoxColumn, dolgnostDataGridViewTextBoxColumn, isPredsedDataGridViewCheckBoxColumn, isZavKafDataGridViewCheckBoxColumn, isSecretarDataGridViewCheckBoxColumn, isRecenzentDataGridViewCheckBoxColumn, isVneshniyDataGridViewCheckBoxColumn, kafedraIDDataGridViewTextBoxColumn, kafedraDataGridViewTextBoxColumn, zasedaniesDataGridViewTextBoxColumn, docsDataGridViewTextBoxColumn, diplomniksDataGridViewTextBoxColumn, oplatasDataGridViewTextBoxColumn, gaksDataGridViewTextBoxColumn });
+            PersonGridView.DataSource = personBindingSource1;
             PersonGridView.Location = new Point(35, 578);
             PersonGridView.Name = "PersonGridView";
             PersonGridView.Size = new Size(779, 150);
             PersonGridView.TabIndex = 15;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            // 
-            // stepenDataGridViewTextBoxColumn
-            // 
-            stepenDataGridViewTextBoxColumn.DataPropertyName = "Stepen";
-            stepenDataGridViewTextBoxColumn.HeaderText = "Stepen";
-            stepenDataGridViewTextBoxColumn.Name = "stepenDataGridViewTextBoxColumn";
-            // 
-            // zvanieDataGridViewTextBoxColumn
-            // 
-            zvanieDataGridViewTextBoxColumn.DataPropertyName = "Zvanie";
-            zvanieDataGridViewTextBoxColumn.HeaderText = "Zvanie";
-            zvanieDataGridViewTextBoxColumn.Name = "zvanieDataGridViewTextBoxColumn";
-            // 
-            // dolgnostDataGridViewTextBoxColumn
-            // 
-            dolgnostDataGridViewTextBoxColumn.DataPropertyName = "Dolgnost";
-            dolgnostDataGridViewTextBoxColumn.HeaderText = "Dolgnost";
-            dolgnostDataGridViewTextBoxColumn.Name = "dolgnostDataGridViewTextBoxColumn";
-            // 
-            // isPredsedDataGridViewCheckBoxColumn
-            // 
-            isPredsedDataGridViewCheckBoxColumn.DataPropertyName = "IsPredsed";
-            isPredsedDataGridViewCheckBoxColumn.HeaderText = "IsPredsed";
-            isPredsedDataGridViewCheckBoxColumn.Name = "isPredsedDataGridViewCheckBoxColumn";
-            // 
-            // isZavKafDataGridViewCheckBoxColumn
-            // 
-            isZavKafDataGridViewCheckBoxColumn.DataPropertyName = "IsZavKaf";
-            isZavKafDataGridViewCheckBoxColumn.HeaderText = "IsZavKaf";
-            isZavKafDataGridViewCheckBoxColumn.Name = "isZavKafDataGridViewCheckBoxColumn";
-            // 
-            // isSecretarDataGridViewCheckBoxColumn
-            // 
-            isSecretarDataGridViewCheckBoxColumn.DataPropertyName = "IsSecretar";
-            isSecretarDataGridViewCheckBoxColumn.HeaderText = "IsSecretar";
-            isSecretarDataGridViewCheckBoxColumn.Name = "isSecretarDataGridViewCheckBoxColumn";
-            // 
-            // isRecenzentDataGridViewCheckBoxColumn
-            // 
-            isRecenzentDataGridViewCheckBoxColumn.DataPropertyName = "IsRecenzent";
-            isRecenzentDataGridViewCheckBoxColumn.HeaderText = "IsRecenzent";
-            isRecenzentDataGridViewCheckBoxColumn.Name = "isRecenzentDataGridViewCheckBoxColumn";
-            // 
-            // isVneshniyDataGridViewCheckBoxColumn
-            // 
-            isVneshniyDataGridViewCheckBoxColumn.DataPropertyName = "IsVneshniy";
-            isVneshniyDataGridViewCheckBoxColumn.HeaderText = "IsVneshniy";
-            isVneshniyDataGridViewCheckBoxColumn.Name = "isVneshniyDataGridViewCheckBoxColumn";
             // 
             // isVeshnBox
             // 
@@ -506,6 +462,112 @@
             // 
             kafedraBindingSource.DataSource = typeof(Model.Kafedra);
             // 
+            // personBindingSource1
+            // 
+            personBindingSource1.DataSource = typeof(Model.Person);
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn.HeaderText = "Id";
+            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // stepenDataGridViewTextBoxColumn
+            // 
+            stepenDataGridViewTextBoxColumn.DataPropertyName = "Stepen";
+            stepenDataGridViewTextBoxColumn.HeaderText = "Stepen";
+            stepenDataGridViewTextBoxColumn.Name = "stepenDataGridViewTextBoxColumn";
+            // 
+            // zvanieDataGridViewTextBoxColumn
+            // 
+            zvanieDataGridViewTextBoxColumn.DataPropertyName = "Zvanie";
+            zvanieDataGridViewTextBoxColumn.HeaderText = "Zvanie";
+            zvanieDataGridViewTextBoxColumn.Name = "zvanieDataGridViewTextBoxColumn";
+            // 
+            // dolgnostDataGridViewTextBoxColumn
+            // 
+            dolgnostDataGridViewTextBoxColumn.DataPropertyName = "Dolgnost";
+            dolgnostDataGridViewTextBoxColumn.HeaderText = "Dolgnost";
+            dolgnostDataGridViewTextBoxColumn.Name = "dolgnostDataGridViewTextBoxColumn";
+            // 
+            // isPredsedDataGridViewCheckBoxColumn
+            // 
+            isPredsedDataGridViewCheckBoxColumn.DataPropertyName = "IsPredsed";
+            isPredsedDataGridViewCheckBoxColumn.HeaderText = "IsPredsed";
+            isPredsedDataGridViewCheckBoxColumn.Name = "isPredsedDataGridViewCheckBoxColumn";
+            // 
+            // isZavKafDataGridViewCheckBoxColumn
+            // 
+            isZavKafDataGridViewCheckBoxColumn.DataPropertyName = "IsZavKaf";
+            isZavKafDataGridViewCheckBoxColumn.HeaderText = "IsZavKaf";
+            isZavKafDataGridViewCheckBoxColumn.Name = "isZavKafDataGridViewCheckBoxColumn";
+            // 
+            // isSecretarDataGridViewCheckBoxColumn
+            // 
+            isSecretarDataGridViewCheckBoxColumn.DataPropertyName = "IsSecretar";
+            isSecretarDataGridViewCheckBoxColumn.HeaderText = "IsSecretar";
+            isSecretarDataGridViewCheckBoxColumn.Name = "isSecretarDataGridViewCheckBoxColumn";
+            // 
+            // isRecenzentDataGridViewCheckBoxColumn
+            // 
+            isRecenzentDataGridViewCheckBoxColumn.DataPropertyName = "IsRecenzent";
+            isRecenzentDataGridViewCheckBoxColumn.HeaderText = "IsRecenzent";
+            isRecenzentDataGridViewCheckBoxColumn.Name = "isRecenzentDataGridViewCheckBoxColumn";
+            // 
+            // isVneshniyDataGridViewCheckBoxColumn
+            // 
+            isVneshniyDataGridViewCheckBoxColumn.DataPropertyName = "IsVneshniy";
+            isVneshniyDataGridViewCheckBoxColumn.HeaderText = "IsVneshniy";
+            isVneshniyDataGridViewCheckBoxColumn.Name = "isVneshniyDataGridViewCheckBoxColumn";
+            // 
+            // kafedraIDDataGridViewTextBoxColumn
+            // 
+            kafedraIDDataGridViewTextBoxColumn.DataPropertyName = "KafedraID";
+            kafedraIDDataGridViewTextBoxColumn.HeaderText = "KafedraID";
+            kafedraIDDataGridViewTextBoxColumn.Name = "kafedraIDDataGridViewTextBoxColumn";
+            // 
+            // kafedraDataGridViewTextBoxColumn
+            // 
+            kafedraDataGridViewTextBoxColumn.DataPropertyName = "Kafedra";
+            kafedraDataGridViewTextBoxColumn.HeaderText = "Kafedra";
+            kafedraDataGridViewTextBoxColumn.Name = "kafedraDataGridViewTextBoxColumn";
+            // 
+            // zasedaniesDataGridViewTextBoxColumn
+            // 
+            zasedaniesDataGridViewTextBoxColumn.DataPropertyName = "Zasedanies";
+            zasedaniesDataGridViewTextBoxColumn.HeaderText = "Zasedanies";
+            zasedaniesDataGridViewTextBoxColumn.Name = "zasedaniesDataGridViewTextBoxColumn";
+            // 
+            // docsDataGridViewTextBoxColumn
+            // 
+            docsDataGridViewTextBoxColumn.DataPropertyName = "Docs";
+            docsDataGridViewTextBoxColumn.HeaderText = "Docs";
+            docsDataGridViewTextBoxColumn.Name = "docsDataGridViewTextBoxColumn";
+            // 
+            // diplomniksDataGridViewTextBoxColumn
+            // 
+            diplomniksDataGridViewTextBoxColumn.DataPropertyName = "Diplomniks";
+            diplomniksDataGridViewTextBoxColumn.HeaderText = "Diplomniks";
+            diplomniksDataGridViewTextBoxColumn.Name = "diplomniksDataGridViewTextBoxColumn";
+            // 
+            // oplatasDataGridViewTextBoxColumn
+            // 
+            oplatasDataGridViewTextBoxColumn.DataPropertyName = "Oplatas";
+            oplatasDataGridViewTextBoxColumn.HeaderText = "Oplatas";
+            oplatasDataGridViewTextBoxColumn.Name = "oplatasDataGridViewTextBoxColumn";
+            // 
+            // gaksDataGridViewTextBoxColumn
+            // 
+            gaksDataGridViewTextBoxColumn.DataPropertyName = "Gaks";
+            gaksDataGridViewTextBoxColumn.HeaderText = "Gaks";
+            gaksDataGridViewTextBoxColumn.Name = "gaksDataGridViewTextBoxColumn";
+            // 
             // AddPersonForm
             // 
             AllowDrop = true;
@@ -559,6 +621,7 @@
             ((System.ComponentModel.ISupportInitialize)personBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)PersonGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)kafedraBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)personBindingSource1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -580,15 +643,6 @@
         private Button BtnExit;
         private CheckBox IsSecretarBox;
         private DataGridView PersonGridView;
-        private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn stepenDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn zvanieDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn dolgnostDataGridViewTextBoxColumn;
-        private DataGridViewCheckBoxColumn isPredsedDataGridViewCheckBoxColumn;
-        private DataGridViewCheckBoxColumn isZavKafDataGridViewCheckBoxColumn;
-        private DataGridViewCheckBoxColumn isSecretarDataGridViewCheckBoxColumn;
-        private DataGridViewCheckBoxColumn isRecenzentDataGridViewCheckBoxColumn;
-        private DataGridViewCheckBoxColumn isVneshniyDataGridViewCheckBoxColumn;
         private CheckBox isVeshnBox;
         private Label label6;
         private Label label7;
@@ -617,5 +671,23 @@
         private Label label17;
         private ComboBox KafBox;
         private BindingSource kafedraBindingSource;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn stepenDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn zvanieDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn dolgnostDataGridViewTextBoxColumn;
+        private DataGridViewCheckBoxColumn isPredsedDataGridViewCheckBoxColumn;
+        private DataGridViewCheckBoxColumn isZavKafDataGridViewCheckBoxColumn;
+        private DataGridViewCheckBoxColumn isSecretarDataGridViewCheckBoxColumn;
+        private DataGridViewCheckBoxColumn isRecenzentDataGridViewCheckBoxColumn;
+        private DataGridViewCheckBoxColumn isVneshniyDataGridViewCheckBoxColumn;
+        private DataGridViewTextBoxColumn kafedraIDDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn kafedraDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn zasedaniesDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn docsDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn diplomniksDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn oplatasDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn gaksDataGridViewTextBoxColumn;
+        private BindingSource personBindingSource1;
     }
 }

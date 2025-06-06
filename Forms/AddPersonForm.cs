@@ -1,64 +1,67 @@
 ﻿using asugaksharp.Model;
-using System.Reflection.Metadata;
-using System.Windows.Forms;
+using System.Diagnostics;
+
 
 namespace asugaksharp.Forms
 {
     public partial class AddPersonForm : Form
-    {
+    {   
         public AddPersonForm()
         {
             InitializeComponent();
             LoadKafExistingData();
+            KafBox.SelectedValueChanged += KafBox_SelectedValueChanged;
+            //LoadPersonExistingData();
         }
 
         private void LoadKafExistingData()
         {
-            using var db = new Model.AppDbContext();
+            using var db = new AppDbContext();
           
-            var kafedras = db.Kafedra.ToList();
+            var kafedras = db.Kafedra.
+                OrderBy(x => x.Name).
+                ToList();
             KafBox.DataSource = kafedras;
             KafBox.DisplayMember = "Name";
             KafBox.ValueMember = "Id";
 
+            Guid kafId = kafedras.First().Id;
 
+           var people = db.Person
+                        .Where(p => p.KafedraID == kafId)
+                        .ToList();
+
+            Debug.WriteLine(people);
+
+             PersonGridView.DataSource = people;
+
+           
         }
 
         private void LoadPersonExistingData() {
+
+
             if (KafBox.SelectedValue is Guid selectedId)
             {
-
-                using var db = new Model.AppDbContext();
+                using var db = new AppDbContext();
                 var people = db.Person
-                         .Where(p => p.Id == selectedId)
-                         .ToList();
+                               .Where(p => p.KafedraID == selectedId)
+                               .ToList();
 
                 PersonGridView.DataSource = people;
             }
 
-         }
 
-        private void KafBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (KafBox.SelectedValue is Guid selectedId)
-            {
-                // Здесь у тебя есть Id выбранной кафедры
-                Console.WriteLine($"Выбранная кафедра: {selectedId}");
-
-                // Можешь, например, загрузить связанные данные в DataGridView
-                using var db = new Model.AppDbContext();
-                var people = db.Person
-                    .Where(p => p.Id == selectedId)
-                    .ToList();
-
-                PersonGridView.DataSource = people;
-            }
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
         }
+
+        private void KafBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            LoadPersonExistingData();
+        }
+
+
+
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -105,9 +108,6 @@ namespace asugaksharp.Forms
 
 
 
-        private void label14_Click(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }

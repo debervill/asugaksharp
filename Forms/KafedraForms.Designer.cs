@@ -38,8 +38,10 @@
             BtnAdd = new Button();
             BtnEdit = new Button();
             BtnClose = new Button();
+            PersonGridView = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)KafedraGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kafedraBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PersonGridView).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -121,11 +123,23 @@
             BtnClose.Text = "Закрыть";
             BtnClose.UseVisualStyleBackColor = true;
             // 
+            // PersonGridView
+            // 
+            PersonGridView.AllowUserToAddRows = false;
+            PersonGridView.AllowUserToDeleteRows = false;
+            PersonGridView.AutoGenerateColumns = false;
+            PersonGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            PersonGridView.Location = new Point(68, 350);
+            PersonGridView.Name = "PersonGridView";
+            PersonGridView.Size = new Size(641, 150);
+            PersonGridView.TabIndex = 7;
+            // 
             // KafedraForms
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(PersonGridView);
             Controls.Add(BtnClose);
             Controls.Add(BtnEdit);
             Controls.Add(BtnAdd);
@@ -137,6 +151,7 @@
             Text = "KafedraForms";
             ((System.ComponentModel.ISupportInitialize)KafedraGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)kafedraBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PersonGridView).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -152,5 +167,6 @@
         private Button BtnAdd;
         private Button BtnEdit;
         private Button BtnClose;
+        private DataGridView PersonGridView;
     }
 }
