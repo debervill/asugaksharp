@@ -1,6 +1,6 @@
 ﻿namespace asugaksharp
 {
-    partial class Form1
+    partial class MainWindowForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -41,10 +41,10 @@
             направленияПодготовкиToolStripMenuItem = new ToolStripMenuItem();
             профилиПодготовкиToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem2 = new ToolStripMenuItem();
+            кафедрыToolStripMenuItem = new ToolStripMenuItem();
             экспериментыToolStripMenuItem = new ToolStripMenuItem();
             листБоксToolStripMenuItem = new ToolStripMenuItem();
             label1 = new Label();
-            кафедрыToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -69,7 +69,7 @@
             // настройкиToolStripMenuItem
             // 
             настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            настройкиToolStripMenuItem.Size = new Size(134, 22);
+            настройкиToolStripMenuItem.Size = new Size(180, 22);
             настройкиToolStripMenuItem.Text = "Настройки";
             // 
             // комиссииToolStripMenuItem
@@ -141,6 +141,13 @@
             toolStripMenuItem2.Size = new Size(214, 22);
             toolStripMenuItem2.Text = "Звания и стпени";
             // 
+            // кафедрыToolStripMenuItem
+            // 
+            кафедрыToolStripMenuItem.Name = "кафедрыToolStripMenuItem";
+            кафедрыToolStripMenuItem.Size = new Size(214, 22);
+            кафедрыToolStripMenuItem.Text = "Кафедры";
+            кафедрыToolStripMenuItem.Click += кафедрыToolStripMenuItem_Click;
+            // 
             // экспериментыToolStripMenuItem
             // 
             экспериментыToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { листБоксToolStripMenuItem });
@@ -164,13 +171,7 @@
             label1.Size = new Size(516, 99);
             label1.TabIndex = 1;
             label1.Text = "ДА БУДЕТ ГЭК";
-            // 
-            // кафедрыToolStripMenuItem
-            // 
-            кафедрыToolStripMenuItem.Name = "кафедрыToolStripMenuItem";
-            кафедрыToolStripMenuItem.Size = new Size(214, 22);
-            кафедрыToolStripMenuItem.Text = "Кафедры";
-            кафедрыToolStripMenuItem.Click += кафедрыToolStripMenuItem_Click;
+       
             // 
             // Form1
             // 
@@ -182,7 +183,7 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "Form1";
             Text = "Form1";
-            Load += Form1_Load;
+            Load += MainWindowForm_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);

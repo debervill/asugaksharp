@@ -4,14 +4,16 @@ using System.Windows.Forms;
 
 namespace asugaksharp
 {
-    public partial class Form1 : Form
+    public partial class MainWindowForm : Form
     {
-        public Form1()
+        private readonly AppDbContext _db;
+        public MainWindowForm(AppDbContext db)
         {
+            _db = db;
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainWindowForm_Load(object sender, EventArgs e)
         {
 
         }
@@ -56,7 +58,7 @@ namespace asugaksharp
         {
             //Добавление периода заседаний
 
-            AddPeriodZasedaniaForm form = new AddPeriodZasedaniaForm();
+            PeriodZasedaniaForm form = new PeriodZasedaniaForm();
             form.Show();
 
         }
@@ -65,7 +67,7 @@ namespace asugaksharp
         {
             //Добавление персон
 
-            AddPersonForm form = new AddPersonForm();
+            PersonForm form = new PersonForm(_db);
             form.Show();
         }
 
@@ -84,7 +86,7 @@ namespace asugaksharp
 
         private void гЭКиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GakForm form = new GakForm();
+            GakForm form = new GakForm(_db);
             form.Show();
         }
 
@@ -110,6 +112,11 @@ namespace asugaksharp
         {
             KafedraForms forms = new KafedraForms();
             forms.Show();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

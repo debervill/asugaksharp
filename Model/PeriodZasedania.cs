@@ -18,5 +18,11 @@ namespace asugaksharp.Model
 
         //1 ко многим к таблице гэк
         public ICollection<Gak>? Gaks { get; set; }
+
+        public Guid KafedraId { get; set; }
+        
+        [ForeignKey(nameof(KafedraId))]
+        public Kafedra? Kafedra { get; set; }
+
     }
 }

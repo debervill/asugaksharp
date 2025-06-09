@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
+﻿
 namespace asugaksharp.Forms
 {
     public partial class ZasedanieForm : Form
@@ -15,6 +6,11 @@ namespace asugaksharp.Forms
         public ZasedanieForm()
         {
             InitializeComponent();
+        }
+
+        private void ZasedanieForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -15,14 +15,8 @@ namespace asugaksharp.Model
         public DbSet<Person> Person { get; set; }   
         public DbSet<Zasedanie> Zasedanie  { get; set; }
         public DbSet<NapravleniePodgotovki> NapravleniePodgotovki { get; set; }
-        public DbSet<ProfilPodgotovki> ProfilPodgotovki { get; set; }   
-
+        public DbSet<ProfilPodgotovki> ProfilPodgotovki { get; set; }
         
-        
-
-        public AppDbContext() { }
-
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,6 +26,15 @@ namespace asugaksharp.Model
             }
         }
 
+
+
+
+
+        public AppDbContext() { }
+
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+     
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -95,6 +98,8 @@ namespace asugaksharp.Model
                 .WithMany(k => k.Persons)
                 .HasForeignKey(p => p.KafedraID)
                 .OnDelete(DeleteBehavior.Restrict);
+
+
         }
 
 

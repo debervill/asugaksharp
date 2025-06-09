@@ -31,21 +31,36 @@
             components = new System.ComponentModel.Container();
             label1 = new Label();
             label2 = new Label();
-            comboBox1 = new ComboBox();
+            NaborZasedBox = new ComboBox();
             periodZasedaniaBindingSource = new BindingSource(components);
             label3 = new Label();
             label4 = new Label();
-            comboBox2 = new ComboBox();
+            KafBox = new ComboBox();
             kafedraBindingSource = new BindingSource(components);
             BtnAddZasedanie = new Button();
+            label5 = new Label();
+            label6 = new Label();
+            NaprPodogotBox = new ComboBox();
+            ProfilPodgotBox = new ComboBox();
+            groupBox1 = new GroupBox();
+            BtnDeleteMemberFromCommission = new Button();
+            BtnAddMemberToCommision = new Button();
+            ComssionsMemberList = new ListBox();
+            AllPersonsList = new ListBox();
+            personBindingSource = new BindingSource(components);
+            label8 = new Label();
+            PrepdsedBox = new ComboBox();
+            label7 = new Label();
             ((System.ComponentModel.ISupportInitialize)periodZasedaniaBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kafedraBindingSource).BeginInit();
+            groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)personBindingSource).BeginInit();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(354, 27);
+            label1.Location = new Point(358, 96);
             label1.Name = "label1";
             label1.Size = new Size(36, 15);
             label1.TabIndex = 0;
@@ -60,24 +75,19 @@
             label2.TabIndex = 1;
             label2.Text = "Добавить";
             // 
-            // comboBox1
+            // NaborZasedBox
             // 
-            comboBox1.DataSource = periodZasedaniaBindingSource;
-            comboBox1.DisplayMember = "Name";
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(204, 93);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(366, 23);
-            comboBox1.TabIndex = 2;
-            // 
-            // periodZasedaniaBindingSource
-            // 
-            periodZasedaniaBindingSource.DataSource = typeof(Model.PeriodZasedania);
+            NaborZasedBox.DisplayMember = "Name";
+            NaborZasedBox.FormattingEnabled = true;
+            NaborZasedBox.Location = new Point(262, 117);
+            NaborZasedBox.Name = "NaborZasedBox";
+            NaborZasedBox.Size = new Size(366, 23);
+            NaborZasedBox.TabIndex = 2;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(81, 96);
+            label3.Location = new Point(85, 125);
             label3.Name = "label3";
             label3.Size = new Size(102, 15);
             label3.TabIndex = 3;
@@ -86,23 +96,21 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(81, 136);
+            label4.Location = new Point(85, 96);
             label4.Name = "label4";
             label4.Size = new Size(54, 15);
             label4.TabIndex = 5;
             label4.Text = "Кафедра";
-            
             // 
-            // comboBox2
+            // KafBox
             // 
-            comboBox2.DataSource = kafedraBindingSource;
-            comboBox2.DisplayMember = "Name";
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(204, 133);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(366, 23);
-            comboBox2.TabIndex = 4;
-            comboBox2.SelectedIndexChanged +=  comboBox2_SelectedIndexChanged;
+            KafBox.DataSource = kafedraBindingSource;
+            KafBox.DisplayMember = "Name";
+            KafBox.FormattingEnabled = true;
+            KafBox.Location = new Point(262, 88);
+            KafBox.Name = "KafBox";
+            KafBox.Size = new Size(366, 23);
+            KafBox.TabIndex = 4;
             // 
             // kafedraBindingSource
             // 
@@ -110,30 +118,155 @@
             // 
             // BtnAddZasedanie
             // 
-            BtnAddZasedanie.Location = new Point(81, 196);
+            BtnAddZasedanie.Location = new Point(81, 865);
             BtnAddZasedanie.Name = "BtnAddZasedanie";
-            BtnAddZasedanie.Size = new Size(75, 23);
+            BtnAddZasedanie.Size = new Size(137, 23);
             BtnAddZasedanie.TabIndex = 6;
             BtnAddZasedanie.Text = "Добавить заседание";
             BtnAddZasedanie.UseVisualStyleBackColor = true;
             BtnAddZasedanie.Click += BtnAddZasedanie_Click;
             // 
-            // Gak
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(85, 154);
+            label5.Name = "label5";
+            label5.Size = new Size(147, 15);
+            label5.TabIndex = 7;
+            label5.Text = "Направление подготовки";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(85, 183);
+            label6.Name = "label6";
+            label6.Size = new Size(125, 15);
+            label6.TabIndex = 8;
+            label6.Text = "Профиль подготовки";
+            // 
+            // NaprPodogotBox
+            // 
+            NaprPodogotBox.FormattingEnabled = true;
+            NaprPodogotBox.Location = new Point(262, 146);
+            NaprPodogotBox.Name = "NaprPodogotBox";
+            NaprPodogotBox.Size = new Size(366, 23);
+            NaprPodogotBox.TabIndex = 9;
+            // 
+            // ProfilPodgotBox
+            // 
+            ProfilPodgotBox.FormattingEnabled = true;
+            ProfilPodgotBox.Location = new Point(262, 175);
+            ProfilPodgotBox.Name = "ProfilPodgotBox";
+            ProfilPodgotBox.Size = new Size(366, 23);
+            ProfilPodgotBox.TabIndex = 10;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(BtnDeleteMemberFromCommission);
+            groupBox1.Controls.Add(BtnAddMemberToCommision);
+            groupBox1.Controls.Add(ComssionsMemberList);
+            groupBox1.Controls.Add(AllPersonsList);
+            groupBox1.Controls.Add(label8);
+            groupBox1.Controls.Add(PrepdsedBox);
+            groupBox1.Controls.Add(label7);
+            groupBox1.Location = new Point(85, 226);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(580, 579);
+            groupBox1.TabIndex = 11;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Комиссия";
+            // 
+            // BtnDeleteMemberFromCommission
+            // 
+            BtnDeleteMemberFromCommission.Location = new Point(247, 276);
+            BtnDeleteMemberFromCommission.Name = "BtnDeleteMemberFromCommission";
+            BtnDeleteMemberFromCommission.Size = new Size(75, 23);
+            BtnDeleteMemberFromCommission.TabIndex = 6;
+            BtnDeleteMemberFromCommission.Text = "Удалить";
+            BtnDeleteMemberFromCommission.UseVisualStyleBackColor = true;
+            // 
+            // BtnAddMemberToCommision
+            // 
+            BtnAddMemberToCommision.Location = new Point(247, 231);
+            BtnAddMemberToCommision.Name = "BtnAddMemberToCommision";
+            BtnAddMemberToCommision.Size = new Size(75, 23);
+            BtnAddMemberToCommision.TabIndex = 5;
+            BtnAddMemberToCommision.Text = "Добавить";
+            BtnAddMemberToCommision.UseVisualStyleBackColor = true;
+            // 
+            // ComssionsMemberList
+            // 
+            ComssionsMemberList.FormattingEnabled = true;
+            ComssionsMemberList.ItemHeight = 15;
+            ComssionsMemberList.Location = new Point(358, 107);
+            ComssionsMemberList.Name = "ComssionsMemberList";
+            ComssionsMemberList.Size = new Size(185, 364);
+            ComssionsMemberList.TabIndex = 4;
+            // 
+            // AllPersonsList
+            // 
+            AllPersonsList.DataSource = personBindingSource;
+            AllPersonsList.FormattingEnabled = true;
+            AllPersonsList.ItemHeight = 15;
+            AllPersonsList.Location = new Point(19, 107);
+            AllPersonsList.Name = "AllPersonsList";
+            AllPersonsList.Size = new Size(185, 364);
+            AllPersonsList.TabIndex = 3;
+            // 
+            // personBindingSource
+            // 
+            personBindingSource.DataSource = typeof(Model.Person);
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(6, 69);
+            label8.Name = "label8";
+            label8.Size = new Size(65, 15);
+            label8.TabIndex = 2;
+            label8.Text = "Участники";
+            // 
+            // PrepdsedBox
+            // 
+            PrepdsedBox.FormattingEnabled = true;
+            PrepdsedBox.Location = new Point(177, 26);
+            PrepdsedBox.Name = "PrepdsedBox";
+            PrepdsedBox.Size = new Size(366, 23);
+            PrepdsedBox.TabIndex = 1;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(6, 29);
+            label7.Name = "label7";
+            label7.Size = new Size(83, 15);
+            label7.TabIndex = 0;
+            label7.Text = "Председатель";
+            // 
+            // GakForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(680, 976);
+            Controls.Add(groupBox1);
+            Controls.Add(ProfilPodgotBox);
+            Controls.Add(NaprPodogotBox);
+            Controls.Add(label6);
+            Controls.Add(label5);
             Controls.Add(BtnAddZasedanie);
             Controls.Add(label4);
-            Controls.Add(comboBox2);
+            Controls.Add(KafBox);
             Controls.Add(label3);
-            Controls.Add(comboBox1);
+            Controls.Add(NaborZasedBox);
             Controls.Add(label2);
             Controls.Add(label1);
-            Name = "Gak";
+            Name = "GakForm";
             Text = "Gak";
             ((System.ComponentModel.ISupportInitialize)periodZasedaniaBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)kafedraBindingSource).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)personBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -142,12 +275,25 @@
 
         private Label label1;
         private Label label2;
-        private ComboBox comboBox1;
+        private ComboBox NaborZasedBox;
         private BindingSource periodZasedaniaBindingSource;
         private Label label3;
         private Label label4;
-        private ComboBox comboBox2;
+        private ComboBox KafBox;
         private BindingSource kafedraBindingSource;
         private Button BtnAddZasedanie;
+        private Label label5;
+        private Label label6;
+        private ComboBox NaprPodogotBox;
+        private ComboBox ProfilPodgotBox;
+        private GroupBox groupBox1;
+        private Label label8;
+        private ComboBox PrepdsedBox;
+        private Label label7;
+        private ListBox AllPersonsList;
+        private Button BtnDeleteMemberFromCommission;
+        private Button BtnAddMemberToCommision;
+        private ListBox ComssionsMemberList;
+        private BindingSource personBindingSource;
     }
 }
