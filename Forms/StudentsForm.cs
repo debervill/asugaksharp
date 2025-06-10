@@ -25,7 +25,7 @@ namespace asugaksharp.Forms
 
         private void BtnStudSclon_Click(object sender, EventArgs e)
         {
-            var StudGender = Sex.SelectedItem?.ToString() == "муж" ? Gender.Male : Gender.Female;
+            Gender StudGender = Sex.SelectedItem?.ToString() == "муж" ? Gender.Male : Gender.Female;
 
             MessageBox.Show(StudGender.ToString());
 
@@ -34,6 +34,7 @@ namespace asugaksharp.Forms
                 FirstName = NameImBox.Text,
                 LastName = Famimbox.Text,
                 MiddleName = OtchImbox.Text,
+                //AutoDetectGender = true
                 Gender = StudGender
             };
 
