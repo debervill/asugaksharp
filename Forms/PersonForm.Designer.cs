@@ -1,6 +1,6 @@
 ﻿namespace asugaksharp.Forms
 {
-    partial class AddPersonForm
+    partial class PersonForm
     {
         /// <summary>
         /// Required designer variable.
@@ -45,6 +45,24 @@
             BtnExit = new Button();
             IsSecretarBox = new CheckBox();
             PersonGridView = new DataGridView();
+            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            stepenDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            zvanieDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            dolgnostDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            isPredsedDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            isZavKafDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            isSecretarDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            isRecenzentDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            isVneshniyDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            kafedraIDDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            kafedraDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            zasedaniesDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            docsDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            diplomniksDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            oplatasDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            gaksDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            personBindingSource1 = new BindingSource(components);
             isVeshnBox = new CheckBox();
             label6 = new Label();
             label7 = new Label();
@@ -73,28 +91,10 @@
             label17 = new Label();
             KafBox = new ComboBox();
             kafedraBindingSource = new BindingSource(components);
-            personBindingSource1 = new BindingSource(components);
-            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            stepenDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            zvanieDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            dolgnostDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            isPredsedDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
-            isZavKafDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
-            isSecretarDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
-            isRecenzentDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
-            isVneshniyDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
-            kafedraIDDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            kafedraDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            zasedaniesDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            docsDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            diplomniksDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            oplatasDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            gaksDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)personBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)PersonGridView).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)kafedraBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)personBindingSource1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)kafedraBindingSource).BeginInit();
             SuspendLayout();
             // 
             // personBindingSource
@@ -245,6 +245,112 @@
             PersonGridView.Name = "PersonGridView";
             PersonGridView.Size = new Size(779, 150);
             PersonGridView.TabIndex = 15;
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn.HeaderText = "Id";
+            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // stepenDataGridViewTextBoxColumn
+            // 
+            stepenDataGridViewTextBoxColumn.DataPropertyName = "Stepen";
+            stepenDataGridViewTextBoxColumn.HeaderText = "Stepen";
+            stepenDataGridViewTextBoxColumn.Name = "stepenDataGridViewTextBoxColumn";
+            // 
+            // zvanieDataGridViewTextBoxColumn
+            // 
+            zvanieDataGridViewTextBoxColumn.DataPropertyName = "Zvanie";
+            zvanieDataGridViewTextBoxColumn.HeaderText = "Zvanie";
+            zvanieDataGridViewTextBoxColumn.Name = "zvanieDataGridViewTextBoxColumn";
+            // 
+            // dolgnostDataGridViewTextBoxColumn
+            // 
+            dolgnostDataGridViewTextBoxColumn.DataPropertyName = "Dolgnost";
+            dolgnostDataGridViewTextBoxColumn.HeaderText = "Dolgnost";
+            dolgnostDataGridViewTextBoxColumn.Name = "dolgnostDataGridViewTextBoxColumn";
+            // 
+            // isPredsedDataGridViewCheckBoxColumn
+            // 
+            isPredsedDataGridViewCheckBoxColumn.DataPropertyName = "IsPredsed";
+            isPredsedDataGridViewCheckBoxColumn.HeaderText = "IsPredsed";
+            isPredsedDataGridViewCheckBoxColumn.Name = "isPredsedDataGridViewCheckBoxColumn";
+            // 
+            // isZavKafDataGridViewCheckBoxColumn
+            // 
+            isZavKafDataGridViewCheckBoxColumn.DataPropertyName = "IsZavKaf";
+            isZavKafDataGridViewCheckBoxColumn.HeaderText = "IsZavKaf";
+            isZavKafDataGridViewCheckBoxColumn.Name = "isZavKafDataGridViewCheckBoxColumn";
+            // 
+            // isSecretarDataGridViewCheckBoxColumn
+            // 
+            isSecretarDataGridViewCheckBoxColumn.DataPropertyName = "IsSecretar";
+            isSecretarDataGridViewCheckBoxColumn.HeaderText = "IsSecretar";
+            isSecretarDataGridViewCheckBoxColumn.Name = "isSecretarDataGridViewCheckBoxColumn";
+            // 
+            // isRecenzentDataGridViewCheckBoxColumn
+            // 
+            isRecenzentDataGridViewCheckBoxColumn.DataPropertyName = "IsRecenzent";
+            isRecenzentDataGridViewCheckBoxColumn.HeaderText = "IsRecenzent";
+            isRecenzentDataGridViewCheckBoxColumn.Name = "isRecenzentDataGridViewCheckBoxColumn";
+            // 
+            // isVneshniyDataGridViewCheckBoxColumn
+            // 
+            isVneshniyDataGridViewCheckBoxColumn.DataPropertyName = "IsVneshniy";
+            isVneshniyDataGridViewCheckBoxColumn.HeaderText = "IsVneshniy";
+            isVneshniyDataGridViewCheckBoxColumn.Name = "isVneshniyDataGridViewCheckBoxColumn";
+            // 
+            // kafedraIDDataGridViewTextBoxColumn
+            // 
+            kafedraIDDataGridViewTextBoxColumn.DataPropertyName = "KafedraID";
+            kafedraIDDataGridViewTextBoxColumn.HeaderText = "KafedraID";
+            kafedraIDDataGridViewTextBoxColumn.Name = "kafedraIDDataGridViewTextBoxColumn";
+            // 
+            // kafedraDataGridViewTextBoxColumn
+            // 
+            kafedraDataGridViewTextBoxColumn.DataPropertyName = "Kafedra";
+            kafedraDataGridViewTextBoxColumn.HeaderText = "Kafedra";
+            kafedraDataGridViewTextBoxColumn.Name = "kafedraDataGridViewTextBoxColumn";
+            // 
+            // zasedaniesDataGridViewTextBoxColumn
+            // 
+            zasedaniesDataGridViewTextBoxColumn.DataPropertyName = "Zasedanies";
+            zasedaniesDataGridViewTextBoxColumn.HeaderText = "Zasedanies";
+            zasedaniesDataGridViewTextBoxColumn.Name = "zasedaniesDataGridViewTextBoxColumn";
+            // 
+            // docsDataGridViewTextBoxColumn
+            // 
+            docsDataGridViewTextBoxColumn.DataPropertyName = "Docs";
+            docsDataGridViewTextBoxColumn.HeaderText = "Docs";
+            docsDataGridViewTextBoxColumn.Name = "docsDataGridViewTextBoxColumn";
+            // 
+            // diplomniksDataGridViewTextBoxColumn
+            // 
+            diplomniksDataGridViewTextBoxColumn.DataPropertyName = "Diplomniks";
+            diplomniksDataGridViewTextBoxColumn.HeaderText = "Diplomniks";
+            diplomniksDataGridViewTextBoxColumn.Name = "diplomniksDataGridViewTextBoxColumn";
+            // 
+            // oplatasDataGridViewTextBoxColumn
+            // 
+            oplatasDataGridViewTextBoxColumn.DataPropertyName = "Oplatas";
+            oplatasDataGridViewTextBoxColumn.HeaderText = "Oplatas";
+            oplatasDataGridViewTextBoxColumn.Name = "oplatasDataGridViewTextBoxColumn";
+            // 
+            // gaksDataGridViewTextBoxColumn
+            // 
+            gaksDataGridViewTextBoxColumn.DataPropertyName = "Gaks";
+            gaksDataGridViewTextBoxColumn.HeaderText = "Gaks";
+            gaksDataGridViewTextBoxColumn.Name = "gaksDataGridViewTextBoxColumn";
+            // 
+            // personBindingSource1
+            // 
+            personBindingSource1.DataSource = typeof(Model.Person);
             // 
             // isVeshnBox
             // 
@@ -440,6 +546,7 @@
             button1.TabIndex = 39;
             button1.Text = "Изменить";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // label17
             // 
@@ -462,113 +569,7 @@
             // 
             kafedraBindingSource.DataSource = typeof(Model.Kafedra);
             // 
-            // personBindingSource1
-            // 
-            personBindingSource1.DataSource = typeof(Model.Person);
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            // 
-            // stepenDataGridViewTextBoxColumn
-            // 
-            stepenDataGridViewTextBoxColumn.DataPropertyName = "Stepen";
-            stepenDataGridViewTextBoxColumn.HeaderText = "Stepen";
-            stepenDataGridViewTextBoxColumn.Name = "stepenDataGridViewTextBoxColumn";
-            // 
-            // zvanieDataGridViewTextBoxColumn
-            // 
-            zvanieDataGridViewTextBoxColumn.DataPropertyName = "Zvanie";
-            zvanieDataGridViewTextBoxColumn.HeaderText = "Zvanie";
-            zvanieDataGridViewTextBoxColumn.Name = "zvanieDataGridViewTextBoxColumn";
-            // 
-            // dolgnostDataGridViewTextBoxColumn
-            // 
-            dolgnostDataGridViewTextBoxColumn.DataPropertyName = "Dolgnost";
-            dolgnostDataGridViewTextBoxColumn.HeaderText = "Dolgnost";
-            dolgnostDataGridViewTextBoxColumn.Name = "dolgnostDataGridViewTextBoxColumn";
-            // 
-            // isPredsedDataGridViewCheckBoxColumn
-            // 
-            isPredsedDataGridViewCheckBoxColumn.DataPropertyName = "IsPredsed";
-            isPredsedDataGridViewCheckBoxColumn.HeaderText = "IsPredsed";
-            isPredsedDataGridViewCheckBoxColumn.Name = "isPredsedDataGridViewCheckBoxColumn";
-            // 
-            // isZavKafDataGridViewCheckBoxColumn
-            // 
-            isZavKafDataGridViewCheckBoxColumn.DataPropertyName = "IsZavKaf";
-            isZavKafDataGridViewCheckBoxColumn.HeaderText = "IsZavKaf";
-            isZavKafDataGridViewCheckBoxColumn.Name = "isZavKafDataGridViewCheckBoxColumn";
-            // 
-            // isSecretarDataGridViewCheckBoxColumn
-            // 
-            isSecretarDataGridViewCheckBoxColumn.DataPropertyName = "IsSecretar";
-            isSecretarDataGridViewCheckBoxColumn.HeaderText = "IsSecretar";
-            isSecretarDataGridViewCheckBoxColumn.Name = "isSecretarDataGridViewCheckBoxColumn";
-            // 
-            // isRecenzentDataGridViewCheckBoxColumn
-            // 
-            isRecenzentDataGridViewCheckBoxColumn.DataPropertyName = "IsRecenzent";
-            isRecenzentDataGridViewCheckBoxColumn.HeaderText = "IsRecenzent";
-            isRecenzentDataGridViewCheckBoxColumn.Name = "isRecenzentDataGridViewCheckBoxColumn";
-            // 
-            // isVneshniyDataGridViewCheckBoxColumn
-            // 
-            isVneshniyDataGridViewCheckBoxColumn.DataPropertyName = "IsVneshniy";
-            isVneshniyDataGridViewCheckBoxColumn.HeaderText = "IsVneshniy";
-            isVneshniyDataGridViewCheckBoxColumn.Name = "isVneshniyDataGridViewCheckBoxColumn";
-            // 
-            // kafedraIDDataGridViewTextBoxColumn
-            // 
-            kafedraIDDataGridViewTextBoxColumn.DataPropertyName = "KafedraID";
-            kafedraIDDataGridViewTextBoxColumn.HeaderText = "KafedraID";
-            kafedraIDDataGridViewTextBoxColumn.Name = "kafedraIDDataGridViewTextBoxColumn";
-            // 
-            // kafedraDataGridViewTextBoxColumn
-            // 
-            kafedraDataGridViewTextBoxColumn.DataPropertyName = "Kafedra";
-            kafedraDataGridViewTextBoxColumn.HeaderText = "Kafedra";
-            kafedraDataGridViewTextBoxColumn.Name = "kafedraDataGridViewTextBoxColumn";
-            // 
-            // zasedaniesDataGridViewTextBoxColumn
-            // 
-            zasedaniesDataGridViewTextBoxColumn.DataPropertyName = "Zasedanies";
-            zasedaniesDataGridViewTextBoxColumn.HeaderText = "Zasedanies";
-            zasedaniesDataGridViewTextBoxColumn.Name = "zasedaniesDataGridViewTextBoxColumn";
-            // 
-            // docsDataGridViewTextBoxColumn
-            // 
-            docsDataGridViewTextBoxColumn.DataPropertyName = "Docs";
-            docsDataGridViewTextBoxColumn.HeaderText = "Docs";
-            docsDataGridViewTextBoxColumn.Name = "docsDataGridViewTextBoxColumn";
-            // 
-            // diplomniksDataGridViewTextBoxColumn
-            // 
-            diplomniksDataGridViewTextBoxColumn.DataPropertyName = "Diplomniks";
-            diplomniksDataGridViewTextBoxColumn.HeaderText = "Diplomniks";
-            diplomniksDataGridViewTextBoxColumn.Name = "diplomniksDataGridViewTextBoxColumn";
-            // 
-            // oplatasDataGridViewTextBoxColumn
-            // 
-            oplatasDataGridViewTextBoxColumn.DataPropertyName = "Oplatas";
-            oplatasDataGridViewTextBoxColumn.HeaderText = "Oplatas";
-            oplatasDataGridViewTextBoxColumn.Name = "oplatasDataGridViewTextBoxColumn";
-            // 
-            // gaksDataGridViewTextBoxColumn
-            // 
-            gaksDataGridViewTextBoxColumn.DataPropertyName = "Gaks";
-            gaksDataGridViewTextBoxColumn.HeaderText = "Gaks";
-            gaksDataGridViewTextBoxColumn.Name = "gaksDataGridViewTextBoxColumn";
-            // 
-            // AddPersonForm
+            // PersonForm
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -616,12 +617,12 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Margin = new Padding(3, 2, 3, 2);
-            Name = "AddPersonForm";
+            Name = "PersonForm";
             Text = "AddPerson";
             ((System.ComponentModel.ISupportInitialize)personBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)PersonGridView).EndInit();
-            ((System.ComponentModel.ISupportInitialize)kafedraBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)personBindingSource1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)kafedraBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }

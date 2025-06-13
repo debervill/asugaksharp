@@ -20,14 +20,24 @@ namespace asugaksharp.Forms
             try
             {
                 // Загрузка кафедр
-                var kafedras = _context.Kafedra.ToList();
-                MessageBox.Show($"Загружено кафедр: {kafedras.Count}");
+                var kafedras = _context.Kafedra
+                    .OrderBy(x => x.Name)
+                    .ToList();
                 
                 if (kafedras.Any())
                 {
                     kafedraBindingSource.DataSource = kafedras;
                     kafedraBox.ValueMember = "Id";
                     kafedraBox.DisplayMember = "Name";
+
+                    // При выборе кафедры обновляем список персонала
+                    kafedraBox.SelectedIndexChanged += (s, e) =>
+                    {
+                        if (kafedraBox.SelectedItem is Kafedra selectedKafedra)
+                        {
+                            LoadPersonnel(selectedKafedra.Id);
+                        }
+                    };
                 }
                 else
                 {
@@ -36,7 +46,6 @@ namespace asugaksharp.Forms
 
                 // Загрузка периодов заседаний
                 var periods = _context.PeriodZasedania.ToList();
-                MessageBox.Show($"Загружено периодов: {periods.Count}");
                 
                 if (periods.Any())
                 {
@@ -48,10 +57,58 @@ namespace asugaksharp.Forms
                 {
                     MessageBox.Show("Таблица периодов заседаний пуста. Пожалуйста, добавьте данные.");
                 }
+
+                // Инициализация списка для председателя
+                PrepdsedBox.DisplayMember = "Name";
+                PrepdsedBox.ValueMember = "Id";
+
+                // Добавление обработчиков для кнопок
+                BtnAddMemberToCommision.Click += (s, e) =>
+                {
+                    if (AllPersonsList.SelectedItem is Person selectedPerson)
+                    {
+                        if (!ComssionsMemberList.Items.Contains(selectedPerson))
+                        {
+                            ComssionsMemberList.Items.Add(selectedPerson);
+                        }
+                    }
+                };
+
+                BtnDeleteMemberFromCommission.Click += (s, e) =>
+                {
+                    if (ComssionsMemberList.SelectedItem is Person selectedPerson)
+                    {
+                        ComssionsMemberList.Items.Remove(selectedPerson);
+                    }
+                };
+
+                // Если есть выбранная кафедра, загрузим её персонал
+                if (kafedraBox.SelectedItem is Kafedra selectedKafedra)
+                {
+                    LoadPersonnel(selectedKafedra.Id);
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка при загрузке данных: {ex.Message}\n\nStackTrace:\n{ex.StackTrace}");
+            }
+        }
+
+        private void LoadPersonnel(Guid kafedraId)
+        {
+            try
+            {
+                var personnel = _context.Person
+                    .Where(p => p.KafedraID == kafedraId)
+                    .OrderBy(p => p.Name)
+                    .ToList();
+
+                personBindingSource.DataSource = personnel;
+                PrepdsedBox.DataSource = new List<Person>(personnel);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке персонала: {ex.Message}");
             }
         }
 

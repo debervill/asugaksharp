@@ -18,6 +18,8 @@ namespace asugaksharp.Model
         //от таблицы персон
         public ICollection<Person>? Persons { get; set; }
 
+        public ICollection<PeriodZasedania>? Periods { get; set; }
+
     }
 
 }

@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 using asugaksharp.Model;
 using NPetrovich;
 using System.Windows.Forms;
+=======
+﻿
+using NPetrovich;
+
+>>>>>>> 83269766ffcc4605752b2bcc29b8478ea34000e0
 
 namespace asugaksharp.Forms
 {
@@ -24,6 +30,7 @@ namespace asugaksharp.Forms
 
         private void BtnStudSclon_Click(object sender, EventArgs e)
         {
+<<<<<<< HEAD
             var selectedGender = Sex.SelectedItem?.ToString();
             var StudGender = (!string.IsNullOrEmpty(selectedGender) && selectedGender == "муж") ? Gender.Male : Gender.Female;
 
@@ -32,6 +39,9 @@ namespace asugaksharp.Forms
                 MessageBox.Show("Пожалуйста, заполните все поля имени", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+=======
+            Gender StudGender = Sex.SelectedItem?.ToString() == "муж" ? Gender.Male : Gender.Female;
+>>>>>>> 83269766ffcc4605752b2bcc29b8478ea34000e0
 
             MessageBox.Show(StudGender.ToString());
 
@@ -40,6 +50,7 @@ namespace asugaksharp.Forms
                 FirstName = NameImBox.Text,
                 LastName = Famimbox.Text,
                 MiddleName = OtchImbox.Text,
+                //AutoDetectGender = true
                 Gender = StudGender
             };
 
