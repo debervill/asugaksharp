@@ -4,31 +4,19 @@ namespace asugaksharp.Forms
 {
     public partial class MainWindowForm : Form
     {
-<<<<<<< HEAD
-        private readonly AppDbContext _context;
-
-        public MainWindowForm(AppDbContext context)
-        {
-            _context = context;
-            InitializeComponent();
-        }
-
-        private void btnNaprPodg_Click(object sender, EventArgs e)
-=======
         private readonly AppDbContext _db;
         public MainWindowForm(AppDbContext db)
         {
             _db = db;
             InitializeComponent();
         }
-
+        private readonly AppDbContext _context;
         private void MainWindowForm_Load(object sender, EventArgs e)
->>>>>>> 83269766ffcc4605752b2bcc29b8478ea34000e0
         {
             using var form = new NapravleniaPogotovkiForm(_context);
             form.ShowDialog();
         }
-
+        /*
         private void btnProfiliPodg_Click(object sender, EventArgs e)
         {
             using var form = new ProfiliPodgootovkiForm(_context);
@@ -61,10 +49,6 @@ namespace asugaksharp.Forms
 
         private void btnAddPeriodZ_Click(object sender, EventArgs e)
         {
-<<<<<<< HEAD
-            using var form = new AddPeriodZasedaniaForm(_context);
-            form.ShowDialog();
-=======
         }
 
         private void äîáàâèòüToolStripMenuItem_Click(object sender, EventArgs e)
@@ -93,7 +77,7 @@ namespace asugaksharp.Forms
 
         private void ëèñòÁîêñToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            twolistbox form = new twolistbox();
+            Twolistbox form = new Twolistbox();
             form.Show();
         }
 
@@ -132,12 +116,11 @@ namespace asugaksharp.Forms
         {
             KafedraForms forms = new KafedraForms();
             forms.Show();
->>>>>>> 83269766ffcc4605752b2bcc29b8478ea34000e0
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
 
-        }
+        }*/
     }
 }

@@ -11,9 +11,9 @@ namespace asugaksharp.Forms
         public AddPersonForm(AppDbContext context)
         {
             _context = context;
-            InitializeComponent();
+            //InitializeComponent();
             LoadKafExistingData();
-            KafBox.SelectedValueChanged += KafBox_SelectedValueChanged;
+            //KafBox.SelectedValueChanged += KafBox_SelectedValueChanged;
         }
 
         private void LoadKafExistingData()
@@ -31,9 +31,9 @@ namespace asugaksharp.Forms
                 return;
             }
 
-            KafBox.DataSource = kafedras;
-            KafBox.DisplayMember = "Name";
-            KafBox.ValueMember = "Id";
+            //KafBox.DataSource = kafedras;
+            //KafBox.DisplayMember = "Name";
+            //KafBox.ValueMember = "Id";
 
             var kafId = kafedras.First().Id;
             var people = _context.Person
@@ -41,11 +41,11 @@ namespace asugaksharp.Forms
                         .ToList();
 
             Debug.WriteLine(people);
-            PersonGridView.DataSource = people;
+            //PersonGridView.DataSource = people;
         }
 
         private void LoadPersonExistingData()
-        {
+        { /*
             if (KafBox.SelectedValue is Guid selectedId)
             {
                 var people = _context.Person
@@ -53,7 +53,9 @@ namespace asugaksharp.Forms
                            .ToList();
 
                 PersonGridView.DataSource = people;
+
             }
+            */
         }
 
         private void KafBox_SelectedValueChanged(object sender, EventArgs e)
@@ -70,7 +72,7 @@ namespace asugaksharp.Forms
         }
 
         private void BtnAdd_Click(object sender, EventArgs e)
-        {
+        { /*
             if (string.IsNullOrWhiteSpace(FioText.Text))
             {
                 MessageBox.Show("Введите ФИО", "Предупреждение", 
@@ -86,7 +88,7 @@ namespace asugaksharp.Forms
                 KafBox.Focus();
                 return;
             }
-
+            
             var kafid = (Guid)KafBox.SelectedValue;
 
             var SomePerson = new Person
@@ -101,15 +103,15 @@ namespace asugaksharp.Forms
                 IsVneshniy = isVeshnBox.Checked,
                 KafedraID = kafid
             };
-
-            _context.Person.Add(SomePerson);
-            _context.SaveChanges();
+            */
+            //_context.Person.Add(SomePerson);
+            //_context.SaveChanges();
 
             LoadPersonExistingData();
             MessageBox.Show("Добавлено");
-            ClearFields();
+            //ClearFields();
         }
-
+        /*
         private void ClearFields()
         {
             FioText.Clear();
@@ -122,6 +124,7 @@ namespace asugaksharp.Forms
             isVeshnBox.Checked = false;
             FioText.Focus();
         }
+        */
 
         private void BtnExit_Click(object sender, EventArgs e)
         {

@@ -1,22 +1,12 @@
-<<<<<<< HEAD:Forms/AddPeriodZasedaniaForm.cs
-using asugaksharp.Model;
-using System.Windows.Forms;
-=======
 ﻿using asugaksharp.Model;
 
->>>>>>> 83269766ffcc4605752b2bcc29b8478ea34000e0:Forms/PeriodZasedaniaForm.cs
 
 namespace asugaksharp.Forms
 {
     public partial class PeriodZasedaniaForm : Form
     {
-<<<<<<< HEAD:Forms/AddPeriodZasedaniaForm.cs
         private readonly AppDbContext _context;
-
-        public AddPeriodZasedaniaForm(AppDbContext context)
-=======
-        public PeriodZasedaniaForm()
->>>>>>> 83269766ffcc4605752b2bcc29b8478ea34000e0:Forms/PeriodZasedaniaForm.cs
+        public PeriodZasedaniaForm(AppDbContext context)
         {
             _context = context;
             InitializeComponent();

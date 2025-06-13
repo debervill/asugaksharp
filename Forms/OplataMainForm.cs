@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-using asugaksharp.Model;
-using Microsoft.EntityFrameworkCore;
-using System.Windows.Forms;
-=======
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Data;
->>>>>>> 83269766ffcc4605752b2bcc29b8478ea34000e0
-
+using asugaksharp.Model;
 namespace asugaksharp.Forms
 {
     public partial class OplataMainForm : Form

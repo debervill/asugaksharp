@@ -48,11 +48,12 @@ namespace asugaksharp
             using var form = new GakForm(_context);
             form.ShowDialog();
         }
-
+        /*
         private void btnAddPeriodZ_Click(object sender, EventArgs e)
         {
             using var form = new AddPeriodZasedaniaForm(_context);
             form.ShowDialog();
         }
+        */
     }
 }

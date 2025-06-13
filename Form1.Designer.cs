@@ -113,7 +113,7 @@ namespace asugaksharp
             периодыЗаседанийToolStripMenuItem.Name = "периодыЗаседанийToolStripMenuItem";
             периодыЗаседанийToolStripMenuItem.Size = new Size(180, 22);
             периодыЗаседанийToolStripMenuItem.Text = "Периоды заседаний";
-            периодыЗаседанийToolStripMenuItem.Click += btnAddPeriodZ_Click;
+            //периодыЗаседанийToolStripMenuItem.Click += btnAddPeriodZ_Click;
             // 
             // финансыToolStripMenuItem
             // 

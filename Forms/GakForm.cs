@@ -11,7 +11,7 @@ namespace asugaksharp.Forms
         public GakForm(AppDbContext context)
         {
             _context = context;
-            InitializeComponent();
+            //InitializeComponent();
             LoadData();
         }
 
@@ -118,7 +118,7 @@ namespace asugaksharp.Forms
 
         private void BtnAddZasedanie_Click(object sender, EventArgs e)
         {
-            ZasedanieForm form = new ZasedanieForm(_context);   
+            ZasedanieForm form = new ZasedanieForm(_context);
             form.ShowDialog();
         }
     }
