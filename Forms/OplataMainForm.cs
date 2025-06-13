@@ -1,37 +1,31 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using asugaksharp.Model;
+using Microsoft.EntityFrameworkCore;
 using System.Windows.Forms;
 
 namespace asugaksharp.Forms
 {
     public partial class OplataMainForm : Form
     {
-        public OplataMainForm()
+        private readonly AppDbContext _context;
+
+        public OplataMainForm(AppDbContext context)
         {
+            _context = context;
             InitializeComponent();
             LoadExistingData();
         }
 
         private void LoadExistingData()
         {
-            using var db = new Model.AppDbContext();
-
             // Председатель
-            var predsedat = db.Person
+            var predsedat = _context.Person
                 .AsNoTracking()
                 .Where(p => p.IsPredsed)
                 .ToList();
             SetComboBoxData(PredseBox, predsedat);
 
             // Внешние члены
-            var vneshmember = db.Person
+            var vneshmember = _context.Person
                 .AsNoTracking()
                 .Where(p => p.IsVneshniy)
                 .ToList();
@@ -49,15 +43,12 @@ namespace asugaksharp.Forms
             comboBox.DataSource = dataSource;
         }
 
-
         private void label4_Click(object sender, EventArgs e)
         {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
         }
     }
 }

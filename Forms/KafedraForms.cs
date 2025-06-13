@@ -11,7 +11,8 @@ namespace asugaksharp.Forms
             LoadExistingData();
         }
 
-        private void LoadExistingData() {
+        private void LoadExistingData()
+        {
 
             using var db = new AppDbContext();
             var data = db.Kafedra.ToList();
@@ -27,7 +28,7 @@ namespace asugaksharp.Forms
             var SomeKaf = new Kafedra
             {
                 Name = KafBox.Text,
-               
+
 
             };
 
@@ -36,6 +37,16 @@ namespace asugaksharp.Forms
 
             LoadExistingData();
             MessageBox.Show("Добавлено");
+
+        }
+
+        private void KafedraGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void KafBox_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }

@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.Configuration;
 
 namespace asugaksharp.Model
 {
     public class AppDbContext : DbContext
     {
-
         public DbSet<Diplomnik> Diplomnik { get; set; } 
         public DbSet<Docs> Docs { get; set; }
         public DbSet<Gak> Gak { get; set; }
@@ -17,9 +17,6 @@ namespace asugaksharp.Model
         public DbSet<NapravleniePodgotovki> NapravleniePodgotovki { get; set; }
         public DbSet<ProfilPodgotovki> ProfilPodgotovki { get; set; }   
 
-        
-        
-
         public AppDbContext() { }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
@@ -28,10 +25,15 @@ namespace asugaksharp.Model
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite("Data Source=C:\\Users\\Danamir\\source\\repos\\debervill\\asugaksharp\\asugak.db");
+                var configuration = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                optionsBuilder.UseSqlite(connectionString);
             }
         }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -75,7 +77,7 @@ namespace asugaksharp.Model
             // Gak - Person (many-to-many)
             modelBuilder.Entity<Gak>()
                 .HasMany(g => g.Persons)
-                .WithMany(p => p.Gaks); // Требует добавления свойства в модель Person
+                .WithMany(p => p.Gaks);
 
             // Zasedanie - Gak (many-to-one)
             modelBuilder.Entity<Zasedanie>()
@@ -96,7 +98,5 @@ namespace asugaksharp.Model
                 .HasForeignKey(p => p.KafedraID)
                 .OnDelete(DeleteBehavior.Restrict);
         }
-
-
     }
 }

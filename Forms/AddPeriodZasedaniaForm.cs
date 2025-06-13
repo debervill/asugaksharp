@@ -1,50 +1,47 @@
-﻿using asugaksharp.Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using asugaksharp.Model;
 using System.Windows.Forms;
 
 namespace asugaksharp.Forms
 {
     public partial class AddPeriodZasedaniaForm : Form
     {
-        public AddPeriodZasedaniaForm()
+        private readonly AppDbContext _context;
+
+        public AddPeriodZasedaniaForm(AppDbContext context)
         {
+            _context = context;
             InitializeComponent();
         }
 
-
-
         private void BntSave_Click(object sender, EventArgs e)
         {
-            using var db = new Model.AppDbContext();
+            if (string.IsNullOrWhiteSpace(NazvanieText.Text))
+            {
+                MessageBox.Show("Введите название периода", "Предупреждение", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                NazvanieText.Focus();
+                return;
+            }
 
             var period = new PeriodZasedania
             {
                 DateStart = DateOnly.FromDateTime(dateStartPicker.Value),
                 DateEnd = DateOnly.FromDateTime(dateEndPicker.Value),
-                Name = NazvanieText.Text,
-                Primechanie = PrimechanieText.Text,
-
+                Name = NazvanieText.Text.Trim(),
+                Primechanie = PrimechanieText.Text?.Trim() ?? string.Empty,
             };
-            db.PeriodZasedania.Add(period);
-            db.SaveChanges();
+
+            _context.PeriodZasedania.Add(period);
+            _context.SaveChanges();
             MessageBox.Show("Изменения внесены");
-
-
-
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void BtnExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult = DialogResult.Cancel;
+            Close();
         }
-
-
     }
 }

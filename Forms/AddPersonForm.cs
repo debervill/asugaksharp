@@ -1,58 +1,59 @@
-﻿using asugaksharp.Model;
+using asugaksharp.Model;
 using System.Diagnostics;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace asugaksharp.Forms
 {
     public partial class AddPersonForm : Form
     {   
-        public AddPersonForm()
+        private readonly AppDbContext _context;
+
+        public AddPersonForm(AppDbContext context)
         {
+            _context = context;
             InitializeComponent();
             LoadKafExistingData();
             KafBox.SelectedValueChanged += KafBox_SelectedValueChanged;
-            //LoadPersonExistingData();
         }
 
         private void LoadKafExistingData()
         {
-            using var db = new AppDbContext();
-          
-            var kafedras = db.Kafedra.
-                OrderBy(x => x.Name).
-                ToList();
+            var kafedras = _context.Kafedra
+                .OrderBy(x => x.Name)
+                .ToList();
+
+            if (!kafedras.Any())
+            {
+                MessageBox.Show("Нет доступных кафедр. Пожалуйста, добавьте кафедры сначала.", 
+                    "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DialogResult = DialogResult.Cancel;
+                Close();
+                return;
+            }
+
             KafBox.DataSource = kafedras;
             KafBox.DisplayMember = "Name";
             KafBox.ValueMember = "Id";
 
-            Guid kafId = kafedras.First().Id;
-
-           var people = db.Person
+            var kafId = kafedras.First().Id;
+            var people = _context.Person
                         .Where(p => p.KafedraID == kafId)
                         .ToList();
 
             Debug.WriteLine(people);
-
-             PersonGridView.DataSource = people;
-
-           
+            PersonGridView.DataSource = people;
         }
 
-        private void LoadPersonExistingData() {
-
-
+        private void LoadPersonExistingData()
+        {
             if (KafBox.SelectedValue is Guid selectedId)
             {
-                using var db = new AppDbContext();
-                var people = db.Person
-                               .Where(p => p.KafedraID == selectedId)
-                               .ToList();
+                var people = _context.Person
+                           .Where(p => p.KafedraID == selectedId)
+                           .ToList();
 
                 PersonGridView.DataSource = people;
             }
-
-
-
         }
 
         private void KafBox_SelectedValueChanged(object sender, EventArgs e)
@@ -60,54 +61,72 @@ namespace asugaksharp.Forms
             LoadPersonExistingData();
         }
 
-
-
-
         private void label1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void label2_Click(object sender, EventArgs e)
         {
-
         }
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
-            using var db = new Model.AppDbContext();
-            Guid kafid = (Guid)KafBox.SelectedValue;
+            if (string.IsNullOrWhiteSpace(FioText.Text))
+            {
+                MessageBox.Show("Введите ФИО", "Предупреждение", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FioText.Focus();
+                return;
+            }
+
+            if (KafBox.SelectedValue == null)
+            {
+                MessageBox.Show("Выберите кафедру", "Предупреждение", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                KafBox.Focus();
+                return;
+            }
+
+            var kafid = (Guid)KafBox.SelectedValue;
 
             var SomePerson = new Person
             {
-                Name = FioText.Text,
-                Stepen = UchStepenBox.Text,
-                Zvanie = UchZvanBox.Text,
-                Dolgnost = DolgnostBox.Text,
+                Name = FioText.Text.Trim(),
+                Stepen = UchStepenBox.Text?.Trim() ?? string.Empty,
+                Zvanie = UchZvanBox.Text?.Trim() ?? string.Empty,
+                Dolgnost = DolgnostBox.Text?.Trim() ?? string.Empty,
                 IsPredsed = PredsedBox.Checked,
                 IsZavKaf = ZavKafBox.Checked,
                 IsSecretar = IsSecretarBox.Checked,
                 IsVneshniy = isVeshnBox.Checked,
                 KafedraID = kafid
+            };
 
-
-                };
-
-            db.Person.Add(SomePerson);
-            db.SaveChanges();
+            _context.Person.Add(SomePerson);
+            _context.SaveChanges();
 
             LoadPersonExistingData();
             MessageBox.Show("Добавлено");
-            // TODO: Сделать очистку формы после добавления в базу 
+            ClearFields();
+        }
+
+        private void ClearFields()
+        {
+            FioText.Clear();
+            UchStepenBox.Text = "";
+            UchZvanBox.Text = "";
+            DolgnostBox.Text = "";
+            PredsedBox.Checked = false;
+            ZavKafBox.Checked = false;
+            IsSecretarBox.Checked = false;
+            isVeshnBox.Checked = false;
+            FioText.Focus();
         }
 
         private void BtnExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult = DialogResult.Cancel;
+            Close();
         }
-
-
-
-        
     }
 }

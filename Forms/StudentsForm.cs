@@ -1,40 +1,37 @@
-﻿
-
+using asugaksharp.Model;
 using NPetrovich;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace asugaksharp.Forms
 {
     public partial class StudentsForm : Form
     {
-        public StudentsForm()
+        private readonly AppDbContext _context;
+
+        public StudentsForm(AppDbContext context)
         {
+            _context = context;
             InitializeComponent();
         }
 
-
         private void BtnStudAdd_Click(object sender, EventArgs e)
         {
-
-
         }
 
         private void BtnStudChange_Click(object sender, EventArgs e)
         {
-
         }
 
         private void BtnStudSclon_Click(object sender, EventArgs e)
         {
-            var StudGender = Sex.SelectedItem?.ToString() == "муж" ? Gender.Male : Gender.Female;
+            var selectedGender = Sex.SelectedItem?.ToString();
+            var StudGender = (!string.IsNullOrEmpty(selectedGender) && selectedGender == "муж") ? Gender.Male : Gender.Female;
+
+            if (string.IsNullOrEmpty(NameImBox.Text) || string.IsNullOrEmpty(Famimbox.Text) || string.IsNullOrEmpty(OtchImbox.Text))
+            {
+                MessageBox.Show("Пожалуйста, заполните все поля имени", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             MessageBox.Show(StudGender.ToString());
 
@@ -48,11 +45,7 @@ namespace asugaksharp.Forms
 
             var inflected = petrovich.InflectTo(Case.Dative);
 
-
-
             MessageBox.Show($"Дательный падеж: {inflected.FirstName} {inflected.MiddleName} {inflected.LastName}");
         }
-
-
     }
 }

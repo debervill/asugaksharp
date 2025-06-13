@@ -1,12 +1,13 @@
+using asugaksharp.Forms;
 using asugaksharp.Model;
 
-namespace asugaksharp.Forms
+namespace asugaksharp
 {
-    public partial class MainWindowForm : Form
+    public partial class Form1 : Form
     {
         private readonly AppDbContext _context;
 
-        public MainWindowForm(AppDbContext context)
+        public Form1(AppDbContext context)
         {
             _context = context;
             InitializeComponent();

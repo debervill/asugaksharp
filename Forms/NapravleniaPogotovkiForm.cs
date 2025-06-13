@@ -1,83 +1,57 @@
-﻿using asugaksharp.Model;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+using asugaksharp.Model;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace asugaksharp.Forms
 {
     public partial class NapravleniaPogotovkiForm : Form
     {
-        public NapravleniaPogotovkiForm()
+        private readonly AppDbContext _context;
+        public BindingList<NapravleniePodgotovki> napravleniaList;
+
+        public NapravleniaPogotovkiForm(AppDbContext context)
         {
+            _context = context;
             InitializeComponent();
             InitializeData();
             LoadExistingData();
         }
-        public BindingList<NapravleniePodgotovki> napravleniaList;
 
         private void InitializeData()
         {
             napravleniaList = new BindingList<NapravleniePodgotovki>();
-
-            // Привязываем к существующему BindingSource из дизайнера
             napravleniePodgotovkiBindingSource.DataSource = napravleniaList;
         }
 
-        private void LoadExistingData() {
-            using var db = new Model.AppDbContext();
-            // Загружаем все записи из базы данных
-            var data = db.NapravleniePodgotovki.ToList();
-
+        private void LoadExistingData() 
+        {
+            var data = _context.NapravleniePodgotovki.ToList();
             dataGridView1.DataSource = data;
-
-
         }
-
-
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
             if (!ValidateFields())
                 return;
+                
             string shifr = ShifrBox.Text.Trim();
             string nazvanie = NazvanieBox.Text.Trim();
 
             CreateNewRecord(shifr, nazvanie);
             LoadExistingData();
             ClearFields();
-
-
         }
-
-        private void BtnEdit_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
 
         private void CreateNewRecord(string shifr, string nazvanie)
         {
             var newNapravlenie = new NapravleniePodgotovki
             {
-                
                 ShifrNapr = shifr,
                 Nazvanie = nazvanie
             };
 
-            using var db = new Model.AppDbContext();
-
-            db.NapravleniePodgotovki.Add(newNapravlenie);
-            db.SaveChanges();
-
-
+            _context.NapravleniePodgotovki.Add(newNapravlenie);
+            _context.SaveChanges();
 
             napravleniaList.Add(newNapravlenie);
             MessageBox.Show("Направление добавлено!", "Успех",
@@ -109,9 +83,11 @@ namespace asugaksharp.Forms
         {
             ShifrBox.Clear();
             NazvanieBox.Clear();
-            //editingId = null;
             ShifrBox.Focus();
         }
 
+        private void BtnEdit_Click(object sender, EventArgs e)
+        {
+        }
     }
 }
