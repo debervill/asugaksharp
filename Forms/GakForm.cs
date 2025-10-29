@@ -47,6 +47,7 @@ namespace asugaksharp.Forms
                 // Загрузка периодов заседаний
                 var periods = _context.PeriodZasedania.ToList();
                 
+                /*
                 if (periods.Any())
                 {
                     periodZasedaniaBindingSource.DataSource = periods;
@@ -57,7 +58,7 @@ namespace asugaksharp.Forms
                 {
                     MessageBox.Show("Таблица периодов заседаний пуста. Пожалуйста, добавьте данные.");
                 }
-
+                */
                 // Инициализация списка для председателя
                 PrepdsedBox.DisplayMember = "Name";
                 PrepdsedBox.ValueMember = "Id";

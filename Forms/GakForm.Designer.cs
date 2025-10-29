@@ -17,9 +17,7 @@ namespace asugaksharp.Forms
 
         
 
-        private Label label1;
-        private Label label2;
-        private ComboBox PerodZasedBox;
+      
         private BindingSource periodZasedaniaBindingSource;
         private Label label3;
         private Label label4;

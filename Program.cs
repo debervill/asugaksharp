@@ -7,9 +7,6 @@ namespace asugaksharp
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
@@ -17,24 +14,27 @@ namespace asugaksharp
             Application.SetCompatibleTextRenderingDefault(false);
             ApplicationConfiguration.Initialize();
 
+            // Путь к БД
+            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "asugak.db");
+
             var services = new ServiceCollection();
-
-            services.AddDbContext<AppDbContext>(options => options.UseSqlite("Data Source=C:\\Users\\Danamir\\source\\repos\\debervill\\asugaksharp\\asugak.db"));
-
-            services.AddTransient<MainWindowForm>();
-            services.AddTransient<PersonForm>();
-
-
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlite($"Data Source={dbPath}"));
 
             var serviceProvider = services.BuildServiceProvider();
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
 
-            Application.Run(serviceProvider.GetRequiredService<MainWindowForm>());
+            // Получаем DbContext БЕЗ using - он должен жить всё время работы приложения
+            var dbContext = serviceProvider.GetRequiredService<AppDbContext>();
 
+            // Создать БД если не существует
+            dbContext.Database.EnsureCreated();
 
+            // Запускаем главное окно
+            Application.Run(new Form1(dbContext));
 
-          
+            // После закрытия приложения освобождаем ресурсы
+            dbContext.Dispose();
+            serviceProvider.Dispose();
         }
     }
 }
