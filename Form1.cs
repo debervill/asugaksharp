@@ -48,12 +48,19 @@ namespace asugaksharp
             using var form = new GakForm(_context);
             form.ShowDialog();
         }
-        /*
-        private void btnAddPeriodZ_Click(object sender, EventArgs e)
+
+        private void Í‡ÙÂ‰˚ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using var form = new AddPeriodZasedaniaForm(_context);
+            using var form = new KafedraForms();
             form.ShowDialog();
+
         }
-        */
+        /*
+private void btnAddPeriodZ_Click(object sender, EventArgs e)
+{
+   using var form = new AddPeriodZasedaniaForm(_context);
+   form.ShowDialog();
+}
+*/
     }
 }

@@ -40,6 +40,7 @@ namespace asugaksharp
             периодыЗаседанийToolStripMenuItem = new ToolStripMenuItem();
             финансыToolStripMenuItem = new ToolStripMenuItem();
             оплатаToolStripMenuItem = new ToolStripMenuItem();
+            кафедрыToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -54,7 +55,7 @@ namespace asugaksharp
             // 
             // обучениеToolStripMenuItem
             // 
-            обучениеToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { направленияПодготовкиToolStripMenuItem, профилиПодготовкиToolStripMenuItem, студентыToolStripMenuItem });
+            обучениеToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { кафедрыToolStripMenuItem, направленияПодготовкиToolStripMenuItem, профилиПодготовкиToolStripMenuItem, студентыToolStripMenuItem });
             обучениеToolStripMenuItem.Name = "обучениеToolStripMenuItem";
             обучениеToolStripMenuItem.Size = new Size(74, 20);
             обучениеToolStripMenuItem.Text = "Обучение";
@@ -62,21 +63,21 @@ namespace asugaksharp
             // направленияПодготовкиToolStripMenuItem
             // 
             направленияПодготовкиToolStripMenuItem.Name = "направленияПодготовкиToolStripMenuItem";
-            направленияПодготовкиToolStripMenuItem.Size = new Size(207, 22);
+            направленияПодготовкиToolStripMenuItem.Size = new Size(214, 22);
             направленияПодготовкиToolStripMenuItem.Text = "Направления подготовки";
             направленияПодготовкиToolStripMenuItem.Click += btnNaprPodg_Click;
             // 
             // профилиПодготовкиToolStripMenuItem
             // 
             профилиПодготовкиToolStripMenuItem.Name = "профилиПодготовкиToolStripMenuItem";
-            профилиПодготовкиToolStripMenuItem.Size = new Size(207, 22);
+            профилиПодготовкиToolStripMenuItem.Size = new Size(214, 22);
             профилиПодготовкиToolStripMenuItem.Text = "Профили подготовки";
             профилиПодготовкиToolStripMenuItem.Click += btnProfiliPodg_Click;
             // 
             // студентыToolStripMenuItem
             // 
             студентыToolStripMenuItem.Name = "студентыToolStripMenuItem";
-            студентыToolStripMenuItem.Size = new Size(207, 22);
+            студентыToolStripMenuItem.Size = new Size(214, 22);
             студентыToolStripMenuItem.Text = "Студенты";
             студентыToolStripMenuItem.Click += btnStudents_Click;
             // 
@@ -90,7 +91,7 @@ namespace asugaksharp
             // добавитьСотрудникаToolStripMenuItem
             // 
             добавитьСотрудникаToolStripMenuItem.Name = "добавитьСотрудникаToolStripMenuItem";
-            добавитьСотрудникаToolStripMenuItem.Size = new Size(194, 22);
+            добавитьСотрудникаToolStripMenuItem.Size = new Size(192, 22);
             добавитьСотрудникаToolStripMenuItem.Text = "Добавить сотрудника";
             добавитьСотрудникаToolStripMenuItem.Click += btnAddPerson_Click;
             // 
@@ -98,36 +99,42 @@ namespace asugaksharp
             // 
             гАКToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { заседанияГЭКToolStripMenuItem, периодыЗаседанийToolStripMenuItem });
             гАКToolStripMenuItem.Name = "гАКToolStripMenuItem";
-            гАКToolStripMenuItem.Size = new Size(39, 20);
+            гАКToolStripMenuItem.Size = new Size(40, 20);
             гАКToolStripMenuItem.Text = "ГАК";
             // 
             // заседанияГЭКToolStripMenuItem
             // 
             заседанияГЭКToolStripMenuItem.Name = "заседанияГЭКToolStripMenuItem";
-            заседанияГЭКToolStripMenuItem.Size = new Size(180, 22);
+            заседанияГЭКToolStripMenuItem.Size = new Size(184, 22);
             заседанияГЭКToolStripMenuItem.Text = "Заседания ГЭК";
             заседанияГЭКToolStripMenuItem.Click += btnGAK_Click;
             // 
             // периодыЗаседанийToolStripMenuItem
             // 
             периодыЗаседанийToolStripMenuItem.Name = "периодыЗаседанийToolStripMenuItem";
-            периодыЗаседанийToolStripMenuItem.Size = new Size(180, 22);
+            периодыЗаседанийToolStripMenuItem.Size = new Size(184, 22);
             периодыЗаседанийToolStripMenuItem.Text = "Периоды заседаний";
-            //периодыЗаседанийToolStripMenuItem.Click += btnAddPeriodZ_Click;
             // 
             // финансыToolStripMenuItem
             // 
             финансыToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { оплатаToolStripMenuItem });
             финансыToolStripMenuItem.Name = "финансыToolStripMenuItem";
-            финансыToolStripMenuItem.Size = new Size(71, 20);
+            финансыToolStripMenuItem.Size = new Size(70, 20);
             финансыToolStripMenuItem.Text = "Финансы";
             // 
             // оплатаToolStripMenuItem
             // 
             оплатаToolStripMenuItem.Name = "оплатаToolStripMenuItem";
-            оплатаToolStripMenuItem.Size = new Size(180, 22);
+            оплатаToolStripMenuItem.Size = new Size(114, 22);
             оплатаToolStripMenuItem.Text = "Оплата";
             оплатаToolStripMenuItem.Click += btnOplata_Click;
+            // 
+            // кафедрыToolStripMenuItem
+            // 
+            кафедрыToolStripMenuItem.Name = "кафедрыToolStripMenuItem";
+            кафедрыToolStripMenuItem.Size = new Size(214, 22);
+            кафедрыToolStripMenuItem.Text = "Кафедры";
+            кафедрыToolStripMenuItem.Click += кафедрыToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -158,5 +165,6 @@ namespace asugaksharp
         private ToolStripMenuItem периодыЗаседанийToolStripMenuItem;
         private ToolStripMenuItem финансыToolStripMenuItem;
         private ToolStripMenuItem оплатаToolStripMenuItem;
+        private ToolStripMenuItem кафедрыToolStripMenuItem;
     }
 }
