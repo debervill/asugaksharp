@@ -5,16 +5,19 @@ namespace asugaksharp.Forms
 {
     public partial class KafedraForms : Form
     {
+        private readonly AppDbContextFactory _dbFactory = new AppDbContextFactory();
+
         public KafedraForms()
         {
             InitializeComponent();
             LoadExistingData();
+            using var db = _dbFactory.CreateDbContext(null);
         }
 
         private void LoadExistingData()
         {
 
-            using var db = new AppDbContext();
+            
             var data = db.Kafedra.ToList();
             KafedraGridView.DataSource = data;
 

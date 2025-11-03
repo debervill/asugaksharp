@@ -17,13 +17,6 @@ namespace asugaksharp.Model
         public DbSet<NapravleniePodgotovki> NapravleniePodgotovki { get; set; }
         public DbSet<ProfilPodgotovki> ProfilPodgotovki { get; set; }
         
-
-
-
-
-
-
-
         public AppDbContext() { }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
