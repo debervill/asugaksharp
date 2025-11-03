@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using System.IO;
 
 namespace asugaksharp.Model
 {
@@ -9,17 +8,26 @@ namespace asugaksharp.Model
     {
         public AppDbContext CreateDbContext(string[] args)
         {
-            SQLitePCL.Batteries.Init();
-            // Указываем путь к конфигурации, если проект запускается из другого каталога
+            // Построение конфигурации
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
-            
-            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
 
+            // Получаем строку подключения
             var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+            // Если путь относительный, делаем его абсолютным
+            var dbFileName = connectionString.Replace("Data Source=", "").Trim();
+            if (!Path.IsPathRooted(dbFileName))
+            {
+                var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dbFileName);
+                connectionString = $"Data Source={dbPath}";
+            }
+
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
             optionsBuilder.UseSqlite(connectionString);
+
             return new AppDbContext(optionsBuilder.Options);
         }
     }
