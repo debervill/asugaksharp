@@ -1,8 +1,9 @@
+using asugaksharp.Forms;
+using asugaksharp.Model;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using asugaksharp.Model;
-using asugaksharp.Forms;
+using System;
 
 namespace asugaksharp
 {
@@ -24,6 +25,8 @@ namespace asugaksharp
             // Получаем строку подключения
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
+           
+
             // Если путь относительный, делаем его абсолютным
             if (!Path.IsPathRooted(connectionString.Replace("Data Source=", "")))
             {
@@ -36,6 +39,7 @@ namespace asugaksharp
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite(connectionString));
 
+
             ServiceProvider = services.BuildServiceProvider();
 
             // Убедимся, что БД существует
@@ -45,7 +49,7 @@ namespace asugaksharp
                 dbContext.Database.EnsureCreated();
             }
 
-            Application.Run(new KafedraForms());
+            Application.Run(new MainWindowForm());
         }
     }
 }

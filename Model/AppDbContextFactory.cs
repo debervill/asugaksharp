@@ -16,6 +16,7 @@ namespace asugaksharp.Model
 
             // Получаем строку подключения
             var connectionString = configuration.GetConnectionString("DefaultConnection");
+            Console.WriteLine(connectionString);
 
             // Если путь относительный, делаем его абсолютным
             var dbFileName = connectionString.Replace("Data Source=", "").Trim();

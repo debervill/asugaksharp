@@ -56,5 +56,10 @@ namespace asugaksharp.Forms
         {
             // Обработка изменения текста (если необходимо)
         }
+
+        private void kafedraBindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

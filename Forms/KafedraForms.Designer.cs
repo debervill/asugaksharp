@@ -33,11 +33,11 @@
             label2 = new Label();
             KafBox = new TextBox();
             KafedraGridView = new DataGridView();
+            nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             kafedraBindingSource = new BindingSource(components);
             BtnAdd = new Button();
             BtnEdit = new Button();
             BtnClose = new Button();
-            nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)KafedraGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kafedraBindingSource).BeginInit();
             SuspendLayout();
@@ -45,29 +45,27 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(446, 52);
+            label1.Location = new Point(390, 39);
             label1.Name = "label1";
-            label1.Size = new Size(69, 20);
+            label1.Size = new Size(54, 15);
             label1.TabIndex = 0;
             label1.Text = "Кафедра";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(58, 136);
+            label2.Location = new Point(51, 102);
             label2.Name = "label2";
-            label2.Size = new Size(77, 20);
+            label2.Size = new Size(59, 15);
             label2.TabIndex = 1;
             label2.Text = "Название";
             // 
             // KafBox
             // 
-            KafBox.Location = new Point(177, 132);
-            KafBox.Margin = new Padding(3, 4, 3, 4);
+            KafBox.Location = new Point(155, 99);
             KafBox.Name = "KafBox";
-            KafBox.Size = new Size(605, 27);
+            KafBox.Size = new Size(530, 23);
             KafBox.TabIndex = 2;
-            
             // 
             // KafedraGridView
             // 
@@ -77,49 +75,13 @@
             KafedraGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             KafedraGridView.Columns.AddRange(new DataGridViewColumn[] { nameDataGridViewTextBoxColumn });
             KafedraGridView.DataSource = kafedraBindingSource;
-            KafedraGridView.Location = new Point(78, 268);
-            KafedraGridView.Margin = new Padding(3, 4, 3, 4);
-            KafedraGridView.MinimumSize = new Size(600, 0);
+            KafedraGridView.Location = new Point(68, 201);
+            KafedraGridView.MinimumSize = new Size(525, 0);
             KafedraGridView.Name = "KafedraGridView";
             KafedraGridView.ReadOnly = true;
             KafedraGridView.RowHeadersWidth = 51;
-            KafedraGridView.Size = new Size(733, 168);
+            KafedraGridView.Size = new Size(641, 126);
             KafedraGridView.TabIndex = 3;
-            // 
-            // kafedraBindingSource
-            // 
-            kafedraBindingSource.DataSource = typeof(Model.Kafedra);
-            // 
-            // BtnAdd
-            // 
-            BtnAdd.Location = new Point(446, 191);
-            BtnAdd.Margin = new Padding(3, 4, 3, 4);
-            BtnAdd.Name = "BtnAdd";
-            BtnAdd.Size = new Size(86, 31);
-            BtnAdd.TabIndex = 4;
-            BtnAdd.Text = "Добавить";
-            BtnAdd.UseVisualStyleBackColor = true;
-            BtnAdd.Click += BtnAdd_Click;
-            // 
-            // BtnEdit
-            // 
-            BtnEdit.Location = new Point(272, 483);
-            BtnEdit.Margin = new Padding(3, 4, 3, 4);
-            BtnEdit.Name = "BtnEdit";
-            BtnEdit.Size = new Size(86, 31);
-            BtnEdit.TabIndex = 5;
-            BtnEdit.Text = "Изменить";
-            BtnEdit.UseVisualStyleBackColor = true;
-            // 
-            // BtnClose
-            // 
-            BtnClose.Location = new Point(577, 483);
-            BtnClose.Margin = new Padding(3, 4, 3, 4);
-            BtnClose.Name = "BtnClose";
-            BtnClose.Size = new Size(86, 31);
-            BtnClose.TabIndex = 6;
-            BtnClose.Text = "Закрыть";
-            BtnClose.UseVisualStyleBackColor = true;
             // 
             // nameDataGridViewTextBoxColumn
             // 
@@ -130,11 +92,44 @@
             nameDataGridViewTextBoxColumn.ReadOnly = true;
             nameDataGridViewTextBoxColumn.Width = 600;
             // 
+            // kafedraBindingSource
+            // 
+            kafedraBindingSource.DataSource = typeof(Model.Kafedra);
+            kafedraBindingSource.CurrentChanged += kafedraBindingSource_CurrentChanged;
+            // 
+            // BtnAdd
+            // 
+            BtnAdd.Location = new Point(390, 143);
+            BtnAdd.Name = "BtnAdd";
+            BtnAdd.Size = new Size(75, 23);
+            BtnAdd.TabIndex = 4;
+            BtnAdd.Text = "Добавить";
+            BtnAdd.UseVisualStyleBackColor = true;
+            BtnAdd.Click += BtnAdd_Click;
+            // 
+            // BtnEdit
+            // 
+            BtnEdit.Location = new Point(238, 362);
+            BtnEdit.Name = "BtnEdit";
+            BtnEdit.Size = new Size(75, 23);
+            BtnEdit.TabIndex = 5;
+            BtnEdit.Text = "Изменить";
+            BtnEdit.UseVisualStyleBackColor = true;
+            // 
+            // BtnClose
+            // 
+            BtnClose.Location = new Point(505, 362);
+            BtnClose.Name = "BtnClose";
+            BtnClose.Size = new Size(75, 23);
+            BtnClose.TabIndex = 6;
+            BtnClose.Text = "Закрыть";
+            BtnClose.UseVisualStyleBackColor = true;
+            // 
             // KafedraForms
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(914, 600);
+            ClientSize = new Size(800, 450);
             Controls.Add(BtnClose);
             Controls.Add(BtnEdit);
             Controls.Add(BtnAdd);
@@ -142,7 +137,6 @@
             Controls.Add(KafBox);
             Controls.Add(label2);
             Controls.Add(label1);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "KafedraForms";
             Text = "KafedraForms";
             ((System.ComponentModel.ISupportInitialize)KafedraGridView).EndInit();
