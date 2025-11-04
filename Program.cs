@@ -1,7 +1,13 @@
-using asugaksharp.Model;
+п»їusing asugaksharp.Infrastructure.Persistanse;
+using asugaksharp.Presentation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using asugaksharp.Forms;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System;
+using System.IO;
+using System.Windows.Forms;
 
 namespace asugaksharp
 {
@@ -10,31 +16,52 @@ namespace asugaksharp
         [STAThread]
         static void Main()
         {
+            SQLitePCL.Batteries.Init();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            ApplicationConfiguration.Initialize();
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
 
-            // Путь к БД
-            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "asugak.db");
+            var host = CreateHostBuilder().Build();
 
-            var services = new ServiceCollection();
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlite($"Data Source={dbPath}"));
+            // Р“Р»РѕР±Р°Р»СЊРЅС‹Р№ РѕР±СЂР°Р±РѕС‚С‡РёРє РѕС€РёР±РѕРє
+            Application.ThreadException += (sender, args) =>
+            {
+                MessageBox.Show(
+                    $"РћС€РёР±РєР°:\n\n{args.Exception.Message}",
+                    "РћС€РёР±РєР° РїСЂРёР»РѕР¶РµРЅРёСЏ",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            };
 
-            var serviceProvider = services.BuildServiceProvider();
+           
 
-            // Получаем DbContext БЕЗ using - он должен жить всё время работы приложения
-            var dbContext = serviceProvider.GetRequiredService<AppDbContext>();
+            var mainForm = host.Services.GetRequiredService<MainForm>();
+            Application.Run(mainForm);
+        }
 
-            // Создать БД если не существует
-            dbContext.Database.EnsureCreated();
+        private static IHostBuilder CreateHostBuilder()
+        {
+            return Host.CreateDefaultBuilder()
+                .ConfigureAppConfiguration((hostContext, config) =>
+                {
+                    config.SetBasePath(Directory.GetCurrentDirectory());
+                    config.AddJsonFile("appsettings.json", optional: false);
+                })
+                .ConfigureServices((hostContext, services) =>
+                {
+                    var connectionString = hostContext.Configuration
+                        .GetConnectionString("DefaultConnection")
+                        ?? "Data Source=data/asugak.db";
 
-            // Запускаем главное окно
-            Application.Run(new Form1(dbContext));
+                    services.AddDbContext<AppDbContext>(options =>
+                        options.UseSqlite(connectionString));
 
-            // После закрытия приложения освобождаем ресурсы
-            dbContext.Dispose();
-            serviceProvider.Dispose();
+                    //Р РµРіРёСЃС‚СЂР°С†РёСЏ С„РѕСЂРј
+                    services.AddTransient<MainForm>();
+
+
+                });
         }
     }
 }
