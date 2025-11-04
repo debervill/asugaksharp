@@ -1,4 +1,4 @@
-namespace asugaksharp
+namespace asugaksharp.Presentation
 {
     partial class MainWindowForm
     {
@@ -11,14 +11,7 @@ namespace asugaksharp
         ///  Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+       
 
         #region Windows Form Designer generated code
 
@@ -42,7 +35,7 @@ namespace asugaksharp
             оплатаToolStripMenuItem = new ToolStripMenuItem();
             кафедрыToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
-            SuspendLayout();
+           
             // 
             // menuStrip1
             // 
@@ -65,21 +58,21 @@ namespace asugaksharp
             направленияПодготовкиToolStripMenuItem.Name = "направленияПодготовкиToolStripMenuItem";
             направленияПодготовкиToolStripMenuItem.Size = new Size(214, 22);
             направленияПодготовкиToolStripMenuItem.Text = "Направления подготовки";
-            направленияПодготовкиToolStripMenuItem.Click += btnNaprPodg_Click;
+            //направленияПодготовкиToolStripMenuItem.Click += btnNaprPodg_Click;
             // 
             // профилиПодготовкиToolStripMenuItem
             // 
             профилиПодготовкиToolStripMenuItem.Name = "профилиПодготовкиToolStripMenuItem";
             профилиПодготовкиToolStripMenuItem.Size = new Size(214, 22);
             профилиПодготовкиToolStripMenuItem.Text = "Профили подготовки";
-            профилиПодготовкиToolStripMenuItem.Click += btnProfiliPodg_Click;
+           // профилиПодготовкиToolStripMenuItem.Click += btnProfiliPodg_Click;
             // 
             // студентыToolStripMenuItem
             // 
             студентыToolStripMenuItem.Name = "студентыToolStripMenuItem";
             студентыToolStripMenuItem.Size = new Size(214, 22);
             студентыToolStripMenuItem.Text = "Студенты";
-            студентыToolStripMenuItem.Click += btnStudents_Click;
+            //студентыToolStripMenuItem.Click += btnStudents_Click;
             // 
             // персоналToolStripMenuItem
             // 
@@ -93,7 +86,7 @@ namespace asugaksharp
             добавитьСотрудникаToolStripMenuItem.Name = "добавитьСотрудникаToolStripMenuItem";
             добавитьСотрудникаToolStripMenuItem.Size = new Size(192, 22);
             добавитьСотрудникаToolStripMenuItem.Text = "Добавить сотрудника";
-            добавитьСотрудникаToolStripMenuItem.Click += btnAddPerson_Click;
+            //добавитьСотрудникаToolStripMenuItem.Click += btnAddPerson_Click;
             // 
             // гАКToolStripMenuItem
             // 
@@ -107,7 +100,7 @@ namespace asugaksharp
             заседанияГЭКToolStripMenuItem.Name = "заседанияГЭКToolStripMenuItem";
             заседанияГЭКToolStripMenuItem.Size = new Size(184, 22);
             заседанияГЭКToolStripMenuItem.Text = "Заседания ГЭК";
-            заседанияГЭКToolStripMenuItem.Click += btnGAK_Click;
+            //заседанияГЭКToolStripMenuItem.Click += btnGAK_Click;
             // 
             // периодыЗаседанийToolStripMenuItem
             // 
@@ -127,17 +120,18 @@ namespace asugaksharp
             оплатаToolStripMenuItem.Name = "оплатаToolStripMenuItem";
             оплатаToolStripMenuItem.Size = new Size(114, 22);
             оплатаToolStripMenuItem.Text = "Оплата";
-            оплатаToolStripMenuItem.Click += btnOplata_Click;
+            //оплатаToolStripMenuItem.Click += btnOplata_Click;
             // 
             // кафедрыToolStripMenuItem
             // 
             кафедрыToolStripMenuItem.Name = "кафедрыToolStripMenuItem";
             кафедрыToolStripMenuItem.Size = new Size(214, 22);
             кафедрыToolStripMenuItem.Text = "Кафедры";
-            кафедрыToolStripMenuItem.Click += кафедрыToolStripMenuItem_Click;
+            //кафедрыToolStripMenuItem.Click += кафедрыToolStripMenuItem_Click;
             // 
             // Form1
             // 
+            /*
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(584, 361);
@@ -149,7 +143,9 @@ namespace asugaksharp
             menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
+             */
         }
+
 
         #endregion
 
