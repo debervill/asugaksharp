@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="asugak.db">
+    <Content Include="data\asugak.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -52,6 +52,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Application\Interface\" />
+    <Folder Include="Application\Services\" />
+    <Folder Include="Application\DTO\" />
+    <Folder Include="Core\Interface\" />
+    <Folder Include="Infrastructure\Persistanse\" />
+    <Folder Include="Infrastructure\Documents\" />
+    <Folder Include="Presentation\Diplomnik\" />
     <Folder Include="Templates\" />
   </ItemGroup>
 

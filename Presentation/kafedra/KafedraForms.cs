@@ -1,4 +1,4 @@
-﻿using asugaksharp.Model;
+﻿using asugaksharp.Core.Entities;
 namespace asugaksharp.Forms
 {
     public partial class KafedraForms : Form

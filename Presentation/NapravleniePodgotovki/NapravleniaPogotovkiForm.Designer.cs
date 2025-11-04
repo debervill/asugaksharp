@@ -1,4 +1,6 @@
-﻿namespace asugaksharp.Forms
+﻿using asugaksharp.Core.Entities;
+
+namespace asugaksharp.Forms
 {
     partial class NapravleniaPogotovkiForm
     {
@@ -91,15 +93,15 @@
             // 
             // napravleniePodgotovkiBindingSource
             // 
-            napravleniePodgotovkiBindingSource.DataSource = typeof(Model.NapravleniePodgotovki);
+            napravleniePodgotovkiBindingSource.DataSource = typeof(NapravleniePodgotovki);
             // 
             // kafedraBindingSource
             // 
-            kafedraBindingSource.DataSource = typeof(Model.Kafedra);
+            kafedraBindingSource.DataSource = typeof(Kafedra);
             // 
             // periodZasedaniaBindingSource
             // 
-            periodZasedaniaBindingSource.DataSource = typeof(Model.PeriodZasedania);
+            periodZasedaniaBindingSource.DataSource = typeof(PeriodZasedania);
             // 
             // dataGridView1
             // 

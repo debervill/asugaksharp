@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace asugaksharp.Model
+namespace asugaksharp.Core.Entities
 {
     public class ProfilPodgotovki
     {
@@ -14,9 +14,9 @@ namespace asugaksharp.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
-        public string Name { get; set; } = String.Empty;
+        public string Name { get; set; } = string.Empty;
 
-        public string ShifrPodgot { get; set; } = String.Empty;
+        public string ShifrPodgot { get; set; } = string.Empty;
 
         public Guid NapravleniePodgotovkiID { get; set; }
         public NapravleniePodgotovki? NapravleniePodgotovki {get; set;}

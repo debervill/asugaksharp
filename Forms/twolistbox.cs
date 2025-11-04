@@ -1,4 +1,4 @@
-﻿using asugaksharp.Model;
+﻿using asugaksharp.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.Data;

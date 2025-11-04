@@ -1,4 +1,5 @@
-﻿using asugaksharp.Model;
+﻿using asugaksharp.Core.Entities;
+using asugaksharp.Model;
 using System.Diagnostics;
 
 

@@ -1,4 +1,6 @@
-﻿namespace asugaksharp.Forms
+﻿using asugaksharp.Core.Entities;
+
+namespace asugaksharp.Forms
 {
     partial class ProfiliPodgootovkiForm
     {
@@ -100,7 +102,7 @@
             // 
             // profilPodgotovkiBindingSource
             // 
-            profilPodgotovkiBindingSource.DataSource = typeof(Model.ProfilPodgotovki);
+            profilPodgotovkiBindingSource.DataSource = typeof(ProfilPodgotovki);
             // 
             // label3
             // 

@@ -2,7 +2,7 @@ using asugaksharp.Model;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
-namespace asugaksharp.Forms
+namespace asugaksharp.Presentation.Person
 {
     public partial class AddPersonForm : Form
     {   

@@ -1,4 +1,6 @@
-﻿namespace asugaksharp.Forms
+﻿using asugaksharp.Core.Entities;
+
+namespace asugaksharp.Forms
 {
     partial class PersonForm
     {
@@ -99,7 +101,7 @@
             // 
             // personBindingSource
             // 
-            personBindingSource.DataSource = typeof(Model.Person);
+            personBindingSource.DataSource = typeof(Person);
             // 
             // label1
             // 
@@ -350,7 +352,7 @@
             // 
             // personBindingSource1
             // 
-            personBindingSource1.DataSource = typeof(Model.Person);
+            personBindingSource1.DataSource = typeof(Person);
             // 
             // isVeshnBox
             // 
@@ -567,7 +569,7 @@
             // 
             // kafedraBindingSource
             // 
-            kafedraBindingSource.DataSource = typeof(Model.Kafedra);
+            kafedraBindingSource.DataSource = typeof(Kafedra);
             // 
             // PersonForm
             // 

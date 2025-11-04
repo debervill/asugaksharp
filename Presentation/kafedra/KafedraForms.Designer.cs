@@ -1,4 +1,6 @@
-﻿namespace asugaksharp.Forms
+﻿using asugaksharp.Core.Entities;
+
+namespace asugaksharp.Forms
 {
     partial class KafedraForms
     {
@@ -94,7 +96,7 @@
             // 
             // kafedraBindingSource
             // 
-            kafedraBindingSource.DataSource = typeof(Model.Kafedra);
+            kafedraBindingSource.DataSource = typeof(Kafedra);
             kafedraBindingSource.CurrentChanged += kafedraBindingSource_CurrentChanged;
             // 
             // BtnAdd

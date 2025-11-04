@@ -6,15 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace asugaksharp.Model
+namespace asugaksharp.Core.Entities
 {
     public class NapravleniePodgotovki
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
-        public string Nazvanie { get; set; } = String.Empty;
-        public string ShifrNapr { get; set; } = String.Empty;
+        public string Nazvanie { get; set; } = string.Empty;
+        public string ShifrNapr { get; set; } = string.Empty;
 
         public ICollection<ProfilPodgotovki> ProfilPodgotovkis { get; set; }    
         

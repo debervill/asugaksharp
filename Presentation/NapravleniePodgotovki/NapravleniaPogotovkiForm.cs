@@ -1,3 +1,4 @@
+using asugaksharp.Core.Entities;
 using asugaksharp.Model;
 using System.ComponentModel;
 using System.Windows.Forms;

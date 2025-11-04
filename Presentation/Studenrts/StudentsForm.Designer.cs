@@ -1,4 +1,6 @@
-﻿namespace asugaksharp.Forms
+﻿using asugaksharp.Core.Entities;
+
+namespace asugaksharp.Forms
 {
     partial class StudentsForm
     {
@@ -183,11 +185,11 @@
             // 
             // diplomnikBindingSource
             // 
-            diplomnikBindingSource.DataSource = typeof(Model.Diplomnik);
+            diplomnikBindingSource.DataSource = typeof(Diplomnik);
             // 
             // personBindingSource
             // 
-            personBindingSource.DataSource = typeof(Model.Person);
+            personBindingSource.DataSource = typeof(Person);
             // 
             // dataGridView1
             // 

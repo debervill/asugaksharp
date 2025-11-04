@@ -1,8 +1,7 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace asugaksharp.Model
+namespace asugaksharp.Core.Entities
 {
     public class Person
     {
