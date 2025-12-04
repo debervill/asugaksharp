@@ -1,5 +1,8 @@
 ﻿//using asugaksharp.ApplicationLayer.Interface;
 
+using asugaksharp.Presentation.Forms;
+using Microsoft.Extensions.DependencyInjection;
+
 namespace asugaksharp.Presentation
 {
     public partial class MainForm : Form
@@ -8,7 +11,7 @@ namespace asugaksharp.Presentation
         //private readonly IKafedraService _kafedraService;
 
         // ✅ Конструктор с DI
-        public MainForm (IServiceProvider serviceProvider)
+        public MainForm(IServiceProvider serviceProvider)
         {
             InitializeComponent();
             // _serviceProvider = serviceProvider;
@@ -59,10 +62,11 @@ namespace asugaksharp.Presentation
             // 
             // menuStrip1
             // 
+            menuStrip1.ImageScalingSize = new Size(24, 24);
             menuStrip1.Items.AddRange(new ToolStripItem[] { кафедраToolStripMenuItem, оплатаToolStripMenuItem, personToolStripMenuItem, разноеТестовоеToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(830, 24);
+            menuStrip1.Size = new Size(830, 33);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -70,56 +74,57 @@ namespace asugaksharp.Presentation
             // 
             кафедраToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { кафедраToolStripMenuItem1, направлениеПодготовкиToolStripMenuItem, профильПодготовкиToolStripMenuItem, дипломникToolStripMenuItem });
             кафедраToolStripMenuItem.Name = "кафедраToolStripMenuItem";
-            кафедраToolStripMenuItem.Size = new Size(66, 20);
+            кафедраToolStripMenuItem.Size = new Size(98, 29);
             кафедраToolStripMenuItem.Text = "Кафедра";
             // 
             // кафедраToolStripMenuItem1
             // 
             кафедраToolStripMenuItem1.Name = "кафедраToolStripMenuItem1";
-            кафедраToolStripMenuItem1.Size = new Size(180, 22);
+            кафедраToolStripMenuItem1.Size = new Size(324, 34);
             кафедраToolStripMenuItem1.Text = "Кафедра";
+            кафедраToolStripMenuItem1.Click += кафедраToolStripMenuItem1_Click;
             // 
             // направлениеПодготовкиToolStripMenuItem
             // 
             направлениеПодготовкиToolStripMenuItem.Name = "направлениеПодготовкиToolStripMenuItem";
-            направлениеПодготовкиToolStripMenuItem.Size = new Size(214, 22);
+            направлениеПодготовкиToolStripMenuItem.Size = new Size(324, 34);
             направлениеПодготовкиToolStripMenuItem.Text = "Направление подготовки";
             // 
             // профильПодготовкиToolStripMenuItem
             // 
             профильПодготовкиToolStripMenuItem.Name = "профильПодготовкиToolStripMenuItem";
-            профильПодготовкиToolStripMenuItem.Size = new Size(214, 22);
+            профильПодготовкиToolStripMenuItem.Size = new Size(324, 34);
             профильПодготовкиToolStripMenuItem.Text = "Профиль подготовки";
             // 
             // дипломникToolStripMenuItem
             // 
             дипломникToolStripMenuItem.Name = "дипломникToolStripMenuItem";
-            дипломникToolStripMenuItem.Size = new Size(214, 22);
+            дипломникToolStripMenuItem.Size = new Size(324, 34);
             дипломникToolStripMenuItem.Text = "Дипломник";
             // 
             // оплатаToolStripMenuItem
             // 
             оплатаToolStripMenuItem.Name = "оплатаToolStripMenuItem";
-            оплатаToolStripMenuItem.Size = new Size(59, 20);
+            оплатаToolStripMenuItem.Size = new Size(86, 29);
             оплатаToolStripMenuItem.Text = "Оплата";
             // 
             // personToolStripMenuItem
             // 
             personToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { добавитьЧеловекаToolStripMenuItem });
             personToolStripMenuItem.Name = "personToolStripMenuItem";
-            personToolStripMenuItem.Size = new Size(55, 20);
+            personToolStripMenuItem.Size = new Size(81, 29);
             personToolStripMenuItem.Text = "Person";
             // 
             // добавитьЧеловекаToolStripMenuItem
             // 
             добавитьЧеловекаToolStripMenuItem.Name = "добавитьЧеловекаToolStripMenuItem";
-            добавитьЧеловекаToolStripMenuItem.Size = new Size(180, 22);
+            добавитьЧеловекаToolStripMenuItem.Size = new Size(273, 34);
             добавитьЧеловекаToolStripMenuItem.Text = "Добавить человека";
             // 
             // разноеТестовоеToolStripMenuItem
             // 
             разноеТестовоеToolStripMenuItem.Name = "разноеТестовоеToolStripMenuItem";
-            разноеТестовоеToolStripMenuItem.Size = new Size(108, 20);
+            разноеТестовоеToolStripMenuItem.Size = new Size(162, 29);
             разноеТестовоеToolStripMenuItem.Text = "Разное тестовое";
             // 
             // MainForm
@@ -144,5 +149,19 @@ namespace asugaksharp.Presentation
         private ToolStripMenuItem personToolStripMenuItem;
         private ToolStripMenuItem добавитьЧеловекаToolStripMenuItem;
         private ToolStripMenuItem разноеТестовоеToolStripMenuItem;
+
+        private void кафедраToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var kafedraForm = _serviceProvider.GetRequiredService<KafedraForm>();
+                kafedraForm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при открытии формы:\n{ex.Message}",
+                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

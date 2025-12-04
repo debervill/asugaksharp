@@ -55,9 +55,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ApplicationLayer\DTO\" />
-    <Folder Include="ApplicationLayer\Interface\" />
-    <Folder Include="Core\Interfaces\" />
+    <Folder Include="ApplicationLayer\Interface\Новая папка\" />
     <Folder Include="Infrastructure\Documents\Templates\" />
   </ItemGroup>
 

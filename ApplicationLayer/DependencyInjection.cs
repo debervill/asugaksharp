@@ -1,5 +1,5 @@
 ﻿
-//using asugaksharp.ApplicationLayer.Services;
+using asugaksharp.ApplicationLayer.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace asugaksharp.ApplicationLayer
@@ -9,7 +9,7 @@ namespace asugaksharp.ApplicationLayer
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             // ✅ Сервисы
-            //services.AddScoped<IKafedraService, KafedraService>();
+            services.AddScoped<IKafedraService, KafedraService>();
             /*
             services.AddScoped<IDiplomnikService, DiplomnikService>();
             services.AddScoped<IPersonService, PersonService>();

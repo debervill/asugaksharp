@@ -28,7 +28,7 @@ namespace asugaksharp
             services.AddTransient<MainForm>();
             services.AddTransient<MainWindowForm>();
             //services.AddTransient<KafedraForms>();
-            // Добавьте остальные формы
+           
 
             return services;
         }

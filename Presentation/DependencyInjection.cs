@@ -1,4 +1,4 @@
-﻿using asugaksharp.Presentation;
+﻿using asugaksharp.Presentation.Forms;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace asugaksharp.Presentation
@@ -7,12 +7,15 @@ namespace asugaksharp.Presentation
     {
         public static IServiceCollection AddPresentation(this IServiceCollection services)
         {
-            // ✅ Регистрация форм
+            // ✅ Регистрация главной формы - ВАЖНО: Transient, чтобы каждый раз создавалась новая
             services.AddTransient<MainForm>();
 
-            // TODO: Добавить остальные формы по мере необходимости
-            // services.AddTransient<KafedraListForm>();
-            // services.AddTransient<DiplomnikListForm>();
+            // ✅ Регистрация других форм
+            services.AddTransient<KafedraForm>();
+
+            // TODO: Добавить другие формы по мере необходимости
+            // services.AddTransient<PersonForm>();
+            // services.AddTransient<DiplomnikForm>();
 
             return services;
         }

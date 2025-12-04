@@ -1,6 +1,5 @@
 ﻿//using asugaksharp.Core.Interfaces;
 using asugaksharp.Infrastructure.Persistanse;
-using asugaksharp.Infrastructure.Persistanse;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
