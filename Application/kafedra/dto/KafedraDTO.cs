@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace asugaksharp.ApplicationLayer.DTO
+namespace asugaksharp.ApplicationLayer.kafedra.DTO
 {
     // ApplicationLayer/DTOs/KafedraDto.cs
     public record KafedraDto(Guid Id, string Name);

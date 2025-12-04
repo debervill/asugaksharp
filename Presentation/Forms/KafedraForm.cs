@@ -16,5 +16,20 @@ namespace asugaksharp.Presentation.Forms
         {
             InitializeComponent();
         }
+
+        private void KafedraForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnKafEdit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnKafAdd_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Application\Interface\**" />
+    <EmbeddedResource Remove="Application\Interface\**" />
+    <None Remove="Application\Interface\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="asugak.db" />
   </ItemGroup>
 
@@ -55,7 +61,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ApplicationLayer\Interface\Новая папка\" />
     <Folder Include="Infrastructure\Documents\Templates\" />
   </ItemGroup>
 
