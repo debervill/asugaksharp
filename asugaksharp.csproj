@@ -9,6 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ApplicationLayer\**" />
+    <Compile Remove="Core\Interfaces\**" />
+    <Compile Remove="Infrastructure\**" />
+    <EmbeddedResource Remove="ApplicationLayer\**" />
+    <EmbeddedResource Remove="Core\Interfaces\**" />
+    <EmbeddedResource Remove="Infrastructure\**" />
+    <None Remove="ApplicationLayer\**" />
+    <None Remove="Core\Interfaces\**" />
+    <None Remove="Infrastructure\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="asugak.db" />
   </ItemGroup>
 
@@ -52,13 +64,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ApplicationLayer\DTO\" />
-    <Folder Include="ApplicationLayer\Interface\" />
-    <Folder Include="Core\Interfaces\" />
-    <Folder Include="Infrastructure\Documents\Templates\" />
   </ItemGroup>
 
   <ItemGroup>
