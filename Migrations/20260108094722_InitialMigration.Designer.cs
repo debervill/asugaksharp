@@ -4,31 +4,31 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using asugaksharp.Infrastructure.Persistanse;
+using asugaksharp.Core.Database;
 
 #nullable disable
 
 namespace asugaksharp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250602081039_Add linik Naprav profill")]
-    partial class AddlinikNapravprofill
+    [Migration("20260108094722_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "9.0.5");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
 
             modelBuilder.Entity("GakPerson", b =>
                 {
-                    b.Property<Guid>("GakId")
+                    b.Property<Guid>("GaksId")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("PersonsId")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("GakId", "PersonsId");
+                    b.HasKey("GaksId", "PersonsId");
 
                     b.HasIndex("PersonsId");
 
@@ -50,7 +50,7 @@ namespace asugaksharp.Migrations
                     b.ToTable("PersonZasedanie");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Diplomnik", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Diplomnik", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,10 +88,10 @@ namespace asugaksharp.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Diplomnik");
+                    b.ToTable("Diplomniks");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Docs", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Docs", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -118,7 +118,7 @@ namespace asugaksharp.Migrations
                     b.ToTable("Docs");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Gak", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Gak", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -146,37 +146,25 @@ namespace asugaksharp.Migrations
 
                     b.HasIndex("PeriodZasedaniaId");
 
-                    b.ToTable("Gak");
+                    b.ToTable("Gaks");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Kafedra", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Kafedra", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Fiozav")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Kafedra");
+                    b.ToTable("Kafedras");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.NapravleniePodgotovki", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.NapravleniePodgotovki", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -192,10 +180,10 @@ namespace asugaksharp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("NapravleniePodgotovki");
+                    b.ToTable("NapravleniaPodgotovki");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Oplata", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Oplata", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -223,10 +211,10 @@ namespace asugaksharp.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Oplata");
+                    b.ToTable("Oplatas");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.PeriodZasedania", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.PeriodZasedania", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -236,6 +224,9 @@ namespace asugaksharp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateOnly>("DateStart")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("KafedraId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -248,10 +239,12 @@ namespace asugaksharp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PeriodZasedania");
+                    b.HasIndex("KafedraId");
+
+                    b.ToTable("PeriodZasedanias");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Person", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Person", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -270,8 +263,14 @@ namespace asugaksharp.Migrations
                     b.Property<bool>("IsSecretar")
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("IsVneshniy")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("IsZavKaf")
                         .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("KafedraID")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -287,10 +286,12 @@ namespace asugaksharp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Person");
+                    b.HasIndex("KafedraID");
+
+                    b.ToTable("Persons");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.ProfilPodgotovki", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.ProfilPodgotovki", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -303,6 +304,9 @@ namespace asugaksharp.Migrations
                     b.Property<Guid>("NapravleniePodgotovkiID")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("ProfilPodgotovkiId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("ShifrPodgot")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -311,10 +315,12 @@ namespace asugaksharp.Migrations
 
                     b.HasIndex("NapravleniePodgotovkiID");
 
-                    b.ToTable("ProfilPodgotovki");
+                    b.HasIndex("ProfilPodgotovkiId");
+
+                    b.ToTable("ProfilPodgotovkis");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Zasedanie", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Zasedanie", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -338,18 +344,18 @@ namespace asugaksharp.Migrations
 
                     b.HasIndex("GakID");
 
-                    b.ToTable("Zasedanie");
+                    b.ToTable("Zasedanies");
                 });
 
             modelBuilder.Entity("GakPerson", b =>
                 {
-                    b.HasOne("asugaksharp.Model.Gak", null)
+                    b.HasOne("asugaksharp.Core.Entities.Gak", null)
                         .WithMany()
-                        .HasForeignKey("GakId")
+                        .HasForeignKey("GaksId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("asugaksharp.Model.Person", null)
+                    b.HasOne("asugaksharp.Core.Entities.Person", null)
                         .WithMany()
                         .HasForeignKey("PersonsId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -358,22 +364,22 @@ namespace asugaksharp.Migrations
 
             modelBuilder.Entity("PersonZasedanie", b =>
                 {
-                    b.HasOne("asugaksharp.Model.Person", null)
+                    b.HasOne("asugaksharp.Core.Entities.Person", null)
                         .WithMany()
                         .HasForeignKey("PersonsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("asugaksharp.Model.Zasedanie", null)
+                    b.HasOne("asugaksharp.Core.Entities.Zasedanie", null)
                         .WithMany()
                         .HasForeignKey("ZasedaniesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Diplomnik", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Diplomnik", b =>
                 {
-                    b.HasOne("asugaksharp.Model.Person", "Person")
+                    b.HasOne("asugaksharp.Core.Entities.Person", "Person")
                         .WithMany("Diplomniks")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -382,9 +388,9 @@ namespace asugaksharp.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Docs", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Docs", b =>
                 {
-                    b.HasOne("asugaksharp.Model.Person", "Person")
+                    b.HasOne("asugaksharp.Core.Entities.Person", "Person")
                         .WithMany("Docs")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -393,15 +399,15 @@ namespace asugaksharp.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Gak", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Gak", b =>
                 {
-                    b.HasOne("asugaksharp.Model.Kafedra", "Kafedra")
+                    b.HasOne("asugaksharp.Core.Entities.Kafedra", "Kafedra")
                         .WithMany("Gaks")
                         .HasForeignKey("KafedraID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("asugaksharp.Model.PeriodZasedania", "PeriodZasedania")
+                    b.HasOne("asugaksharp.Core.Entities.PeriodZasedania", "PeriodZasedania")
                         .WithMany("Gaks")
                         .HasForeignKey("PeriodZasedaniaId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -412,9 +418,9 @@ namespace asugaksharp.Migrations
                     b.Navigation("PeriodZasedania");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Oplata", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Oplata", b =>
                 {
-                    b.HasOne("asugaksharp.Model.Person", "Person")
+                    b.HasOne("asugaksharp.Core.Entities.Person", "Person")
                         .WithMany("Oplatas")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -423,20 +429,46 @@ namespace asugaksharp.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.ProfilPodgotovki", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.PeriodZasedania", b =>
                 {
-                    b.HasOne("asugaksharp.Model.NapravleniePodgotovki", "NapravleniePodgotovki")
+                    b.HasOne("asugaksharp.Core.Entities.Kafedra", "Kafedra")
+                        .WithMany("Periods")
+                        .HasForeignKey("KafedraId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Kafedra");
+                });
+
+            modelBuilder.Entity("asugaksharp.Core.Entities.Person", b =>
+                {
+                    b.HasOne("asugaksharp.Core.Entities.Kafedra", "Kafedra")
+                        .WithMany("Persons")
+                        .HasForeignKey("KafedraID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Kafedra");
+                });
+
+            modelBuilder.Entity("asugaksharp.Core.Entities.ProfilPodgotovki", b =>
+                {
+                    b.HasOne("asugaksharp.Core.Entities.NapravleniePodgotovki", "NapravleniePodgotovki")
                         .WithMany("ProfilPodgotovkis")
                         .HasForeignKey("NapravleniePodgotovkiID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("asugaksharp.Core.Entities.ProfilPodgotovki", null)
+                        .WithMany("ProfilPodgotovkis")
+                        .HasForeignKey("ProfilPodgotovkiId");
+
                     b.Navigation("NapravleniePodgotovki");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Zasedanie", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Zasedanie", b =>
                 {
-                    b.HasOne("asugaksharp.Model.Gak", "Gak")
+                    b.HasOne("asugaksharp.Core.Entities.Gak", "Gak")
                         .WithMany("Zasedanies")
                         .HasForeignKey("GakID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -445,33 +477,42 @@ namespace asugaksharp.Migrations
                     b.Navigation("Gak");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Gak", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Gak", b =>
                 {
                     b.Navigation("Zasedanies");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Kafedra", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Kafedra", b =>
                 {
                     b.Navigation("Gaks");
+
+                    b.Navigation("Periods");
+
+                    b.Navigation("Persons");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.NapravleniePodgotovki", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.NapravleniePodgotovki", b =>
                 {
                     b.Navigation("ProfilPodgotovkis");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.PeriodZasedania", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.PeriodZasedania", b =>
                 {
                     b.Navigation("Gaks");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Person", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Person", b =>
                 {
                     b.Navigation("Diplomniks");
 
                     b.Navigation("Docs");
 
                     b.Navigation("Oplatas");
+                });
+
+            modelBuilder.Entity("asugaksharp.Core.Entities.ProfilPodgotovki", b =>
+                {
+                    b.Navigation("ProfilPodgotovkis");
                 });
 #pragma warning restore 612, 618
         }

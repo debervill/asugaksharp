@@ -20,5 +20,6 @@ namespace asugaksharp.Core.Entities
 
         public Guid NapravleniePodgotovkiID { get; set; }
         public NapravleniePodgotovki? NapravleniePodgotovki {get; set;}
+        public ICollection<ProfilPodgotovki> ProfilPodgotovkis { get; set; } = new List<ProfilPodgotovki>();
     }
 }

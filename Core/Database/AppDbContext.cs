@@ -1,7 +1,7 @@
 ﻿using asugaksharp.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace asugaksharp.Infrastructure.Persistanse 
+namespace asugaksharp.Core.Database
 {
     public class AppDbContext : DbContext
     {

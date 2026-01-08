@@ -1,78 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="ApplicationLayer\**" />
-    <Compile Remove="Core\Interfaces\**" />
-    <Compile Remove="Infrastructure\**" />
-    <EmbeddedResource Remove="ApplicationLayer\**" />
-    <EmbeddedResource Remove="Core\Interfaces\**" />
-    <EmbeddedResource Remove="Infrastructure\**" />
-    <None Remove="ApplicationLayer\**" />
-    <None Remove="Core\Interfaces\**" />
-    <None Remove="Infrastructure\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<!-- Database -->
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0" />
 
-  <ItemGroup>
-    <None Remove="asugak.db" />
-  </ItemGroup>
+		<!-- DI and Configuration -->
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
 
-  <ItemGroup>
-    <Content Include="data\asugak.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+		<!-- WPF MVVM -->
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 
-  <ItemGroup>
-	  <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.10" />
-	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.10" />
-	  <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.10" />
-	  <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.10" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.10" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
-	    <PrivateAssets>all</PrivateAssets>
-	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	  </PackageReference>
-	  <PackageReference Include="NPetrovich" Version="2.0.1" />
-	  <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.2" />
-  </ItemGroup>
-	
+		<!-- Optional: Material Design (красивый UI) -->
+		<PackageReference Include="MaterialDesignThemes" Version="5.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Include="App.xaml" />
+	</ItemGroup>
+
 	<ItemGroup>
 		<None Update="appsettings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+		<None Update="appsettings.Development.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
-
-
-	<ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="appsettings.Development.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 
 </Project>
