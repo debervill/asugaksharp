@@ -1,0 +1,82 @@
+<Window x:Class="asugaksharp.Features.Oplata.OplataWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Оплата" Height="550" Width="850"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Панель инструментов -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <Button Content="Добавить" Width="100" Margin="0,0,5,0" Click="AddButton_Click"/>
+            <Button Content="Редактировать" Width="100" Margin="0,0,5,0" Click="EditButton_Click"/>
+            <Button Content="Удалить" Width="100" Margin="0,0,5,0" Click="DeleteButton_Click"/>
+            <Button Content="Обновить" Width="100" Click="RefreshButton_Click"/>
+        </StackPanel>
+
+        <!-- Таблица данных -->
+        <DataGrid Grid.Row="1"
+                  x:Name="DataGridItems"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Сотрудник" Binding="{Binding PersonName}" Width="*"/>
+                <DataGridTextColumn Header="Ставка" Binding="{Binding Stavka, StringFormat=N2}" Width="100"/>
+                <DataGridTextColumn Header="НДФЛ" Binding="{Binding Ndfl, StringFormat=N2}" Width="100"/>
+                <DataGridTextColumn Header="ЕНП" Binding="{Binding Enp, StringFormat=N2}" Width="100"/>
+                <DataGridTextColumn Header="Источник" Binding="{Binding MoneySource}" Width="80"/>
+                <DataGridTextColumn Header="№ договора" Binding="{Binding DogovorNumber}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Панель редактирования -->
+        <GroupBox Grid.Row="2" Header="Редактирование" Margin="0,10,0,0">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Сотрудник:" VerticalAlignment="Center" Margin="0,0,10,5"/>
+                <ComboBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" x:Name="ComboBoxPerson" DisplayMemberPath="Name" Margin="0,0,0,5"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Ставка:" VerticalAlignment="Center" Margin="0,0,10,5"/>
+                <TextBox Grid.Row="1" Grid.Column="1" x:Name="TextBoxStavka" Margin="0,0,20,5"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="НДФЛ:" VerticalAlignment="Center" Margin="0,0,10,5"/>
+                <TextBox Grid.Row="1" Grid.Column="3" x:Name="TextBoxNdfl" Margin="0,0,0,5"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="ЕНП:" VerticalAlignment="Center" Margin="0,0,10,5"/>
+                <TextBox Grid.Row="2" Grid.Column="1" x:Name="TextBoxEnp" Margin="0,0,20,5"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="2" Text="Источник:" VerticalAlignment="Center" Margin="0,0,10,5"/>
+                <TextBox Grid.Row="2" Grid.Column="3" x:Name="TextBoxMoneySource" Margin="0,0,0,5"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="№ договора:" VerticalAlignment="Center" Margin="0,0,10,5"/>
+                <TextBox Grid.Row="3" Grid.Column="1" x:Name="TextBoxDogovorNumber" Margin="0,0,20,5"/>
+
+                <StackPanel Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,0">
+                    <Button Content="Сохранить" Width="100" Margin="0,0,5,0" Click="SaveButton_Click"/>
+                    <Button Content="Отмена" Width="100" Click="CancelButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>

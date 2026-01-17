@@ -1,0 +1,165 @@
+using System.Windows;
+using asugaksharp.Features.Kafedra;
+
+namespace asugaksharp.Features.Person;
+
+public partial class PersonWindow : Window
+{
+    private readonly GetPersonsHandler _getHandler;
+    private readonly CreatePersonHandler _createHandler;
+    private readonly UpdatePersonHandler _updateHandler;
+    private readonly DeletePersonHandler _deleteHandler;
+    private readonly GetKafedrasHandler _getKafedrasHandler;
+
+    private Guid? _editingId = null;
+
+    public PersonWindow(
+        GetPersonsHandler getHandler,
+        CreatePersonHandler createHandler,
+        UpdatePersonHandler updateHandler,
+        DeletePersonHandler deleteHandler,
+        GetKafedrasHandler getKafedrasHandler)
+    {
+        InitializeComponent();
+
+        _getHandler = getHandler;
+        _createHandler = createHandler;
+        _updateHandler = updateHandler;
+        _deleteHandler = deleteHandler;
+        _getKafedrasHandler = getKafedrasHandler;
+
+        Loaded += async (s, e) => await LoadDataAsync();
+    }
+
+    private async Task LoadDataAsync()
+    {
+        var data = await _getHandler.ExecuteAsync();
+        DataGridItems.ItemsSource = data;
+
+        var kafedras = await _getKafedrasHandler.ExecuteAsync();
+        ComboBoxKafedra.ItemsSource = kafedras;
+    }
+
+    private void AddButton_Click(object sender, RoutedEventArgs e)
+    {
+        _editingId = null;
+        ClearForm();
+    }
+
+    private void EditButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataGridItems.SelectedItem is PersonDto selected)
+        {
+            _editingId = selected.Id;
+            TextBoxName.Text = selected.Name;
+            TextBoxStepen.Text = selected.Stepen;
+            TextBoxZvanie.Text = selected.Zvanie;
+            TextBoxDolgnost.Text = selected.Dolgnost;
+            CheckBoxPredsed.IsChecked = selected.IsPredsed;
+            CheckBoxZavKaf.IsChecked = selected.IsZavKaf;
+            CheckBoxSecretar.IsChecked = selected.IsSecretar;
+            CheckBoxRecenzent.IsChecked = selected.IsRecenzent;
+            CheckBoxVneshniy.IsChecked = selected.IsVneshniy;
+
+            var kafedras = ComboBoxKafedra.ItemsSource as List<KafedraDto>;
+            ComboBoxKafedra.SelectedItem = kafedras?.FirstOrDefault(k => k.Id == selected.KafedraId);
+        }
+        else
+        {
+            MessageBox.Show("Выберите запись для редактирования", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    private async void DeleteButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataGridItems.SelectedItem is PersonDto selected)
+        {
+            var result = MessageBox.Show($"Удалить сотрудника \"{selected.Name}\"?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                await _deleteHandler.ExecuteAsync(selected.Id);
+                await LoadDataAsync();
+                ClearForm();
+            }
+        }
+        else
+        {
+            MessageBox.Show("Выберите запись для удаления", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    private async void RefreshButton_Click(object sender, RoutedEventArgs e)
+    {
+        await LoadDataAsync();
+    }
+
+    private async void SaveButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(TextBoxName.Text))
+        {
+            MessageBox.Show("Введите ФИО", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
+        if (ComboBoxKafedra.SelectedItem is not KafedraDto selectedKafedra)
+        {
+            MessageBox.Show("Выберите кафедру", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
+        if (_editingId.HasValue)
+        {
+            var request = new UpdatePersonRequest(
+                _editingId.Value,
+                TextBoxName.Text,
+                TextBoxStepen.Text ?? "",
+                TextBoxZvanie.Text ?? "",
+                TextBoxDolgnost.Text ?? "",
+                CheckBoxPredsed.IsChecked ?? false,
+                CheckBoxZavKaf.IsChecked ?? false,
+                CheckBoxSecretar.IsChecked ?? false,
+                CheckBoxRecenzent.IsChecked ?? false,
+                CheckBoxVneshniy.IsChecked ?? false,
+                selectedKafedra.Id);
+            await _updateHandler.ExecuteAsync(request);
+        }
+        else
+        {
+            var request = new CreatePersonRequest(
+                TextBoxName.Text,
+                TextBoxStepen.Text ?? "",
+                TextBoxZvanie.Text ?? "",
+                TextBoxDolgnost.Text ?? "",
+                CheckBoxPredsed.IsChecked ?? false,
+                CheckBoxZavKaf.IsChecked ?? false,
+                CheckBoxSecretar.IsChecked ?? false,
+                CheckBoxRecenzent.IsChecked ?? false,
+                CheckBoxVneshniy.IsChecked ?? false,
+                selectedKafedra.Id);
+            await _createHandler.ExecuteAsync(request);
+        }
+
+        await LoadDataAsync();
+        ClearForm();
+    }
+
+    private void CancelButton_Click(object sender, RoutedEventArgs e)
+    {
+        ClearForm();
+    }
+
+    private void ClearForm()
+    {
+        _editingId = null;
+        TextBoxName.Text = "";
+        TextBoxStepen.Text = "";
+        TextBoxZvanie.Text = "";
+        TextBoxDolgnost.Text = "";
+        CheckBoxPredsed.IsChecked = false;
+        CheckBoxZavKaf.IsChecked = false;
+        CheckBoxSecretar.IsChecked = false;
+        CheckBoxRecenzent.IsChecked = false;
+        CheckBoxVneshniy.IsChecked = false;
+        ComboBoxKafedra.SelectedItem = null;
+    }
+}
