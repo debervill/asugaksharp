@@ -94,7 +94,12 @@ public partial class App : Application
         // Windows
         services.AddTransient<Features.Kafedra.KafedraWindow>();
         services.AddTransient<Features.Person.PersonWindow>();
+        services.AddTransient<Features.Diplomnik.DiplomnikWindow>();
+        services.AddTransient<Features.Gak.GakWindow>();
+        services.AddTransient<Features.Zasedanie.ZasedanieWindow>();
+        services.AddTransient<Features.PeriodZasedania.PeriodZasedaniaWindow>();
         services.AddTransient<Features.NapravleniePodgotovki.NapravleniePodgotovkiWindow>();
+        services.AddTransient<Features.ProfilPodgotovki.ProfilPodgotovkiWindow>();
         services.AddTransient<Features.Oplata.OplataWindow>();
         services.AddTransient<Features.Oplata.OplataManagementWindow>();
         services.AddTransient<Features.Docs.DocsWindow>();

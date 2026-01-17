@@ -2,7 +2,12 @@ using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using asugaksharp.Features.Kafedra;
 using asugaksharp.Features.NapravleniePodgotovki;
+using asugaksharp.Features.ProfilPodgotovki;
 using asugaksharp.Features.Person;
+using asugaksharp.Features.Diplomnik;
+using asugaksharp.Features.PeriodZasedania;
+using asugaksharp.Features.Gak;
+using asugaksharp.Features.Zasedanie;
 using asugaksharp.Features.Oplata;
 using asugaksharp.Features.Docs;
 
@@ -46,6 +51,41 @@ public partial class MainWindows : Window
     private void MenuDocs_Click(object sender, RoutedEventArgs e)
     {
         var window = App.ServiceProvider.GetRequiredService<DocsWindow>();
+        window.Owner = this;
+        window.ShowDialog();
+    }
+
+    private void MenuProfilPodgotovki_Click(object sender, RoutedEventArgs e)
+    {
+        var window = App.ServiceProvider.GetRequiredService<ProfilPodgotovkiWindow>();
+        window.Owner = this;
+        window.ShowDialog();
+    }
+
+    private void MenuDiplomnik_Click(object sender, RoutedEventArgs e)
+    {
+        var window = App.ServiceProvider.GetRequiredService<DiplomnikWindow>();
+        window.Owner = this;
+        window.ShowDialog();
+    }
+
+    private void MenuPeriodZasedania_Click(object sender, RoutedEventArgs e)
+    {
+        var window = App.ServiceProvider.GetRequiredService<PeriodZasedaniaWindow>();
+        window.Owner = this;
+        window.ShowDialog();
+    }
+
+    private void MenuGak_Click(object sender, RoutedEventArgs e)
+    {
+        var window = App.ServiceProvider.GetRequiredService<GakWindow>();
+        window.Owner = this;
+        window.ShowDialog();
+    }
+
+    private void MenuZasedanie_Click(object sender, RoutedEventArgs e)
+    {
+        var window = App.ServiceProvider.GetRequiredService<ZasedanieWindow>();
         window.Owner = this;
         window.ShowDialog();
     }

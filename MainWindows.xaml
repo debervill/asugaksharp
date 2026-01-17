@@ -18,7 +18,14 @@
             <MenuItem Header="Настройки">
                 <MenuItem Header="Кафедры" Click="MenuKafedra_Click"/>
                 <MenuItem Header="Направления подготовки" Click="MenuNapravlenie_Click"/>
+                <MenuItem Header="Профили подготовки" Click="MenuProfilPodgotovki_Click"/>
                 <MenuItem Header="Сотрудники" Click="MenuPerson_Click"/>
+            </MenuItem>
+            <MenuItem Header="Дипломники" Click="MenuDiplomnik_Click"/>
+            <MenuItem Header="ГАК">
+                <MenuItem Header="Периоды заседаний" Click="MenuPeriodZasedania_Click"/>
+                <MenuItem Header="Комиссии ГАК" Click="MenuGak_Click"/>
+                <MenuItem Header="Заседания" Click="MenuZasedanie_Click"/>
             </MenuItem>
             <MenuItem Header="Оплата" Click="MenuOplata_Click"/>
             <MenuItem Header="Документы" Click="MenuDocs_Click"/>
