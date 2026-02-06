@@ -13,13 +13,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Панель инструментов -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-            <Button Content="Добавить" Width="100" Margin="0,0,5,0" Click="AddButton_Click"/>
-            <Button Content="Редактировать" Width="100" Margin="0,0,5,0" Click="EditButton_Click"/>
-            <Button Content="Удалить" Width="100" Margin="0,0,5,0" Click="DeleteButton_Click"/>
-            <Button Content="Обновить" Width="100" Click="RefreshButton_Click"/>
-        </StackPanel>
+     
 
         <!-- Таблица данных -->
         <DataGrid Grid.Row="1"
@@ -83,10 +77,15 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-                    <Button Content="Сохранить" Width="100" Margin="0,0,5,0" Click="SaveButton_Click"/>
-                    <Button Content="Отмена" Width="100" Click="CancelButton_Click"/>
+                    
+                    <Button Content="Персон. данные" Margin="5,0,5,0" Width="100" Click="PersonalDataButton_Click"/>
+                    <Button Content="Редактировать" Margin="5,0,5,0" Width="100"  Click="EditButton_Click" />
+                    <Button Content="Сохранить" Margin="5,0,5,0" Width="100" Click="SaveButton_Click" RenderTransformOrigin="0.51,-0.199"/>
+                    <Button Content="Удалить" Width="100" Margin="0,0,5,0" Click="DeleteButton_Click"/>
+                    
                 </StackPanel>
             </Grid>
         </GroupBox>
+       
     </Grid>
 </Window>

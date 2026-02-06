@@ -12,6 +12,7 @@ public partial class GakWindow : Window
     private readonly Kafedra.GetKafedrasHandler _getKafedrasHandler;
 
     private Guid? _editingId = null;
+    private List<PeriodZasedania.PeriodZasedaniaDto> _periods = new();
 
     public GakWindow(
         GetGaksHandler getHandler,
@@ -38,8 +39,8 @@ public partial class GakWindow : Window
         var data = await _getHandler.ExecuteAsync();
         DataGridGaks.ItemsSource = data;
 
-        var periodZasedanias = await _getPeriodZasedaniasHandler.ExecuteAsync();
-        ComboBoxPeriodZasedania.ItemsSource = periodZasedanias;
+        _periods = await _getPeriodZasedaniasHandler.ExecuteAsync();
+        ComboBoxPeriodZasedania.ItemsSource = _periods;
 
         var kafedras = await _getKafedrasHandler.ExecuteAsync();
         ComboBoxKafedra.ItemsSource = kafedras;
@@ -59,8 +60,9 @@ public partial class GakWindow : Window
             TextBoxNomerPrikaza.Text = selected.NomerPrikaza;
             TextBoxKolvoBudget.Text = selected.KolvoBudget.ToString();
             TextBoxKolvoPlatka.Text = selected.KolvoPlatka.ToString();
-            ComboBoxPeriodZasedania.SelectedValue = selected.PeriodZasedaniaId;
             ComboBoxKafedra.SelectedValue = selected.KafedraId;
+            ApplyPeriodFilter(selected.KafedraId);
+            ComboBoxPeriodZasedania.SelectedValue = selected.PeriodZasedaniaId;
         }
         else
         {
@@ -165,5 +167,23 @@ public partial class GakWindow : Window
         TextBoxKolvoPlatka.Text = "";
         ComboBoxPeriodZasedania.SelectedIndex = -1;
         ComboBoxKafedra.SelectedIndex = -1;
+        ComboBoxPeriodZasedania.ItemsSource = _periods;
+    }
+
+    private void ComboBoxKafedra_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+    {
+        if (ComboBoxKafedra.SelectedValue is Guid kafedraId)
+            ApplyPeriodFilter(kafedraId);
+        else
+            ComboBoxPeriodZasedania.ItemsSource = _periods;
+
+        ComboBoxPeriodZasedania.SelectedIndex = -1;
+    }
+
+    private void ApplyPeriodFilter(Guid kafedraId)
+    {
+        ComboBoxPeriodZasedania.ItemsSource = _periods
+            .Where(p => p.KafedraId == kafedraId)
+            .ToList();
     }
 }

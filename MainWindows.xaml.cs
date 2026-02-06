@@ -11,6 +11,7 @@ using asugaksharp.Features.Zasedanie;
 using asugaksharp.Features.Oplata;
 using asugaksharp.Features.Docs;
 using asugaksharp.Features.Komissiya;
+using asugaksharp.Features.TestData;
 
 namespace asugaksharp;
 
@@ -143,6 +144,28 @@ public partial class MainWindows : Window
         MessageBox.Show(
             DogovorTagsHelpText,
             "Справка: метки договора",
+            MessageBoxButton.OK,
+            MessageBoxImage.Information);
+    }
+
+    private async void MenuAddTestData_Click(object sender, RoutedEventArgs e)
+    {
+        var handler = App.ServiceProvider.GetRequiredService<SeedTestDataHandler>();
+        var result = await handler.ExecuteAsync();
+
+        if (result.AlreadyExists)
+        {
+            MessageBox.Show(
+                "Тестовые данные уже добавлены.",
+                "Справка: тестовые данные",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            return;
+        }
+
+        MessageBox.Show(
+            $"Добавлено кафедр: {result.KafedraAdded}\nДобавлено сотрудников: {result.PersonsAdded}",
+            "Справка: тестовые данные",
             MessageBoxButton.OK,
             MessageBoxImage.Information);
     }

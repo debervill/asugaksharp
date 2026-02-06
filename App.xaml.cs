@@ -15,6 +15,7 @@ using asugaksharp.Features.ProfilPodgotovki;
 using asugaksharp.Features.Oplata;
 using asugaksharp.Features.Docs;
 using asugaksharp.Features.Komissiya;
+using asugaksharp.Features.TestData;
 
 namespace asugaksharp;
 
@@ -115,6 +116,9 @@ public partial class App : Application
         services.AddTransient<GetGaksByKafedraHandler>();
         services.AddTransient<GetGakKomissiyaHandler>();
         services.AddTransient<SaveGakKomissiyaHandler>();
+
+        // Test data
+        services.AddTransient<SeedTestDataHandler>();
 
         // Windows
         services.AddTransient<Features.Kafedra.KafedraWindow>();

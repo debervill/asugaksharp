@@ -25,10 +25,15 @@
             <MenuItem Header="ГАК">
                 <MenuItem Header="Периоды заседаний" Click="MenuPeriodZasedania_Click"/>
                 <MenuItem Header="Комиссии ГАК" Click="MenuGak_Click"/>
+                <MenuItem Header="Формирование комиссии" Click="MenuKomissiya_Click"/>
                 <MenuItem Header="Заседания" Click="MenuZasedanie_Click"/>
             </MenuItem>
             <MenuItem Header="Оплата" Click="MenuOplata_Click"/>
             <MenuItem Header="Документы" Click="MenuDocs_Click"/>
+            <MenuItem Header="Справка">
+                <MenuItem Header="Метки шаблона договора" Click="MenuDogovorTags_Click"/>
+                <MenuItem Header="Добавить тестовые данные" Click="MenuAddTestData_Click"/>
+            </MenuItem>
         </Menu>
 
         <!-- Основная область -->

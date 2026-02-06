@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using asugaksharp.Features.Kafedra;
 using asugaksharp.Features.Gak;
+using asugaksharp.Features.PeriodZasedania;
 
 namespace asugaksharp.Features.Komissiya;
 
@@ -10,6 +11,7 @@ public partial class KomissiyaWindow : Window
     private readonly GetKafedrasHandler _getKafedrasHandler;
     private readonly GetGaksByKafedraHandler _getGaksByKafedraHandler;
     private readonly GetPersonsByKafedraHandler _getPersonsByKafedraHandler;
+    private readonly GetPeriodZasedaniasHandler _getPeriodZasedaniasHandler;
     private readonly GetGakKomissiyaHandler _getGakKomissiyaHandler;
     private readonly SaveGakKomissiyaHandler _saveGakKomissiyaHandler;
 
@@ -17,6 +19,7 @@ public partial class KomissiyaWindow : Window
     private ObservableCollection<KomissiyaPersonDto> _availablePredsedateli = new();
     private ObservableCollection<KomissiyaPersonDto> _availableSecretari = new();
     private ObservableCollection<KomissiyaPersonDto> _availableSotrudniki = new();
+    private List<GakDto> _gaksByKafedra = new();
 
     // Назначенные в комиссию
     private KomissiyaPersonDto? _predsedatel = null;
@@ -29,6 +32,7 @@ public partial class KomissiyaWindow : Window
         GetKafedrasHandler getKafedrasHandler,
         GetGaksByKafedraHandler getGaksByKafedraHandler,
         GetPersonsByKafedraHandler getPersonsByKafedraHandler,
+        GetPeriodZasedaniasHandler getPeriodZasedaniasHandler,
         GetGakKomissiyaHandler getGakKomissiyaHandler,
         SaveGakKomissiyaHandler saveGakKomissiyaHandler)
     {
@@ -37,6 +41,7 @@ public partial class KomissiyaWindow : Window
         _getKafedrasHandler = getKafedrasHandler;
         _getGaksByKafedraHandler = getGaksByKafedraHandler;
         _getPersonsByKafedraHandler = getPersonsByKafedraHandler;
+        _getPeriodZasedaniasHandler = getPeriodZasedaniasHandler;
         _getGakKomissiyaHandler = getGakKomissiyaHandler;
         _saveGakKomissiyaHandler = saveGakKomissiyaHandler;
 
@@ -58,11 +63,30 @@ public partial class KomissiyaWindow : Window
     {
         if (ComboBoxKafedra.SelectedItem is KafedraDto kafedra)
         {
-            var gaks = await _getGaksByKafedraHandler.ExecuteAsync(kafedra.Id);
-            ComboBoxGak.ItemsSource = gaks;
+            var periods = await _getPeriodZasedaniasHandler.ExecuteAsync();
+            ComboBoxPeriodZasedania.ItemsSource = periods.Where(p => p.KafedraId == kafedra.Id).ToList();
+            ComboBoxPeriodZasedania.SelectedItem = null;
+
+            _gaksByKafedra = await _getGaksByKafedraHandler.ExecuteAsync(kafedra.Id);
+            ComboBoxGak.ItemsSource = _gaksByKafedra;
             ComboBoxGak.SelectedItem = null;
             ClearAll();
         }
+    }
+
+    private void ComboBoxPeriodZasedania_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+    {
+        if (ComboBoxPeriodZasedania.SelectedItem is PeriodZasedaniaDto period)
+        {
+            ComboBoxGak.ItemsSource = _gaksByKafedra.Where(g => g.PeriodZasedaniaId == period.Id).ToList();
+        }
+        else
+        {
+            ComboBoxGak.ItemsSource = _gaksByKafedra;
+        }
+
+        ComboBoxGak.SelectedItem = null;
+        ClearAll();
     }
 
     private async void LoadButton_Click(object sender, RoutedEventArgs e)

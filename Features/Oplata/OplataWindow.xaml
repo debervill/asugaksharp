@@ -4,78 +4,145 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Оплата" Height="550" Width="850"
+        Title="Расчёт оплаты" Height="650" Width="1300"
         WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Панель инструментов -->
+        <!-- Панель выбора кафедры и ГАК -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-            <Button Content="Добавить" Width="100" Margin="0,0,5,0" Click="AddButton_Click"/>
-            <Button Content="Редактировать" Width="100" Margin="0,0,5,0" Click="EditButton_Click"/>
-            <Button Content="Удалить" Width="100" Margin="0,0,5,0" Click="DeleteButton_Click"/>
-            <Button Content="Обновить" Width="100" Click="RefreshButton_Click"/>
+            <TextBlock Text="Кафедра:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <ComboBox x:Name="ComboBoxKafedra"
+                      Width="250"
+                      DisplayMemberPath="Name"
+                      SelectionChanged="ComboBoxKafedra_SelectionChanged"/>
+
+            <TextBlock Text="ГАК:" VerticalAlignment="Center" Margin="20,0,10,0"/>
+            <ComboBox x:Name="ComboBoxGak"
+                      Width="200"
+                      DisplayMemberPath="NomerPrikaza"/>
+
+            <Button Content="Загрузить" Width="100" Margin="20,0,0,0" Click="LoadButton_Click"/>
+            <Button Content="Сохранить всё" Width="100" Margin="10,0,0,0" Click="SaveAllButton_Click"
+                    x:Name="ButtonSaveAll" IsEnabled="False"/>
         </StackPanel>
 
-        <!-- Таблица данных -->
-        <DataGrid Grid.Row="1"
-                  x:Name="DataGridItems"
-                  AutoGenerateColumns="False"
-                  IsReadOnly="True"
-                  SelectionMode="Single"
-                  CanUserAddRows="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Сотрудник" Binding="{Binding PersonName}" Width="*"/>
-                <DataGridTextColumn Header="Ставка" Binding="{Binding Stavka, StringFormat=N2}" Width="100"/>
-                <DataGridTextColumn Header="НДФЛ" Binding="{Binding Ndfl, StringFormat=N2}" Width="100"/>
-                <DataGridTextColumn Header="ЕНП" Binding="{Binding Enp, StringFormat=N2}" Width="100"/>
-                <DataGridTextColumn Header="Источник" Binding="{Binding MoneySource}" Width="80"/>
-                <DataGridTextColumn Header="№ договора" Binding="{Binding DogovorNumber}" Width="100"/>
-            </DataGrid.Columns>
-        </DataGrid>
-
-        <!-- Панель редактирования -->
-        <GroupBox Grid.Row="2" Header="Редактирование" Margin="0,10,0,0">
+        <!-- Информация о ГАК и параметры расчёта -->
+        <GroupBox Grid.Row="1" Header="Параметры расчёта (общие)" Margin="0,0,0,10">
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="Сотрудник:" VerticalAlignment="Center" Margin="0,0,10,5"/>
-                <ComboBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" x:Name="ComboBoxPerson" DisplayMemberPath="Name" Margin="0,0,0,5"/>
+                <TextBlock Grid.Column="0" Text="Бюджет:" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Bold"/>
+                <TextBox Grid.Column="1" x:Name="TextBoxKolvoBudget" IsReadOnly="True" Background="LightGray"/>
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Ставка:" VerticalAlignment="Center" Margin="0,0,10,5"/>
-                <TextBox Grid.Row="1" Grid.Column="1" x:Name="TextBoxStavka" Margin="0,0,20,5"/>
+                <TextBlock Grid.Column="2" Text="Платка:" VerticalAlignment="Center" Margin="20,0,10,0" FontWeight="Bold"/>
+                <TextBox Grid.Column="3" x:Name="TextBoxKolvoPlatka" IsReadOnly="True" Background="LightGray"/>
 
-                <TextBlock Grid.Row="1" Grid.Column="2" Text="НДФЛ:" VerticalAlignment="Center" Margin="0,0,10,5"/>
-                <TextBox Grid.Row="1" Grid.Column="3" x:Name="TextBoxNdfl" Margin="0,0,0,5"/>
+                <TextBlock Grid.Column="4" Text="Стоимость часа:" VerticalAlignment="Center" Margin="20,0,10,0"/>
+                <TextBox Grid.Column="5" x:Name="TextBoxStoimostChasa"/>
 
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="ЕНП:" VerticalAlignment="Center" Margin="0,0,10,5"/>
-                <TextBox Grid.Row="2" Grid.Column="1" x:Name="TextBoxEnp" Margin="0,0,20,5"/>
+                <Button Grid.Column="6" Content="Применить ко всем" Width="130" Margin="20,0,0,0" Click="ApplyToAllButton_Click"/>
 
-                <TextBlock Grid.Row="2" Grid.Column="2" Text="Источник:" VerticalAlignment="Center" Margin="0,0,10,5"/>
-                <TextBox Grid.Row="2" Grid.Column="3" x:Name="TextBoxMoneySource" Margin="0,0,0,5"/>
+                <!-- Кнопка Документы с выпадающим меню -->
+                <Button Grid.Column="7" x:Name="ButtonDocuments" Content="Документы ▼" Width="120" Margin="10,0,0,0"
+                        IsEnabled="False" Click="ButtonDocuments_Click" HorizontalAlignment="Left">
+                    <Button.ContextMenu>
+                        <ContextMenu x:Name="DocumentsContextMenu">
+                            <MenuItem Header="Сгенерировать все документы" Click="GenerateAllDocuments_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Договоры ГПХ" Click="GenerateDogovors_Click"/>
+                            <MenuItem Header="Акты выполненных работ" Click="GenerateAkts_Click"/>
+                            <MenuItem Header="Заявления" Click="GenerateZayavleniya_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Документы для выбранного..." x:Name="MenuSelectedPerson" IsEnabled="False">
+                                <MenuItem Header="Все документы" Click="GenerateAllForSelected_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Договор ГПХ" Click="GenerateDogovorForSelected_Click"/>
+                                <MenuItem Header="Акт выполненных работ" Click="GenerateAktForSelected_Click"/>
+                                <MenuItem Header="Заявление" Click="GenerateZayavlenieForSelected_Click"/>
+                            </MenuItem>
+                            <Separator/>
+                            <MenuItem Header="Открыть папку с документами" Click="OpenDocumentsFolder_Click"/>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+            </Grid>
+        </GroupBox>
 
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="№ договора:" VerticalAlignment="Center" Margin="0,0,10,5"/>
-                <TextBox Grid.Row="3" Grid.Column="1" x:Name="TextBoxDogovorNumber" Margin="0,0,20,5"/>
+        <!-- Таблица внешних членов комиссии с расчётами -->
+        <DataGrid Grid.Row="2"
+                  x:Name="DataGridOplata"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="False"
+                  SelectionMode="Extended"
+                  SelectionUnit="CellOrRowHeader"
+                  ClipboardCopyMode="ExcludeHeader"
+                  CanUserAddRows="False"
+                  CellEditEnding="DataGridOplata_CellEditEnding">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Копировать" Click="CopyMenuItem_Click" InputGestureText="Ctrl+C"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding PersonName}" Width="180" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Роль" Binding="{Binding RolVGek}" Width="90" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Бюджет" Binding="{Binding KolvoBudget}" Width="70"/>
+                <DataGridTextColumn Header="Платка" Binding="{Binding KolvoPlatka}" Width="70"/>
+                <DataGridTextColumn Header="Всего" Binding="{Binding KolvoStudentov}" Width="60" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Коэфф." Binding="{Binding Koefficient, StringFormat=F2}" Width="70"/>
+                <DataGridTextColumn Header="Академ. ч." Binding="{Binding AkademChasov, StringFormat=F2}" Width="80" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Астроном. ч." Binding="{Binding AstronomChasov, StringFormat=F2}" Width="90" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Ст-ть часа" Binding="{Binding StoimostChasa, StringFormat=F2}" Width="80"/>
+                <DataGridTextColumn Header="Ст-ть акад. часа с налогами" Binding="{Binding StoimostAkademChasaSNalogami, StringFormat=F2}" Width="140" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Общая стоимость услуг" Binding="{Binding ObshayaStoimostUslugPoDogovoru, StringFormat=F2}" Width="140" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Начислено" Binding="{Binding SummaBezNalogov, StringFormat=F2}" Width="100" IsReadOnly="True"/>
+                <DataGridTextColumn Header="НДФЛ (13%)" Binding="{Binding NdflSumma, StringFormat=F2}" Width="90" IsReadOnly="True"/>
+                <DataGridTextColumn Header="ЕНП (30%)" Binding="{Binding EnpSumma, StringFormat=F2}" Width="90" IsReadOnly="True"/>
+                <DataGridTextColumn Header="К выплате" Binding="{Binding SummaKVyplate, StringFormat=F2}" Width="100" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
-                <StackPanel Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,0">
-                    <Button Content="Сохранить" Width="100" Margin="0,0,5,0" Click="SaveButton_Click"/>
-                    <Button Content="Отмена" Width="100" Click="CancelButton_Click"/>
-                </StackPanel>
+        <!-- Итого -->
+        <GroupBox Grid.Row="3" Header="Итого" Margin="0,10,0,0">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Начислено:" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Bold"/>
+                <TextBox Grid.Column="1" x:Name="TextBoxTotalNachisleno" IsReadOnly="True" Background="LightGray"/>
+
+                <TextBlock Grid.Column="2" Text="НДФЛ:" VerticalAlignment="Center" Margin="20,0,10,0" FontWeight="Bold"/>
+                <TextBox Grid.Column="3" x:Name="TextBoxTotalNdfl" IsReadOnly="True" Background="LightGray"/>
+
+                <TextBlock Grid.Column="4" Text="ЕНП:" VerticalAlignment="Center" Margin="20,0,10,0" FontWeight="Bold"/>
+                <TextBox Grid.Column="5" x:Name="TextBoxTotalEnp" IsReadOnly="True" Background="LightGray"/>
+
+                <TextBlock Grid.Column="6" Text="К выплате:" VerticalAlignment="Center" Margin="20,0,10,0" FontWeight="Bold"/>
+                <TextBox Grid.Column="7" x:Name="TextBoxTotalKVyplate" IsReadOnly="True" Background="LightGreen" FontWeight="Bold"/>
             </Grid>
         </GroupBox>
     </Grid>
