@@ -18,17 +18,25 @@ namespace asugaksharp.Core.Entities
         public bool IsRecenzent { get; set; }
         public bool IsVneshniy { get; set; }
 
-        
+        // Персональные данные
+        public string? PassportSeria { get; set; }
+        public string? PassportNomer { get; set; }
+        public string? PassportIssuedBy { get; set; }
+        public string? RegistrationAddress { get; set; }
+        public string? Snils { get; set; }
+        public string? Inn { get; set; }
+        public string? Email { get; set; }
+        public string? Phone { get; set; }
+
         //от таблицы кафедра
 
         public Guid KafedraID { get; set; }
         public Kafedra? Kafedra { get; set; }
 
 
-        //от таблицы заседание
+        //от таблицы заседание через PersonZasedanie
+        public ICollection<PersonZasedanie>? PersonZasedanies { get; set; }
 
-        public ICollection<Zasedanie>? Zasedanies { get; set; }
-       
         //от таблицы докс
         public ICollection<Docs>? Docs { get; set; }
 

@@ -16,10 +16,13 @@ namespace asugaksharp.Core.Entities
         public Guid GakID { get; set; }
         public Gak? Gak { get; set; }
 
-        //связь с персон
-        public ICollection<Person>? Persons { get; set; }
+        //связь с персон через PersonZasedanie
+        public ICollection<PersonZasedanie>? PersonZasedanies { get; set; }
 
+        //связь с дипломниками
+        public ICollection<Diplomnik>? Diplomniks { get; set; }
 
-        
+        //связь с оплатами
+        public ICollection<Oplata>? Oplatas { get; set; }
     }
 }

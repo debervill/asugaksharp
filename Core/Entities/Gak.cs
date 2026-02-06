@@ -9,6 +9,8 @@ namespace asugaksharp.Core.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         public string NomerPrikaza { get; set; } = string.Empty;
+        public string Osnovanie { get; set; } = string.Empty; // основание (приказ ВПО №1156 от 15.12.2023)
+        public DateTime DataPrikaza { get; set; }
         public int KolvoBudget { get; set; }
         public int KolvoPlatka { get; set; }
 
@@ -24,7 +26,15 @@ namespace asugaksharp.Core.Entities
         public Guid KafedraID { get; set; }
         public Kafedra? Kafedra { get; set; }
 
-        //от таблицы персона 
-        public ICollection<Person>? Persons { get; set; }    
+        //от таблицы персона - председатель ГАК
+        public Guid? PredsedatelId { get; set; }
+        public Person? Predsedatel { get; set; }
+
+        //от таблицы персона - секретарь ГАК
+        public Guid? SekretarId { get; set; }
+        public Person? Sekretar { get; set; }
+
+        //от таблицы персона - члены комиссии
+        public ICollection<Person>? Persons { get; set; }
     }
 }

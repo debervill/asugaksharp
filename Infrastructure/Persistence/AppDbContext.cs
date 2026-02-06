@@ -20,6 +20,8 @@ public class AppDbContext : DbContext
     public DbSet<ProfilPodgotovki> ProfilPodgotovki { get; set; }
     public DbSet<Oplata> Oplata { get; set; }
     public DbSet<Docs> Docs { get; set; }
+    public DbSet<PersonZasedanie> PersonZasedanie { get; set; }
+    public DbSet<Normativ> Normativ { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -27,5 +29,22 @@ public class AppDbContext : DbContext
 
         // Применяем все конфигурации из сборки
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+
+        // Настройка связей Gak с Person
+        modelBuilder.Entity<Gak>()
+            .HasOne(g => g.Predsedatel)
+            .WithMany()
+            .HasForeignKey(g => g.PredsedatelId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        modelBuilder.Entity<Gak>()
+            .HasOne(g => g.Sekretar)
+            .WithMany()
+            .HasForeignKey(g => g.SekretarId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        modelBuilder.Entity<Gak>()
+            .HasMany(g => g.Persons)
+            .WithMany(p => p.Gaks);
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Globalization;
+using System.Windows;
+using System.Windows.Markup;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using asugaksharp.Infrastructure.Persistence;
@@ -12,6 +14,7 @@ using asugaksharp.Features.NapravleniePodgotovki;
 using asugaksharp.Features.ProfilPodgotovki;
 using asugaksharp.Features.Oplata;
 using asugaksharp.Features.Docs;
+using asugaksharp.Features.Komissiya;
 
 namespace asugaksharp;
 
@@ -21,6 +24,14 @@ public partial class App : Application
 
     public App()
     {
+        // Устанавливаем русскую культуру (запятая как разделитель дробной части)
+        var culture = new CultureInfo("ru-RU");
+        CultureInfo.DefaultThreadCurrentCulture = culture;
+        CultureInfo.DefaultThreadCurrentUICulture = culture;
+        FrameworkElement.LanguageProperty.OverrideMetadata(
+            typeof(FrameworkElement),
+            new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(culture.IetfLanguageTag)));
+
         var services = new ServiceCollection();
         ConfigureServices(services);
         ServiceProvider = services.BuildServiceProvider();
@@ -42,6 +53,8 @@ public partial class App : Application
         services.AddTransient<CreatePersonHandler>();
         services.AddTransient<UpdatePersonHandler>();
         services.AddTransient<DeletePersonHandler>();
+        services.AddTransient<GetPersonalDataHandler>();
+        services.AddTransient<UpdatePersonalDataHandler>();
 
         // Diplomnik
         services.AddTransient<GetDiplomniksHandler>();
@@ -84,12 +97,24 @@ public partial class App : Application
         services.AddTransient<CreateOplataHandler>();
         services.AddTransient<UpdateOplataHandler>();
         services.AddTransient<DeleteOplataHandler>();
+        services.AddTransient<GetGakInfoHandler>();
+        services.AddTransient<GetGakExternalMembersHandler>();
+        services.AddTransient<GetOplatasByGakHandler>();
+        services.AddTransient<SaveOplatasByGakHandler>();
 
         // Docs
         services.AddTransient<GetDocsHandler>();
         services.AddTransient<CreateDocsHandler>();
         services.AddTransient<UpdateDocsHandler>();
         services.AddTransient<DeleteDocsHandler>();
+        services.AddSingleton<DocumentGenerator>();
+        services.AddTransient<GenerateDocumentHandler>();
+
+        // Komissiya
+        services.AddTransient<GetPersonsByKafedraHandler>();
+        services.AddTransient<GetGaksByKafedraHandler>();
+        services.AddTransient<GetGakKomissiyaHandler>();
+        services.AddTransient<SaveGakKomissiyaHandler>();
 
         // Windows
         services.AddTransient<Features.Kafedra.KafedraWindow>();
@@ -103,5 +128,6 @@ public partial class App : Application
         services.AddTransient<Features.Oplata.OplataWindow>();
         services.AddTransient<Features.Oplata.OplataManagementWindow>();
         services.AddTransient<Features.Docs.DocsWindow>();
+        services.AddTransient<Features.Komissiya.KomissiyaWindow>();
     }
 }

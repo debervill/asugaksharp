@@ -10,11 +10,52 @@ using asugaksharp.Features.Gak;
 using asugaksharp.Features.Zasedanie;
 using asugaksharp.Features.Oplata;
 using asugaksharp.Features.Docs;
+using asugaksharp.Features.Komissiya;
 
 namespace asugaksharp;
 
 public partial class MainWindows : Window
 {
+    private const string DogovorTagsHelpText =
+        "Метки для шаблона договора (используйте в docx как {{Метка}}):\n" +
+        "{{НомерДоговора}}\n" +
+        "{{ДатаДень}}\n" +
+        "{{ДатаМесяц}}\n" +
+        "{{ДатаГод}}\n" +
+        "{{ДатаДоговора}}\n" +
+        "{{ФИО}}\n" +
+        "{{ПаспортСерия}}\n" +
+        "{{ПаспортНомер}}\n" +
+        "{{ПаспортКемВыдан}}\n" +
+        "{{АдресРегистрации}}\n" +
+        "{{СНИЛС}}\n" +
+        "{{ИНН}}\n" +
+        "{{Email}}\n" +
+        "{{Телефон}}\n" +
+        "{{Степень}}\n" +
+        "{{Звание}}\n" +
+        "{{Должность}}\n" +
+        "{{РольВГЭК}}\n" +
+        "{{НомерПриказа}}\n" +
+        "{{ДатаПриказа}}\n" +
+        "{{Основание}}\n" +
+        "{{КоличествоБюджет}}\n" +
+        "{{КоличествоПлатка}}\n" +
+        "{{КоличествоВсего}}\n" +
+        "{{Коэффициент}}\n" +
+        "{{СтоимостьЧаса}}\n" +
+        "{{АкадемЧасов}}\n" +
+        "{{АстрономЧасов}}\n" +
+        "{{СуммаБезНалогов}}\n" +
+        "{{СуммаБезНалоговПрописью}}\n" +
+        "{{НДФЛ}}\n" +
+        "{{НДФЛПроцент}}\n" +
+        "{{ЕНП}}\n" +
+        "{{ЕНПпроцент}}\n" +
+        "{{СуммаКВыплате}}\n" +
+        "{{СуммаКВыплатеПрописью}}\n" +
+        "{{СуммаСНалогами}}";
+
     public MainWindows()
     {
         InitializeComponent();
@@ -43,7 +84,7 @@ public partial class MainWindows : Window
 
     private void MenuOplata_Click(object sender, RoutedEventArgs e)
     {
-        var window = App.ServiceProvider.GetRequiredService<OplataManagementWindow>();
+        var window = App.ServiceProvider.GetRequiredService<OplataWindow>();
         window.Owner = this;
         window.ShowDialog();
     }
@@ -88,5 +129,21 @@ public partial class MainWindows : Window
         var window = App.ServiceProvider.GetRequiredService<ZasedanieWindow>();
         window.Owner = this;
         window.ShowDialog();
+    }
+
+    private void MenuKomissiya_Click(object sender, RoutedEventArgs e)
+    {
+        var window = App.ServiceProvider.GetRequiredService<KomissiyaWindow>();
+        window.Owner = this;
+        window.ShowDialog();
+    }
+
+    private void MenuDogovorTags_Click(object sender, RoutedEventArgs e)
+    {
+        MessageBox.Show(
+            DogovorTagsHelpText,
+            "Справка: метки договора",
+            MessageBoxButton.OK,
+            MessageBoxImage.Information);
     }
 }

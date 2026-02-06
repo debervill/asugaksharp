@@ -16,13 +16,29 @@ public class GetOplatasHandler
             .OrderBy(o => o.Person != null ? o.Person.Name : "")
             .Select(o => new OplataDto(
                 o.Id,
-                o.Stavka,
-                o.Ndfl,
-                o.Enp,
-                o.MoneySource,
-                o.DogovorNumber,
                 o.PersonId,
-                o.Person != null ? o.Person.Name : null))
+                o.Person != null ? o.Person.Name : null,
+                o.GakId,
+                o.RolVGek,
+                o.KolvoBudget,
+                o.KolvoPlatka,
+                o.Koefficient,
+                o.StoimostChasa,
+                o.StoimostAkademChasaSNalogami,
+                o.ObshayaStoimostUslugPoDogovoru,
+                o.AkademChasov,
+                o.AstronomChasov,
+                o.SummaBezNalogov,
+                o.NdflProc,
+                o.NdflSumma,
+                o.EnpProc,
+                o.EnpSumma,
+                o.SummaKVyplate,
+                o.SummaSNalogami,
+                o.DogovorNumber,
+                o.MoneySource,
+                o.DataRascheta,
+                o.IsDogovorGenerated))
             .ToListAsync(ct);
     }
 }

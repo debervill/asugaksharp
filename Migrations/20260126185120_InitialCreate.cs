@@ -18,7 +18,9 @@ namespace asugaksharp.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     ShortName = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    Phone = table.Column<string>(type: "TEXT", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,6 +38,22 @@ namespace asugaksharp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_NapravleniePodgotovki", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Normativ",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    RolVGek = table.Column<string>(type: "TEXT", nullable: false),
+                    StavkaZaStudenta = table.Column<float>(type: "REAL", nullable: false),
+                    NormaVremeni = table.Column<float>(type: "REAL", nullable: false),
+                    Osnovanie = table.Column<string>(type: "TEXT", nullable: false),
+                    Kod = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Normativ", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,6 +131,8 @@ namespace asugaksharp.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     NomerPrikaza = table.Column<string>(type: "TEXT", nullable: false),
+                    Osnovanie = table.Column<string>(type: "TEXT", nullable: false),
+                    DataPrikaza = table.Column<DateTime>(type: "TEXT", nullable: false),
                     KolvoBudget = table.Column<int>(type: "INTEGER", nullable: false),
                     KolvoPlatka = table.Column<int>(type: "INTEGER", nullable: false),
                     PeriodZasedaniaId = table.Column<Guid>(type: "TEXT", nullable: false),
@@ -136,31 +156,6 @@ namespace asugaksharp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Diplomnik",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    FioImen = table.Column<string>(type: "TEXT", nullable: false),
-                    FioRodit = table.Column<string>(type: "TEXT", nullable: false),
-                    Sex = table.Column<string>(type: "TEXT", nullable: false),
-                    Pages = table.Column<int>(type: "INTEGER", nullable: false),
-                    Tema = table.Column<string>(type: "TEXT", nullable: false),
-                    OrigVkr = table.Column<float>(type: "REAL", nullable: false),
-                    Srball = table.Column<float>(type: "REAL", nullable: false),
-                    PersonId = table.Column<Guid>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Diplomnik", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Diplomnik_Person_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "Person",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Docs",
                 columns: table => new
                 {
@@ -175,29 +170,6 @@ namespace asugaksharp.Migrations
                     table.PrimaryKey("PK_Docs", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Docs_Person_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "Person",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Oplata",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Stavka = table.Column<float>(type: "REAL", nullable: false),
-                    Ndfl = table.Column<float>(type: "REAL", nullable: false),
-                    Enp = table.Column<float>(type: "REAL", nullable: false),
-                    MoneySource = table.Column<int>(type: "INTEGER", nullable: false),
-                    DogovorNumber = table.Column<int>(type: "INTEGER", nullable: false),
-                    PersonId = table.Column<Guid>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Oplata", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Oplata_Person_PersonId",
                         column: x => x.PersonId,
                         principalTable: "Person",
                         principalColumn: "Id",
@@ -250,24 +222,97 @@ namespace asugaksharp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PersonZasedanie",
+                name: "Diplomnik",
                 columns: table => new
                 {
-                    PersonsId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ZasedaniesId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    FioImen = table.Column<string>(type: "TEXT", nullable: false),
+                    FioRodit = table.Column<string>(type: "TEXT", nullable: false),
+                    Sex = table.Column<string>(type: "TEXT", nullable: false),
+                    Pages = table.Column<int>(type: "INTEGER", nullable: false),
+                    Tema = table.Column<string>(type: "TEXT", nullable: false),
+                    OrigVkr = table.Column<float>(type: "REAL", nullable: false),
+                    Srball = table.Column<float>(type: "REAL", nullable: false),
+                    PersonId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ZasedanieId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PersonZasedanie", x => new { x.PersonsId, x.ZasedaniesId });
+                    table.PrimaryKey("PK_Diplomnik", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PersonZasedanie_Person_PersonsId",
-                        column: x => x.PersonsId,
+                        name: "FK_Diplomnik_Person_PersonId",
+                        column: x => x.PersonId,
                         principalTable: "Person",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PersonZasedanie_Zasedanie_ZasedaniesId",
-                        column: x => x.ZasedaniesId,
+                        name: "FK_Diplomnik_Zasedanie_ZasedanieId",
+                        column: x => x.ZasedanieId,
+                        principalTable: "Zasedanie",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Oplata",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    PersonId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ZasedanieId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    RolVGek = table.Column<string>(type: "TEXT", nullable: false),
+                    KolvoStudentov = table.Column<int>(type: "INTEGER", nullable: false),
+                    StavkaZaStudenta = table.Column<float>(type: "REAL", nullable: false),
+                    SummaBezNalogov = table.Column<float>(type: "REAL", nullable: false),
+                    NdflProc = table.Column<float>(type: "REAL", nullable: false),
+                    NdflSumma = table.Column<float>(type: "REAL", nullable: false),
+                    EnpProc = table.Column<float>(type: "REAL", nullable: false),
+                    EnpSumma = table.Column<float>(type: "REAL", nullable: false),
+                    SummaKVyplate = table.Column<float>(type: "REAL", nullable: false),
+                    SummaSNalogami = table.Column<float>(type: "REAL", nullable: false),
+                    DogovorNumber = table.Column<int>(type: "INTEGER", nullable: false),
+                    MoneySource = table.Column<int>(type: "INTEGER", nullable: false),
+                    DataRascheta = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    IsDogovorGenerated = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Oplata", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Oplata_Person_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "Person",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Oplata_Zasedanie_ZasedanieId",
+                        column: x => x.ZasedanieId,
+                        principalTable: "Zasedanie",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PersonZasedanie",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    PersonId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ZasedanieId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    RolVGek = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersonZasedanie", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PersonZasedanie_Person_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "Person",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PersonZasedanie_Zasedanie_ZasedanieId",
+                        column: x => x.ZasedanieId,
                         principalTable: "Zasedanie",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -277,6 +322,11 @@ namespace asugaksharp.Migrations
                 name: "IX_Diplomnik_PersonId",
                 table: "Diplomnik",
                 column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Diplomnik_ZasedanieId",
+                table: "Diplomnik",
+                column: "ZasedanieId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Docs_PersonId",
@@ -304,6 +354,11 @@ namespace asugaksharp.Migrations
                 column: "PersonId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Oplata_ZasedanieId",
+                table: "Oplata",
+                column: "ZasedanieId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PeriodZasedania_KafedraId",
                 table: "PeriodZasedania",
                 column: "KafedraId");
@@ -314,9 +369,14 @@ namespace asugaksharp.Migrations
                 column: "KafedraID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PersonZasedanie_ZasedaniesId",
+                name: "IX_PersonZasedanie_PersonId",
                 table: "PersonZasedanie",
-                column: "ZasedaniesId");
+                column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PersonZasedanie_ZasedanieId",
+                table: "PersonZasedanie",
+                column: "ZasedanieId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProfilPodgotovki_NapravleniePodgotovkiID",
@@ -340,6 +400,9 @@ namespace asugaksharp.Migrations
 
             migrationBuilder.DropTable(
                 name: "GakPerson");
+
+            migrationBuilder.DropTable(
+                name: "Normativ");
 
             migrationBuilder.DropTable(
                 name: "Oplata");

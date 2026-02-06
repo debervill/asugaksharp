@@ -10,6 +10,8 @@ public partial class PersonWindow : Window
     private readonly UpdatePersonHandler _updateHandler;
     private readonly DeletePersonHandler _deleteHandler;
     private readonly GetKafedrasHandler _getKafedrasHandler;
+    private readonly GetPersonalDataHandler _getPersonalDataHandler;
+    private readonly UpdatePersonalDataHandler _updatePersonalDataHandler;
 
     private Guid? _editingId = null;
 
@@ -18,7 +20,9 @@ public partial class PersonWindow : Window
         CreatePersonHandler createHandler,
         UpdatePersonHandler updateHandler,
         DeletePersonHandler deleteHandler,
-        GetKafedrasHandler getKafedrasHandler)
+        GetKafedrasHandler getKafedrasHandler,
+        GetPersonalDataHandler getPersonalDataHandler,
+        UpdatePersonalDataHandler updatePersonalDataHandler)
     {
         InitializeComponent();
 
@@ -27,6 +31,8 @@ public partial class PersonWindow : Window
         _updateHandler = updateHandler;
         _deleteHandler = deleteHandler;
         _getKafedrasHandler = getKafedrasHandler;
+        _getPersonalDataHandler = getPersonalDataHandler;
+        _updatePersonalDataHandler = updatePersonalDataHandler;
 
         Loaded += async (s, e) => await LoadDataAsync();
     }
@@ -161,5 +167,21 @@ public partial class PersonWindow : Window
         CheckBoxRecenzent.IsChecked = false;
         CheckBoxVneshniy.IsChecked = false;
         ComboBoxKafedra.SelectedItem = null;
+    }
+
+    private void PersonalDataButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataGridItems.SelectedItem is not PersonDto selected)
+        {
+            MessageBox.Show("Выберите сотрудника", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        var window = new PersonalDataWindow(
+            _getPersonalDataHandler,
+            _updatePersonalDataHandler,
+            selected.Id);
+        window.Owner = this;
+        window.ShowDialog();
     }
 }
