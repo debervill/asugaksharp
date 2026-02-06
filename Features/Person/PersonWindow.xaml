@@ -13,7 +13,14 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-     
+        <!-- Фильтр -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="Кафедра:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <ComboBox x:Name="ComboBoxKafedraFilter"
+                      Width="250"
+                      DisplayMemberPath="Name"
+                      SelectionChanged="ComboBoxKafedraFilter_SelectionChanged"/>
+        </StackPanel>
 
         <!-- Таблица данных -->
         <DataGrid Grid.Row="1"

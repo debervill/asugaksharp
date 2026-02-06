@@ -14,6 +14,7 @@ public partial class PersonWindow : Window
     private readonly UpdatePersonalDataHandler _updatePersonalDataHandler;
 
     private Guid? _editingId = null;
+    private List<PersonDto> _allPersons = new();
 
     public PersonWindow(
         GetPersonsHandler getHandler,
@@ -39,11 +40,18 @@ public partial class PersonWindow : Window
 
     private async Task LoadDataAsync()
     {
-        var data = await _getHandler.ExecuteAsync();
-        DataGridItems.ItemsSource = data;
+        var selectedFilterId = (ComboBoxKafedraFilter.SelectedItem as KafedraDto)?.Id;
+
+        _allPersons = await _getHandler.ExecuteAsync();
 
         var kafedras = await _getKafedrasHandler.ExecuteAsync();
         ComboBoxKafedra.ItemsSource = kafedras;
+        ComboBoxKafedraFilter.ItemsSource = kafedras;
+
+        if (selectedFilterId.HasValue)
+            ComboBoxKafedraFilter.SelectedItem = kafedras.FirstOrDefault(k => k.Id == selectedFilterId.Value);
+
+        ApplyFilter();
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -167,6 +175,26 @@ public partial class PersonWindow : Window
         CheckBoxRecenzent.IsChecked = false;
         CheckBoxVneshniy.IsChecked = false;
         ComboBoxKafedra.SelectedItem = null;
+    }
+
+    private void ComboBoxKafedraFilter_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+    {
+        ApplyFilter();
+    }
+
+    private void ApplyFilter()
+    {
+        if (ComboBoxKafedraFilter.SelectedItem is not KafedraDto selectedKafedra)
+        {
+            DataGridItems.ItemsSource = new List<PersonDto>();
+            DataGridItems.SelectedItem = null;
+            return;
+        }
+
+        DataGridItems.ItemsSource = _allPersons
+            .Where(p => p.KafedraId == selectedKafedra.Id)
+            .ToList();
+        DataGridItems.SelectedItem = null;
     }
 
     private void PersonalDataButton_Click(object sender, RoutedEventArgs e)
