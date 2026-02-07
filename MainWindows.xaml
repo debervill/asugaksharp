@@ -1,0 +1,54 @@
+<Window x:Class="asugaksharp.MainWindows"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:asugaksharp"
+        mc:Ignorable="d"
+        Title="АСУГАК - Система управления ГАК" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Меню -->
+        <Menu Grid.Row="0">
+            <MenuItem Header="Настройки">
+                <MenuItem Header="Кафедры" Click="MenuKafedra_Click"/>
+                <MenuItem Header="Направления подготовки" Click="MenuNapravlenie_Click"/>
+                <MenuItem Header="Профили подготовки" Click="MenuProfilPodgotovki_Click"/>
+                <MenuItem Header="Сотрудники" Click="MenuPerson_Click"/>
+            </MenuItem>
+            <MenuItem Header="Дипломники" Click="MenuDiplomnik_Click"/>
+            <MenuItem Header="ГАК">
+                <MenuItem Header="Периоды заседаний" Click="MenuPeriodZasedania_Click"/>
+                <MenuItem Header="Комиссии ГАК" Click="MenuGak_Click"/>
+                <MenuItem Header="Формирование комиссии" Click="MenuKomissiya_Click"/>
+                <MenuItem Header="Заседания" Click="MenuZasedanie_Click"/>
+            </MenuItem>
+            <MenuItem Header="Оплата" Click="MenuOplata_Click"/>
+            <MenuItem Header="Документы" Click="MenuDocs_Click"/>
+            <MenuItem Header="Справка">
+                <MenuItem Header="Метки шаблонов" Click="MenuHelpLabels_Click"/>
+                <MenuItem Header="Создание шаблонов" Click="MenuHelpTemplates_Click"/>
+                <Separator/>
+                <MenuItem Header="Архитектура" Click="MenuHelpArchitecture_Click"/>
+                <MenuItem Header="База данных" Click="MenuHelpDatabase_Click"/>
+                <MenuItem Header="Разработка" Click="MenuHelpDevelopment_Click"/>
+                <Separator/>
+                <MenuItem Header="Добавить тестовые данные" Click="MenuAddTestData_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Основная область -->
+        <Grid Grid.Row="1" Margin="20">
+            <TextBlock Text="Добро пожаловать в АСУГАК"
+                       FontSize="24"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Foreground="Gray"/>
+        </Grid>
+    </Grid>
+</Window>

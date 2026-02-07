@@ -1,0 +1,98 @@
+﻿<Window x:Class="asugaksharp.Features.Person.PersonWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Сотрудники" Height="600" Width="900"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Фильтр -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="Кафедра:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <ComboBox x:Name="ComboBoxKafedraFilter"
+                      Width="250"
+                      DisplayMemberPath="Name"
+                      SelectionChanged="ComboBoxKafedraFilter_SelectionChanged"/>
+        </StackPanel>
+
+        <!-- Таблица данных -->
+        <DataGrid Grid.Row="1"
+                  x:Name="DataGridItems"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Степень" Binding="{Binding Stepen}" Width="100"/>
+                <DataGridTextColumn Header="Звание" Binding="{Binding Zvanie}" Width="100"/>
+                <DataGridTextColumn Header="Должность" Binding="{Binding Dolgnost}" Width="120"/>
+                <DataGridTextColumn Header="Кафедра" Binding="{Binding KafedraName}" Width="150"/>
+                <DataGridCheckBoxColumn Header="Пред." Binding="{Binding IsPredsed}" Width="50"/>
+                <DataGridCheckBoxColumn Header="Зав." Binding="{Binding IsZavKaf}" Width="50"/>
+                <DataGridCheckBoxColumn Header="Секр." Binding="{Binding IsSecretar}" Width="50"/>
+                <DataGridCheckBoxColumn Header="Рец." Binding="{Binding IsRecenzent}" Width="50"/>
+                <DataGridCheckBoxColumn Header="Внеш." Binding="{Binding IsVneshniy}" Width="50"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Панель редактирования -->
+        <GroupBox Grid.Row="2" Header="Редактирование" Margin="0,10,0,0">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="ФИО:" VerticalAlignment="Center" Margin="0,0,10,5"/>
+                <TextBox Grid.Row="0" Grid.Column="1" x:Name="TextBoxName" Margin="0,0,20,5"/>
+
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="Кафедра:" VerticalAlignment="Center" Margin="0,0,10,5"/>
+                <ComboBox Grid.Row="0" Grid.Column="3" x:Name="ComboBoxKafedra" DisplayMemberPath="Name" Margin="0,0,0,5"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Степень:" VerticalAlignment="Center" Margin="0,0,10,5"/>
+                <TextBox Grid.Row="1" Grid.Column="1" x:Name="TextBoxStepen" Margin="0,0,20,5"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="Звание:" VerticalAlignment="Center" Margin="0,0,10,5"/>
+                <TextBox Grid.Row="1" Grid.Column="3" x:Name="TextBoxZvanie" Margin="0,0,0,5"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Должность:" VerticalAlignment="Center" Margin="0,0,10,5"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" x:Name="TextBoxDolgnost" Margin="0,0,0,5"/>
+
+                <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal" Margin="0,5,0,5">
+                    <CheckBox x:Name="CheckBoxPredsed" Content="Председатель" Margin="0,0,15,0"/>
+                    <CheckBox x:Name="CheckBoxZavKaf" Content="Зав. кафедрой" Margin="0,0,15,0"/>
+                    <CheckBox x:Name="CheckBoxSecretar" Content="Секретарь" Margin="0,0,15,0"/>
+                    <CheckBox x:Name="CheckBoxRecenzent" Content="Рецензент" Margin="0,0,15,0"/>
+                    <CheckBox x:Name="CheckBoxVneshniy" Content="Внешний"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                    
+                    <Button Content="Персон. данные" Margin="5,0,5,0" Width="100" Click="PersonalDataButton_Click"/>
+                    <Button Content="Редактировать" Margin="5,0,5,0" Width="100"  Click="EditButton_Click" />
+                    <Button Content="Сохранить" Margin="5,0,5,0" Width="100" Click="SaveButton_Click" RenderTransformOrigin="0.51,-0.199"/>
+                    <Button Content="Удалить" Width="100" Margin="0,0,5,0" Click="DeleteButton_Click"/>
+                    
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+       
+    </Grid>
+</Window>

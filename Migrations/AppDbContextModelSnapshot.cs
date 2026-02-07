@@ -3,7 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using asugaksharp.Infrastructure.Persistanse;
+using asugaksharp.Infrastructure.Persistence;
 
 #nullable disable
 
@@ -15,7 +15,7 @@ namespace asugaksharp.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "9.0.5");
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
 
             modelBuilder.Entity("GakPerson", b =>
                 {
@@ -32,22 +32,7 @@ namespace asugaksharp.Migrations
                     b.ToTable("GakPerson");
                 });
 
-            modelBuilder.Entity("PersonZasedanie", b =>
-                {
-                    b.Property<Guid>("PersonsId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("ZasedaniesId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("PersonsId", "ZasedaniesId");
-
-                    b.HasIndex("ZasedaniesId");
-
-                    b.ToTable("PersonZasedanie");
-                });
-
-            modelBuilder.Entity("asugaksharp.Model.Diplomnik", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Diplomnik", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -81,14 +66,19 @@ namespace asugaksharp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid>("ZasedanieId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PersonId");
 
+                    b.HasIndex("ZasedanieId");
+
                     b.ToTable("Diplomnik");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Docs", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Docs", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -115,10 +105,13 @@ namespace asugaksharp.Migrations
                     b.ToTable("Docs");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Gak", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Gak", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataPrikaza")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("KafedraID")
@@ -134,7 +127,17 @@ namespace asugaksharp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Osnovanie")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<Guid>("PeriodZasedaniaId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("PredsedatelId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("SekretarId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -143,16 +146,35 @@ namespace asugaksharp.Migrations
 
                     b.HasIndex("PeriodZasedaniaId");
 
+                    b.HasIndex("PredsedatelId");
+
+                    b.HasIndex("SekretarId");
+
                     b.ToTable("Gak");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Kafedra", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Kafedra", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ShortName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -161,7 +183,7 @@ namespace asugaksharp.Migrations
                     b.ToTable("Kafedra");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.NapravleniePodgotovki", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.NapravleniePodgotovki", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -180,38 +202,135 @@ namespace asugaksharp.Migrations
                     b.ToTable("NapravleniePodgotovki");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Oplata", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Normativ", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Kod")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("NormaVremeni")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("Osnovanie")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RolVGek")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("StavkaZaStudenta")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Normativ");
+                });
+
+            modelBuilder.Entity("asugaksharp.Core.Entities.Oplata", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("AkademChasov")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("AstronomChasov")
+                        .HasColumnType("REAL");
+
+                    b.Property<DateTime>("DataRascheta")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("DogovorNumber")
                         .HasColumnType("INTEGER");
 
-                    b.Property<float>("Enp")
+                    b.Property<float>("EnpProc")
                         .HasColumnType("REAL");
+
+                    b.Property<float>("EnpSumma")
+                        .HasColumnType("REAL");
+
+                    b.Property<Guid>("GakId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDogovorGenerated")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("Koefficient")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("KolvoBudget")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("KolvoPlatka")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("MoneySource")
                         .HasColumnType("INTEGER");
 
-                    b.Property<float>("Ndfl")
+                    b.Property<float>("NdflProc")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("NdflSumma")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("ObshayaStoimostUslugPoDogovoru")
                         .HasColumnType("REAL");
 
                     b.Property<Guid>("PersonId")
                         .HasColumnType("TEXT");
 
-                    b.Property<float>("Stavka")
+                    b.Property<string>("RolVGek")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("StoimostAkademChasaSNalogami")
                         .HasColumnType("REAL");
+
+                    b.Property<float>("StoimostChasa")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("SummaBezNalogov")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("SummaKVyplate")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("SummaSNalogami")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("TotalEnp")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("TotalKVyplate")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("TotalNachisleno")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("TotalNdfl")
+                        .HasColumnType("REAL");
+
+                    b.Property<Guid?>("ZasedanieId")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GakId");
+
                     b.HasIndex("PersonId");
+
+                    b.HasIndex("ZasedanieId");
 
                     b.ToTable("Oplata");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.PeriodZasedania", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.PeriodZasedania", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -241,7 +360,7 @@ namespace asugaksharp.Migrations
                     b.ToTable("PeriodZasedania");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Person", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Person", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -249,6 +368,12 @@ namespace asugaksharp.Migrations
 
                     b.Property<string>("Dolgnost")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Inn")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsPredsed")
@@ -273,6 +398,24 @@ namespace asugaksharp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("PassportIssuedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PassportNomer")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PassportSeria")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RegistrationAddress")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Snils")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Stepen")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -288,7 +431,32 @@ namespace asugaksharp.Migrations
                     b.ToTable("Person");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.ProfilPodgotovki", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.PersonZasedanie", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("PersonId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RolVGek")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ZasedanieId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
+
+                    b.HasIndex("ZasedanieId");
+
+                    b.ToTable("PersonZasedanie");
+                });
+
+            modelBuilder.Entity("asugaksharp.Core.Entities.ProfilPodgotovki", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -312,7 +480,7 @@ namespace asugaksharp.Migrations
                     b.ToTable("ProfilPodgotovki");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Zasedanie", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Zasedanie", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -341,48 +509,41 @@ namespace asugaksharp.Migrations
 
             modelBuilder.Entity("GakPerson", b =>
                 {
-                    b.HasOne("asugaksharp.Model.Gak", null)
+                    b.HasOne("asugaksharp.Core.Entities.Gak", null)
                         .WithMany()
                         .HasForeignKey("GaksId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("asugaksharp.Model.Person", null)
+                    b.HasOne("asugaksharp.Core.Entities.Person", null)
                         .WithMany()
                         .HasForeignKey("PersonsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PersonZasedanie", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Diplomnik", b =>
                 {
-                    b.HasOne("asugaksharp.Model.Person", null)
-                        .WithMany()
-                        .HasForeignKey("PersonsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("asugaksharp.Model.Zasedanie", null)
-                        .WithMany()
-                        .HasForeignKey("ZasedaniesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("asugaksharp.Model.Diplomnik", b =>
-                {
-                    b.HasOne("asugaksharp.Model.Person", "Person")
+                    b.HasOne("asugaksharp.Core.Entities.Person", "Person")
                         .WithMany("Diplomniks")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("asugaksharp.Core.Entities.Zasedanie", "Zasedanie")
+                        .WithMany("Diplomniks")
+                        .HasForeignKey("ZasedanieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Person");
+
+                    b.Navigation("Zasedanie");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Docs", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Docs", b =>
                 {
-                    b.HasOne("asugaksharp.Model.Person", "Person")
+                    b.HasOne("asugaksharp.Core.Entities.Person", "Person")
                         .WithMany("Docs")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -391,40 +552,66 @@ namespace asugaksharp.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Gak", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Gak", b =>
                 {
-                    b.HasOne("asugaksharp.Model.Kafedra", "Kafedra")
-                        .WithMany("Gaks")
+                    b.HasOne("asugaksharp.Core.Entities.Kafedra", "Kafedra")
+                        .WithMany()
                         .HasForeignKey("KafedraID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("asugaksharp.Model.PeriodZasedania", "PeriodZasedania")
+                    b.HasOne("asugaksharp.Core.Entities.PeriodZasedania", "PeriodZasedania")
                         .WithMany("Gaks")
                         .HasForeignKey("PeriodZasedaniaId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("asugaksharp.Core.Entities.Person", "Predsedatel")
+                        .WithMany()
+                        .HasForeignKey("PredsedatelId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("asugaksharp.Core.Entities.Person", "Sekretar")
+                        .WithMany()
+                        .HasForeignKey("SekretarId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Kafedra");
 
                     b.Navigation("PeriodZasedania");
+
+                    b.Navigation("Predsedatel");
+
+                    b.Navigation("Sekretar");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Oplata", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Oplata", b =>
                 {
-                    b.HasOne("asugaksharp.Model.Person", "Person")
+                    b.HasOne("asugaksharp.Core.Entities.Gak", "Gak")
+                        .WithMany()
+                        .HasForeignKey("GakId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("asugaksharp.Core.Entities.Person", "Person")
                         .WithMany("Oplatas")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("asugaksharp.Core.Entities.Zasedanie", null)
+                        .WithMany("Oplatas")
+                        .HasForeignKey("ZasedanieId");
+
+                    b.Navigation("Gak");
+
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.PeriodZasedania", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.PeriodZasedania", b =>
                 {
-                    b.HasOne("asugaksharp.Model.Kafedra", "Kafedra")
-                        .WithMany("Periods")
+                    b.HasOne("asugaksharp.Core.Entities.Kafedra", "Kafedra")
+                        .WithMany()
                         .HasForeignKey("KafedraId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -432,20 +619,39 @@ namespace asugaksharp.Migrations
                     b.Navigation("Kafedra");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Person", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Person", b =>
                 {
-                    b.HasOne("asugaksharp.Model.Kafedra", "Kafedra")
-                        .WithMany("Persons")
+                    b.HasOne("asugaksharp.Core.Entities.Kafedra", "Kafedra")
+                        .WithMany()
                         .HasForeignKey("KafedraID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Kafedra");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.ProfilPodgotovki", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.PersonZasedanie", b =>
                 {
-                    b.HasOne("asugaksharp.Model.NapravleniePodgotovki", "NapravleniePodgotovki")
+                    b.HasOne("asugaksharp.Core.Entities.Person", "Person")
+                        .WithMany("PersonZasedanies")
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("asugaksharp.Core.Entities.Zasedanie", "Zasedanie")
+                        .WithMany("PersonZasedanies")
+                        .HasForeignKey("ZasedanieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Person");
+
+                    b.Navigation("Zasedanie");
+                });
+
+            modelBuilder.Entity("asugaksharp.Core.Entities.ProfilPodgotovki", b =>
+                {
+                    b.HasOne("asugaksharp.Core.Entities.NapravleniePodgotovki", "NapravleniePodgotovki")
                         .WithMany("ProfilPodgotovkis")
                         .HasForeignKey("NapravleniePodgotovkiID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -454,9 +660,9 @@ namespace asugaksharp.Migrations
                     b.Navigation("NapravleniePodgotovki");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Zasedanie", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Zasedanie", b =>
                 {
-                    b.HasOne("asugaksharp.Model.Gak", "Gak")
+                    b.HasOne("asugaksharp.Core.Entities.Gak", "Gak")
                         .WithMany("Zasedanies")
                         .HasForeignKey("GakID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -465,37 +671,39 @@ namespace asugaksharp.Migrations
                     b.Navigation("Gak");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Gak", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Gak", b =>
                 {
                     b.Navigation("Zasedanies");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Kafedra", b =>
-                {
-                    b.Navigation("Gaks");
-
-                    b.Navigation("Periods");
-
-                    b.Navigation("Persons");
-                });
-
-            modelBuilder.Entity("asugaksharp.Model.NapravleniePodgotovki", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.NapravleniePodgotovki", b =>
                 {
                     b.Navigation("ProfilPodgotovkis");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.PeriodZasedania", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.PeriodZasedania", b =>
                 {
                     b.Navigation("Gaks");
                 });
 
-            modelBuilder.Entity("asugaksharp.Model.Person", b =>
+            modelBuilder.Entity("asugaksharp.Core.Entities.Person", b =>
                 {
                     b.Navigation("Diplomniks");
 
                     b.Navigation("Docs");
 
                     b.Navigation("Oplatas");
+
+                    b.Navigation("PersonZasedanies");
+                });
+
+            modelBuilder.Entity("asugaksharp.Core.Entities.Zasedanie", b =>
+                {
+                    b.Navigation("Diplomniks");
+
+                    b.Navigation("Oplatas");
+
+                    b.Navigation("PersonZasedanies");
                 });
 #pragma warning restore 612, 618
         }

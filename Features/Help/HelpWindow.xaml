@@ -1,0 +1,13 @@
+<Window x:Class="asugaksharp.Features.Help.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:markdig="clr-namespace:Markdig.Wpf;assembly=Markdig.Wpf"
+        Title="Справка" Height="600" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static markdig:Commands.Hyperlink}" Executed="Hyperlink_Executed"/>
+    </Window.CommandBindings>
+    <Grid Margin="10">
+        <FlowDocumentScrollViewer x:Name="Viewer" VerticalScrollBarVisibility="Auto"/>
+    </Grid>
+</Window>

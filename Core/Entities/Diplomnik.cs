@@ -16,10 +16,14 @@ namespace asugaksharp.Core.Entities
         public float OrigVkr { get; set; }
         public float Srball { get; set; }
 
-        //от таблицы Персон 
+        //от таблицы Персон
 
-        public Guid PersonId { get; set; }   
+        public Guid PersonId { get; set; }
         public Person? Person { get; set; }
+
+        //от таблицы Заседание
+        public Guid ZasedanieId { get; set; }
+        public Zasedanie? Zasedanie { get; set; }
 
     }
 }

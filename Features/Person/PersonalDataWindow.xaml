@@ -1,0 +1,77 @@
+<Window x:Class="asugaksharp.Features.Person.PersonalDataWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Персональные данные" Height="480" Width="650"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- ФИО сотрудника -->
+        <TextBlock Grid.Row="0" x:Name="TextBlockName" FontSize="16" FontWeight="Bold" Margin="0,0,0,15"/>
+
+        <!-- Форма -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Паспорт серия -->
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Серия паспорта:" VerticalAlignment="Center" Margin="0,0,10,8"/>
+            <TextBox Grid.Row="0" Grid.Column="1" x:Name="TextBoxPassportSeria" Margin="0,0,0,8" MaxLength="4"/>
+
+            <!-- Паспорт номер -->
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Номер паспорта:" VerticalAlignment="Center" Margin="0,0,10,8"/>
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="TextBoxPassportNomer" Margin="0,0,0,8" MaxLength="6"/>
+
+            <!-- Кем и когда выдан -->
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Кем и когда выдан:" VerticalAlignment="Center" Margin="0,0,10,8"/>
+            <TextBox Grid.Row="2" Grid.Column="1" x:Name="TextBoxPassportIssuedBy" Margin="0,0,0,8" TextWrapping="Wrap" Height="50" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+
+            <!-- Прописка -->
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Место прописки:" VerticalAlignment="Center" Margin="0,0,10,8"/>
+            <TextBox Grid.Row="3" Grid.Column="1" x:Name="TextBoxRegistrationAddress" Margin="0,0,0,8" TextWrapping="Wrap" Height="50" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+
+            <!-- СНИЛС -->
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="СНИЛС:" VerticalAlignment="Center" Margin="0,0,10,8"/>
+            <TextBox Grid.Row="4" Grid.Column="1" x:Name="TextBoxSnils" Margin="0,0,0,8" MaxLength="14"/>
+
+            <!-- ИНН -->
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="ИНН:" VerticalAlignment="Center" Margin="0,0,10,8"/>
+            <TextBox Grid.Row="5" Grid.Column="1" x:Name="TextBoxInn" Margin="0,0,0,8" MaxLength="12"/>
+
+            <!-- Email -->
+            <TextBlock Grid.Row="6" Grid.Column="0" Text="Электронная почта:" VerticalAlignment="Center" Margin="0,0,10,8"/>
+            <TextBox Grid.Row="6" Grid.Column="1" x:Name="TextBoxEmail" Margin="0,0,0,8"/>
+
+            <!-- Телефон -->
+            <TextBlock Grid.Row="7" Grid.Column="0" Text="Номер телефона:" VerticalAlignment="Center" Margin="0,0,10,8"/>
+            <TextBox Grid.Row="7" Grid.Column="1" x:Name="TextBoxPhone" Margin="0,0,0,8"/>
+        </Grid>
+
+        <!-- Кнопки -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+            <Button Content="Сохранить" Width="100" Margin="0,0,10,0" Click="SaveButton_Click"/>
+            <Button Content="Отмена" Width="100" Click="CancelButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

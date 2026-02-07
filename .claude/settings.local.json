@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(findstr:*)",
+      "Bash(tree:*)",
+      "Bash(dotnet build:*)",
+      "Bash(dotnet ef migrations:*)",
+      "Bash(dotnet ef database:*)",
+      "Bash(sqlite3:*)",
+      "Bash(dotnet ef dbcontext:*)",
+      "Bash(dotnet run)",
+      "Bash(taskkill:*)",
+      "Bash(python:*)",
+      "Bash(pip install:*)",
+      "Bash(del:*)",
+      "Bash(ls:*)",
+      "Bash(Remove-Item \"C:\\\\Users\\\\Danamir\\\\source\\\\repos\\\\asugaksharp2\\\\asugak.db\" -Force)",
+      "Bash(cmd /c \"del /f asugak.db\")",
+      "Bash(powershell -Command \"Remove-Item 'C:\\\\Users\\\\Danamir\\\\source\\\\repos\\\\asugaksharp2\\\\asugak.db' -Force -ErrorAction SilentlyContinue; Set-Location 'C:\\\\Users\\\\Danamir\\\\source\\\\repos\\\\asugaksharp2'; dotnet ef database update\":*)",
+      "Bash(dotnet add package:*)",
+      "Bash(move \"known bugs.md\" docs )",
+      "Bash(move DATABASE_SCHEMA.md docs )",
+      "Bash(move TEMPLATE_LABELS.md docs)"
+    ]
+  }
+}

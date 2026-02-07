@@ -1,0 +1,603 @@
+﻿var persons = new List<Person>
+{
+    new Person
+    {
+        Id = Guid.NewGuid(),
+        Name = "Иванов Сергей Петрович",
+        Stepen = "кандидат технических наук",
+        Zvanie = "доцент",
+        Dolgnost = "доцент",
+        IsPredsed = true,
+        IsZavKaf = false,
+        IsSecretar = false,
+        IsRecenzent = true,
+        IsVneshniy = false,
+
+        PassportSeria = "4508",
+        PassportNomer = "123456",
+        PassportIssuedBy = "ОВД Тверского района г. Москвы",
+        RegistrationAddress = "г. Москва, ул. Тверская, д. 15, кв. 42",
+        Snils = "123-456-789 01",
+        Inn = "770123456789",
+        Email = "ivanov.sp@example.ru",
+        Phone = "+7-916-123-45-67"
+    },
+
+    new Person
+    {пункт
+        Id = Guid.NewGuid(),
+        Name = "Петрова Анна Владимировна",
+        Stepen = "кандидат педагогических наук",
+        Zvanie = "доцент",
+        Dolgnost = "старший преподаватель",
+        IsPredsed = false,
+        IsZavKaf = false,
+        IsSecretar = true,
+        IsRecenzent = false,
+        IsVneshniy = false,
+
+        PassportSeria = "4019",
+        PassportNomer = "654321",
+        PassportIssuedBy = "УМВД России по Ленинградской области",
+        RegistrationAddress = "г. Санкт-Петербург, пр. Просвещения, д. 88, кв. 19",
+        Snils = "234-567-890 12",
+        Inn = "780234567890",
+        Email = "petrova.av@example.ru",
+        Phone = "+7-921-555-78-90"
+    },
+
+    new Person
+    {
+        Id = Guid.NewGuid(),
+        Name = "Сидоров Алексей Николаевич",
+        Stepen = "доктор технических наук",
+        Zvanie = "профессор",
+        Dolgnost = "Профессор",
+        IsPredsed = false,
+        IsZavKaf = true,
+        IsSecretar = false,
+        IsRecenzent = true,
+        IsVneshniy = false,
+
+        PassportSeria = "6312",
+        PassportNomer = "998877",
+        PassportIssuedBy = "ГУ МВД России по Самарской области",
+        RegistrationAddress = "г. Самара, ул. Московское шоссе, д. 23, кв. 101",
+        Snils = "345-678-901 23",
+        Inn = "631345678901",
+        Email = "sidorov.an@example.ru",
+        Phone = "+7-927-333-22-11"
+    },
+
+    new Person
+    {
+        Id = Guid.NewGuid(),
+        Name = "Кузнецов Дмитрий Олегович",
+        Stepen = "кандидат экономических наук",
+        Zvanie = "доцент",
+        Dolgnost = "Руководитель отдела",
+        IsPredsed = false,
+        IsZavKaf = false,
+        IsSecretar = false,
+        IsRecenzent = true,
+        IsVneshniy = true,
+
+        PassportSeria = "5406",
+        PassportNomer = "445566",
+        PassportIssuedBy = "ГУ МВД России по Новосибирской области",
+        RegistrationAddress = "г. Новосибирск, ул. Красный проспект, д. 72",
+        Snils = "456-789-012 34",
+        Inn = "540456789012",
+        Email = "kuznetsov.do@example.ru",
+        Phone = "+7-913-777-66-55"
+    },
+
+    new Person
+    {
+        Id = Guid.NewGuid(),
+        Name = "Морозова Елена Игоревна",
+        Stepen = "без ученой степени",
+        Zvanie = "без ученого звания",
+        Dolgnost = "ассистент",
+        IsPredsed = false,
+        IsZavKaf = false,
+        IsSecretar = false,
+        IsRecenzent = false,
+        IsVneshniy = false,
+
+        PassportSeria = "5021",
+        PassportNomer = "112233",
+        PassportIssuedBy = "МВД России по Московской области",
+        RegistrationAddress = "г. Химки, ул. Молодежная, д. 4, кв. 56",
+        Snils = "567-890-123 45",
+        Inn = "500567890123",
+        Email = "morozova.ei@example.ru",
+        Phone = "+7-985-444-33-22"
+    },
+
+    new Person
+    {
+        Id = Guid.NewGuid(),
+        Name = "Орлов Михаил Сергеевич",
+        Stepen = "кандидат физико-математических наук",
+        Zvanie = "доцент",
+        Dolgnost = "доцент",
+        IsPredsed = false,
+        IsZavKaf = false,
+        IsSecretar = false,
+        IsRecenzent = false,
+        IsVneshniy = true,
+
+        PassportSeria = "1603",
+        PassportNomer = "778899",
+        PassportIssuedBy = "МВД по Республике Татарстан",
+        RegistrationAddress = "г. Казань, ул. Баумана, д. 12",
+        Snils = "678-901-234 56",
+        Inn = "165678901234",
+        Email = "orlov.ms@example.ru",
+        Phone = "+7-905-888-99-00"
+    }
+};
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Петрова Анна Владимировна",
+    Stepen = "доктор физико-математических наук",
+    Zvanie = "профессор",
+    Dolgnost = "профессор",
+    IsPredsed = false,
+    IsZavKaf = true,
+    IsSecretar = false,
+    IsRecenzent = false,
+    IsVneshniy = false,
+    PassportSeria = "4510",
+    PassportNomer = "234567",
+    PassportIssuedBy = "ОУФМС по г. Санкт-Петербургу",
+    RegistrationAddress = "г. Санкт-Петербург, Невский пр., д. 30, кв. 15",
+    Snils = "234-567-890 12",
+    Inn = "780234567890",
+    Email = "petrova.av@example.ru",
+    Phone = "+7-911-234-56-78"
+},
+
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Сидоров Михаил Александрович",
+    Stepen = "кандидат химических наук",
+    Zvanie = "доцент",
+    Dolgnost = "профессор кафедры органической химии",
+    IsPredsed = false,
+    IsZavKaf = false,
+    IsSecretar = true,
+    IsRecenzent = false,
+    IsVneshniy = false,
+    PassportSeria = "4601",
+    PassportNomer = "345678",
+    PassportIssuedBy = "УВД Центрального района г. Екатеринбурга",
+    RegistrationAddress = "г. Екатеринбург, ул. Ленина, д. 45, кв. 23",
+    Snils = "345-678-901 23",
+    Inn = "660345678901",
+    Email = "sidorov.ma@example.ru",
+    Phone = "+7-912-345-67-89"
+},
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Кузнецова Елена Игоревна",
+    Stepen = "кандидат биологических наук",
+    Zvanie = "доцент",
+    Dolgnost = "доцент кафедры генетики",
+    IsPredsed = true,
+    IsZavKaf = false,
+    IsSecretar = false,
+    IsRecenzent = false,
+    IsVneshniy = true,
+    PassportSeria = "4712",
+    PassportNomer = "456789",
+    PassportIssuedBy = "МВД по Республике Татарстан",
+    RegistrationAddress = "г. Казань, ул. Кремлевская, д. 18, кв. 7",
+    Snils = "456-789-012 34",
+    Inn = "160456789012",
+    Email = "kuznetsova.ei@example.ru",
+    Phone = "+7-917-456-78-90"
+},
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Васильев Дмитрий Сергеевич",
+    Stepen = "доктор технических наук",
+    Zvanie = "профессор",
+    Dolgnost = "декан факультета информационных технологий",
+    IsPredsed = false,
+    IsZavKaf = false,
+    IsSecretar = false,
+    IsRecenzent = true,
+    IsVneshniy = false,
+    PassportSeria = "4803",
+    PassportNomer = "567890",
+    PassportIssuedBy = "УМВД России по г. Новосибирску",
+    RegistrationAddress = "г. Новосибирск, Красный пр., д. 52, кв. 31",
+    Snils = "567-890-123 45",
+    Inn = "540567890123",
+    Email = "vasilev.ds@example.ru",
+    Phone = "+7-913-567-89-01"
+},
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Николаева Ольга Петровна",
+    Stepen = "кандидат филологических наук",
+    Zvanie = "доцент",
+    Dolgnost = "доцент кафедры русского языка",
+    IsPredsed = false,
+    IsZavKaf = true,
+    IsSecretar = false,
+    IsRecenzent = false,
+    IsVneshniy = false,
+    PassportSeria = "4905",
+    PassportNomer = "678901",
+    PassportIssuedBy = "ОВД Ленинского района г. Воронежа",
+    RegistrationAddress = "г. Воронеж, пр. Революции, д. 25, кв. 12",
+    Snils = "678-901-234 56",
+    Inn = "360678901234",
+    Email = "nikolaeva.op@example.ru",
+    Phone = "+7-918-678-90-12"
+},
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Александров Иван Кузьмич",
+    Stepen = "доктор экономических наук",
+    Zvanie = "профессор",
+    Dolgnost = "профессор кафедры мировой экономики",
+    IsPredsed = false,
+    IsZavKaf = false,
+    IsSecretar = true,
+    IsRecenzent = true,
+    IsVneshniy = false,
+    PassportSeria = "5007",
+    PassportNomer = "789012",
+    PassportIssuedBy = "УФМС России по Краснодарскому краю",
+    RegistrationAddress = "г. Краснодар, ул. Красная, д. 100, кв. 45",
+    Snils = "789-012-345 67",
+    Inn = "230789012345",
+    Email = "aleksandrov.ik@example.ru",
+    Phone = "+7-919-789-01-23"
+},
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Морозова Татьяна Викторовна",
+    Stepen = "кандидат медицинских наук",
+    Zvanie = "доцент",
+    Dolgnost = "доцент кафедры терапии",
+    IsPredsed = true,
+    IsZavKaf = false,
+    IsSecretar = false,
+    IsRecenzent = false,
+    IsVneshniy = true,
+    PassportSeria = "5109",
+    PassportNomer = "890123",
+    PassportIssuedBy = "УВД по Самарской области",
+    RegistrationAddress = "г. Самара, ул. Куйбышева, д. 73, кв. 28",
+    Snils = "890-123-456 78",
+    Inn = "630890123456",
+    Email = "morozova.tv@example.ru",
+    Phone = "+7-920-890-12-34"
+},
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Федоров Андрей Борисович",
+    Stepen = "кандидат педагогических наук",
+    Zvanie = "доцент",
+    Dolgnost = "заведующий кафедрой педагогики",
+    IsPredsed = false,
+    IsZavKaf = true,
+    IsSecretar = false,
+    IsRecenzent = true,
+    IsVneshniy = false,
+    PassportSeria = "5211",
+    PassportNomer = "901234",
+    PassportIssuedBy = "МО МВД России «Нижегородский»",
+    RegistrationAddress = "г. Нижний Новгород, ул. Большая Покровская, д. 37, кв. 19",
+    Snils = "901-234-567 89",
+    Inn = "520901234567",
+    Email = "fedorov.ab@example.ru",
+    Phone = "+7-921-901-23-45"
+},
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Семенова Людмила Геннадьевна",
+    Stepen = "доктор юридических наук",
+    Zvanie = "профессор",
+    Dolgnost = "профессор кафедры гражданского права",
+    IsPredsed = false,
+    IsZavKaf = false,
+    IsSecretar = false,
+    IsRecenzent = false,
+    IsVneshniy = false,
+    PassportSeria = "5313",
+    PassportNomer = "012345",
+    PassportIssuedBy = "УМВД России по Челябинской области",
+    RegistrationAddress = "г. Челябинск, пр. Ленина, д. 63, кв. 33",
+    Snils = "012-345-678 90",
+    Inn = "740012345678",
+    Email = "semenova.lg@example.ru",
+    Phone = "+7-922-012-34-56"
+},
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Павлов Константин Игоревич",
+    Stepen = "кандидат исторических наук",
+    Zvanie = "доцент",
+    Dolgnost = "доцент кафедры отечественной истории",
+    IsPredsed = false,
+    IsZavKaf = false,
+    IsSecretar = true,
+    IsRecenzent = false,
+    IsVneshniy = true,
+    PassportSeria = "5415",
+    PassportNomer = "123457",
+    PassportIssuedBy = "ОВД Октябрьского района г. Омска",
+    RegistrationAddress = "г. Омск, ул. Ленина, д. 12, кв. 8",
+    Snils = "123-457-890 01",
+    Inn = "550123457890",
+    Email = "pavlov.ki@example.ru",
+    Phone = "+7-923-123-45-78"
+},
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Волкова Наталья Алексеевна",
+    Stepen = "доктор философских наук",
+    Zvanie = "профессор",
+    Dolgnost = "заведующая кафедрой философии",
+    IsPredsed = true,
+    IsZavKaf = true,
+    IsSecretar = false,
+    IsRecenzent = false,
+    IsVneshniy = false,
+    PassportSeria = "5517",
+    PassportNomer = "234568",
+    PassportIssuedBy = "УФМС России по Ростовской области",
+    RegistrationAddress = "г. Ростов-на-Дону, ул. Большая Садовая, д. 88, кв. 22",
+    Snils = "234-568-901 12",
+    Inn = "610234568901",
+    Email = "volkova.na@example.ru",
+    Phone = "+7-924-234-56-89"
+},
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Белов Артем Олегович",
+    Stepen = "кандидат технических наук",
+    Zvanie = "доцент",
+    Dolgnost = "доцент кафедры электроэнергетики",
+    IsPredsed = false,
+    IsZavKaf = false,
+    IsSecretar = false,
+    IsRecenzent = true,
+    IsVneshniy = false,
+    PassportSeria = "5619",
+    PassportNomer = "345679",
+    PassportIssuedBy = "МВД по Удмуртской Республике",
+    RegistrationAddress = "г. Ижевск, ул. Пушкинская, д. 150, кв. 17",
+    Snils = "345-679-012 23",
+    Inn = "180345679012",
+    Email = "belov.ao@example.ru",
+    Phone = "+7-925-345-67-90"
+},
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Киселева Марина Станиславовна",
+    Stepen = "кандидат психологических наук",
+    Zvanie = "доцент",
+    Dolgnost = "доцент кафедры общей психологии",
+    IsPredsed = false,
+    IsZavKaf = true,
+    IsSecretar = false,
+    IsRecenzent = false,
+    IsVneshniy = true,
+    PassportSeria = "5721",
+    PassportNomer = "456780",
+    PassportIssuedBy = "УМВД России по Красноярскому краю",
+    RegistrationAddress = "г. Красноярск, пр. Мира, д. 53, кв. 41",
+    Snils = "456-780-123 34",
+    Inn = "240456780123",
+    Email = "kiseleva.ms@example.ru",
+    Phone = "+7-926-456-78-01"
+},
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Григорьев Павел Васильевич",
+    Stepen = "доктор технических наук",
+    Zvanie = "профессор",
+    Dolgnost = "профессор кафедры радиотехники",
+    IsPredsed = false,
+    IsZavKaf = false,
+    IsSecretar = true,
+    IsRecenzent = true,
+    IsVneshniy = false,
+    PassportSeria = "5823",
+    PassportNomer = "567891",
+    PassportIssuedBy = "УВД по Пермскому краю",
+    RegistrationAddress = "г. Пермь, ул. Ленина, д. 58, кв. 26",
+    Snils = "567-891-234 45",
+    Inn = "590567891234",
+    Email = "grigorev.pv@example.ru",
+    Phone = "+7-927-567-89-12"
+},
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Титова Юлия Романовна",
+    Stepen = "кандидат социологических наук",
+    Zvanie = "доцент",
+    Dolgnost = "доцент кафедры социологии",
+    IsPredsed = true,
+    IsZavKaf = false,
+    IsSecretar = false,
+    IsRecenzent = false,
+    IsVneshniy = false,
+    PassportSeria = "5925",
+    PassportNomer = "678902",
+    PassportIssuedBy = "ОВД Кировского района г. Уфы",
+    RegistrationAddress = "г. Уфа, ул. Ленина, д. 22, кв. 14",
+    Snils = "678-902-345 56",
+    Inn = "020678902345",
+    Email = "titova.jr@example.ru",
+    Phone = "+7-928-678-90-23"
+},
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Комаров Виталий Андреевич",
+    Stepen = "кандидат географических наук",
+    Zvanie = "доцент",
+    Dolgnost = "заведующий кафедрой физической географии",
+    IsPredsed = false,
+    IsZavKaf = true,
+    IsSecretar = false,
+    IsRecenzent = false,
+    IsVneshniy = true,
+    PassportSeria = "6027",
+    PassportNomer = "789013",
+    PassportIssuedBy = "МВД по Республике Башкортостан",
+    RegistrationAddress = "г. Стерлитамак, ул. Худайбердина, д. 105, кв. 9",
+    Snils = "789-013-456 67",
+    Inn = "020789013456",
+    Email = "komarov.va@example.ru",
+    Phone = "+7-929-789-01-34"
+},
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Орлова Светлана Дмитриевна",
+    Stepen = "доктор филологических наук",
+    Zvanie = "профессор",
+    Dolgnost = "профессор кафедры зарубежной литературы",
+    IsPredsed = false,
+    IsZavKaf = false,
+    IsSecretar = false,
+    IsRecenzent = true,
+    IsVneshniy = false,
+    PassportSeria = "6129",
+    PassportNomer = "890124",
+    PassportIssuedBy = "УМВД России по Волгоградской области",
+    RegistrationAddress = "г. Волгоград, пр. Ленина, д. 33, кв. 21",
+    Snils = "890-124-567 78",
+    Inn = "340890124567",
+    Email = "orlova.sd@example.ru",
+    Phone = "+7-930-890-12-45"
+},
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Лебедев Алексей Николаевич",
+    Stepen = "кандидат технических наук",
+    Zvanie = "доцент",
+    Dolgnost = "доцент кафедры строительных конструкций",
+    IsPredsed = false,
+    IsZavKaf = false,
+    IsSecretar = true,
+    IsRecenzent = false,
+    IsVneshniy = false,
+    PassportSeria = "6231",
+    PassportNomer = "901235",
+    PassportIssuedBy = "УВД по Свердловской области",
+    RegistrationAddress = "г. Екатеринбург, ул. Малышева, д. 51, кв. 38",
+    Snils = "901-235-678 89",
+    Inn = "660901235678",
+    Email = "lebedev.an@example.ru",
+    Phone = "+7-931-901-23-56"
+},
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Егорова Ирина Васильевна",
+    Stepen = "кандидат искусствоведения",
+    Zvanie = "доцент",
+    Dolgnost = "доцент кафедры истории искусств",
+    IsPredsed = true,
+    IsZavKaf = false,
+    IsSecretar = false,
+    IsRecenzent = true,
+    IsVneshniy = true,
+    PassportSeria = "6333",
+    PassportNomer = "012346",
+    PassportIssuedBy = "УФМС России по Тюменской области",
+    RegistrationAddress = "г. Тюмень, ул. Республики, д. 47, кв. 13",
+    Snils = "012-346-789 90",
+    Inn = "720012346789",
+    Email = "egorova.iv@example.ru",
+    Phone = "+7-932-012-34-67"
+},
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Соколов Роман Юрьевич",
+    Stepen = "доктор медицинских наук",
+    Zvanie = "профессор",
+    Dolgnost = "заведующий кафедрой хирургии",
+    IsPredsed = false,
+    IsZavKaf = true,
+    IsSecretar = false,
+    IsRecenzent = false,
+    IsVneshniy = false,
+    PassportSeria = "6435",
+    PassportNomer = "123458",
+    PassportIssuedBy = "МВД по Республике Коми",
+    RegistrationAddress = "г. Сыктывкар, ул. Коммунистическая, д. 29, кв. 11",
+    Snils = "123-458-901 01",
+    Inn = "110123458901",
+    Email = "sokolov.ry@example.ru",
+    Phone = "+7-933-123-45-89"
+},
+
+new Person
+{
+    Id = Guid.NewGuid(),
+    Name = "Попова Вероника Сергеевна",
+    Stepen = "кандидат политических наук",
+    Zvanie = "доцент",
+    Dolgnost = "доцент кафедры политологии",
+    IsPredsed = false,
+    IsZavKaf = false,
+    IsSecretar = false,
+    IsRecenzent = false,
+    IsVneshniy = true,
+    PassportSeria = "6537",
+    PassportNomer = "234569",
+    PassportIssuedBy = "УМВД России по Ивановской области",
+    RegistrationAddress = "г. Иваново, пр. Ленина, д. 41, кв. 25",
+    Snils = "234-569-012 12",
+    Inn = "370234569012",
+    Email = "popova.vs@example.ru",
+    Phone = "+7-934-234-56-90"
+}
