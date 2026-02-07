@@ -362,3 +362,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /asugak.db
+
+# Windows reserved file name
+[nN][uU][lL]
