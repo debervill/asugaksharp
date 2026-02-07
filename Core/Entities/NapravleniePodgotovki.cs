@@ -16,7 +16,7 @@ namespace asugaksharp.Core.Entities
         public string Nazvanie { get; set; } = string.Empty;
         public string ShifrNapr { get; set; } = string.Empty;
 
-        public ICollection<ProfilPodgotovki> ProfilPodgotovkis { get; set; }    
+        public ICollection<ProfilPodgotovki>? ProfilPodgotovkis { get; set; }    
         
         
 

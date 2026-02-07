@@ -1,0 +1,134 @@
+﻿<Window x:Class="asugaksharp.Features.Komissiya.KomissiyaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Формирование комиссии" Height="700" Width="1100"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Панель выбора кафедры и ГАК -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="Кафедра:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <ComboBox x:Name="ComboBoxKafedra"
+                      Width="250"
+                      DisplayMemberPath="Name"
+                      SelectionChanged="ComboBoxKafedra_SelectionChanged"/>
+
+            <TextBlock Text="Период:" VerticalAlignment="Center" Margin="20,0,10,0"/>
+            <ComboBox x:Name="ComboBoxPeriodZasedania"
+                      Width="220"
+                      DisplayMemberPath="Name"
+                      SelectionChanged="ComboBoxPeriodZasedania_SelectionChanged"/>
+
+            <TextBlock Text="ГАК:" VerticalAlignment="Center" Margin="20,0,10,0"/>
+            <ComboBox x:Name="ComboBoxGak"
+                      Width="200"
+                      DisplayMemberPath="NomerPrikaza"/>
+
+            <Button Content="Загрузить" Width="100" Margin="20,0,0,0" Click="LoadButton_Click"/>
+            <Button Content="Сохранить" Width="100" Margin="10,0,0,0" Click="SaveButton_Click"
+                    x:Name="ButtonSave" IsEnabled="False"/>
+        </StackPanel>
+
+        <!-- Основная область -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Левая панель: доступные сотрудники -->
+            <GroupBox Grid.Column="0" Header="Доступные сотрудники" Margin="0,0,5,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Председатели -->
+                    <TextBlock Grid.Row="0" Text="Председатели (с отметкой):" FontWeight="Bold" Margin="0,5,0,5"/>
+                    <ListBox Grid.Row="1" x:Name="ListBoxPredsedateli" DisplayMemberPath="Name" MinHeight="80"/>
+
+                    <!-- Секретари -->
+                    <TextBlock Grid.Row="2" Text="Секретари (с отметкой):" FontWeight="Bold" Margin="0,10,0,5"/>
+                    <ListBox Grid.Row="3" x:Name="ListBoxSecretari" DisplayMemberPath="Name" MinHeight="80"/>
+
+                    <!-- Остальные сотрудники -->
+                    <TextBlock Grid.Row="4" Text="Сотрудники для членов комиссии:" FontWeight="Bold" Margin="0,10,0,5"/>
+                    <ListBox Grid.Row="5" x:Name="ListBoxSotrudniki" DisplayMemberPath="Name"/>
+                </Grid>
+            </GroupBox>
+
+            <!-- Кнопки перемещения -->
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="10">
+                <TextBlock Text="Председатель" FontSize="10" HorizontalAlignment="Center" Margin="0,0,0,2"/>
+                <Button Width="60" Height="25" Margin="0,0,0,5" Click="AddPredsedatel_Click" ToolTip="Назначить председателя">
+                    <TextBlock Text="&gt;&gt;&gt;" FontSize="10"/>
+                </Button>
+                <Button Width="60" Height="25" Margin="0,0,0,15" Click="RemovePredsedatel_Click" ToolTip="Убрать председателя">
+                    <TextBlock Text="&lt;&lt;&lt;" FontSize="10"/>
+                </Button>
+
+                <TextBlock Text="Секретарь" FontSize="10" HorizontalAlignment="Center" Margin="0,0,0,2"/>
+                <Button Width="60" Height="25" Margin="0,0,0,5" Click="AddSekretar_Click" ToolTip="Назначить секретаря">
+                    <TextBlock Text="&gt;&gt;&gt;" FontSize="10"/>
+                </Button>
+                <Button Width="60" Height="25" Margin="0,0,0,15" Click="RemoveSekretar_Click" ToolTip="Убрать секретаря">
+                    <TextBlock Text="&lt;&lt;&lt;" FontSize="10"/>
+                </Button>
+
+                <TextBlock Text="Член комиссии" FontSize="10" HorizontalAlignment="Center" Margin="0,0,0,2"/>
+                <Button Width="60" Height="25" Margin="0,0,0,5" Click="AddChlen_Click" ToolTip="Добавить члена комиссии">
+                    <TextBlock Text="&gt;&gt;&gt;" FontSize="10"/>
+                </Button>
+                <Button Width="60" Height="25" Click="RemoveChlen_Click" ToolTip="Убрать члена комиссии">
+                    <TextBlock Text="&lt;&lt;&lt;" FontSize="10"/>
+                </Button>
+            </StackPanel>
+
+            <!-- Правая панель: состав комиссии -->
+            <GroupBox Grid.Column="2" Header="Состав комиссии ГАК" Margin="5,0,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Председатель -->
+                    <TextBlock Grid.Row="0" Text="Председатель:" FontWeight="Bold" Margin="0,5,0,5"/>
+                    <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="1" Padding="5" MinHeight="30" Background="#FFF5F5F5">
+                        <TextBlock x:Name="TextBlockPredsedatel" Text="(не назначен)" Foreground="Gray" VerticalAlignment="Center"/>
+                    </Border>
+
+                    <!-- Секретарь -->
+                    <TextBlock Grid.Row="2" Text="Секретарь:" FontWeight="Bold" Margin="0,10,0,5"/>
+                    <Border Grid.Row="3" BorderBrush="Gray" BorderThickness="1" Padding="5" MinHeight="30" Background="#FFF5F5F5">
+                        <TextBlock x:Name="TextBlockSekretar" Text="(не назначен)" Foreground="Gray" VerticalAlignment="Center"/>
+                    </Border>
+
+                    <!-- Члены комиссии -->
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,10,0,5">
+                        <TextBlock Text="Члены комиссии:" FontWeight="Bold"/>
+                        <TextBlock x:Name="TextBlockChlenCount" Text=" (0 из 3 минимум)" Foreground="Gray"/>
+                    </StackPanel>
+                    <ListBox Grid.Row="5" x:Name="ListBoxChleny" DisplayMemberPath="Name"/>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</Window>
