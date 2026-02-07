@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using asugaksharp.Infrastructure.Persistence;
 
 namespace asugaksharp.Features.Oplata;

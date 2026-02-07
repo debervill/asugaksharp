@@ -53,7 +53,7 @@ public class GetGakExternalMembersHandler
                 {
                     PersonId = person.Id,
                     PersonName = person.Name,
-                    RolVGek = "Член"
+                    RolVGek = "Участник"
                 });
             }
         }

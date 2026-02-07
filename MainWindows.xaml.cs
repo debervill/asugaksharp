@@ -12,51 +12,12 @@ using asugaksharp.Features.Oplata;
 using asugaksharp.Features.Docs;
 using asugaksharp.Features.Komissiya;
 using asugaksharp.Features.TestData;
+using asugaksharp.Features.Help;
 
 namespace asugaksharp;
 
 public partial class MainWindows : Window
 {
-    private const string DogovorTagsHelpText =
-        "Метки для шаблона договора (используйте в docx как {{Метка}}):\n" +
-        "{{НомерДоговора}}\n" +
-        "{{ДатаДень}}\n" +
-        "{{ДатаМесяц}}\n" +
-        "{{ДатаГод}}\n" +
-        "{{ДатаДоговора}}\n" +
-        "{{ФИО}}\n" +
-        "{{ПаспортСерия}}\n" +
-        "{{ПаспортНомер}}\n" +
-        "{{ПаспортКемВыдан}}\n" +
-        "{{АдресРегистрации}}\n" +
-        "{{СНИЛС}}\n" +
-        "{{ИНН}}\n" +
-        "{{Email}}\n" +
-        "{{Телефон}}\n" +
-        "{{Степень}}\n" +
-        "{{Звание}}\n" +
-        "{{Должность}}\n" +
-        "{{РольВГЭК}}\n" +
-        "{{НомерПриказа}}\n" +
-        "{{ДатаПриказа}}\n" +
-        "{{Основание}}\n" +
-        "{{КоличествоБюджет}}\n" +
-        "{{КоличествоПлатка}}\n" +
-        "{{КоличествоВсего}}\n" +
-        "{{Коэффициент}}\n" +
-        "{{СтоимостьЧаса}}\n" +
-        "{{АкадемЧасов}}\n" +
-        "{{АстрономЧасов}}\n" +
-        "{{СуммаБезНалогов}}\n" +
-        "{{СуммаБезНалоговПрописью}}\n" +
-        "{{НДФЛ}}\n" +
-        "{{НДФЛПроцент}}\n" +
-        "{{ЕНП}}\n" +
-        "{{ЕНПпроцент}}\n" +
-        "{{СуммаКВыплате}}\n" +
-        "{{СуммаКВыплатеПрописью}}\n" +
-        "{{СуммаСНалогами}}";
-
     public MainWindows()
     {
         InitializeComponent();
@@ -139,13 +100,39 @@ public partial class MainWindows : Window
         window.ShowDialog();
     }
 
-    private void MenuDogovorTags_Click(object sender, RoutedEventArgs e)
+    private void MenuHelpLabels_Click(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show(
-            DogovorTagsHelpText,
-            "Справка: метки договора",
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
+        var window = HelpWindow.FromDocsFile("TEMPLATE_LABELS.md");
+        window.Owner = this;
+        window.ShowDialog();
+    }
+
+    private void MenuHelpTemplates_Click(object sender, RoutedEventArgs e)
+    {
+        var window = HelpWindow.FromDocsFile("TEMPLATE_HOWTO.md");
+        window.Owner = this;
+        window.ShowDialog();
+    }
+
+    private void MenuHelpArchitecture_Click(object sender, RoutedEventArgs e)
+    {
+        var window = HelpWindow.FromDocsFile("ARCHITECTURE.md");
+        window.Owner = this;
+        window.ShowDialog();
+    }
+
+    private void MenuHelpDatabase_Click(object sender, RoutedEventArgs e)
+    {
+        var window = HelpWindow.FromDocsFile("DATABASE.md");
+        window.Owner = this;
+        window.ShowDialog();
+    }
+
+    private void MenuHelpDevelopment_Click(object sender, RoutedEventArgs e)
+    {
+        var window = HelpWindow.FromDocsFile("DEVELOPMENT.md");
+        window.Owner = this;
+        window.ShowDialog();
     }
 
     private async void MenuAddTestData_Click(object sender, RoutedEventArgs e)

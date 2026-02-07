@@ -31,7 +31,13 @@
             <MenuItem Header="Оплата" Click="MenuOplata_Click"/>
             <MenuItem Header="Документы" Click="MenuDocs_Click"/>
             <MenuItem Header="Справка">
-                <MenuItem Header="Метки шаблона договора" Click="MenuDogovorTags_Click"/>
+                <MenuItem Header="Метки шаблонов" Click="MenuHelpLabels_Click"/>
+                <MenuItem Header="Создание шаблонов" Click="MenuHelpTemplates_Click"/>
+                <Separator/>
+                <MenuItem Header="Архитектура" Click="MenuHelpArchitecture_Click"/>
+                <MenuItem Header="База данных" Click="MenuHelpDatabase_Click"/>
+                <MenuItem Header="Разработка" Click="MenuHelpDevelopment_Click"/>
+                <Separator/>
                 <MenuItem Header="Добавить тестовые данные" Click="MenuAddTestData_Click"/>
             </MenuItem>
         </Menu>

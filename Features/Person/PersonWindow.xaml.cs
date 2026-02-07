@@ -1,4 +1,4 @@
-using System.Windows;
+﻿using System.Windows;
 using asugaksharp.Features.Kafedra;
 
 namespace asugaksharp.Features.Person;

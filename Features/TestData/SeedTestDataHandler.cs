@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using asugaksharp.Core.Entities;
 using asugaksharp.Infrastructure.Persistence;

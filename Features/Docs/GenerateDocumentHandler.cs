@@ -15,6 +15,18 @@ public class GenerateDocumentHandler
     }
 
     /// <summary>
+    /// Получает ФИО заведующего кафедрой
+    /// </summary>
+    private async Task<string> GetZavKafedroyAsync(Guid kafedraId, CancellationToken ct)
+    {
+        var zavKaf = await _context.Person
+            .Where(p => p.KafedraID == kafedraId && p.IsZavKaf)
+            .Select(p => p.Name)
+            .FirstOrDefaultAsync(ct);
+        return zavKaf ?? "";
+    }
+
+    /// <summary>
     /// Генерирует документы для конкретной записи оплаты
     /// </summary>
     public async Task<GenerateDocumentResult> ExecuteAsync(
@@ -26,6 +38,7 @@ public class GenerateDocumentHandler
         var oplata = await _context.Oplata
             .Include(o => o.Person)
             .Include(o => o.Gak)
+                .ThenInclude(g => g!.Kafedra)
             .FirstOrDefaultAsync(o => o.Id == oplataId, ct);
 
         if (oplata == null)
@@ -37,12 +50,14 @@ public class GenerateDocumentHandler
         if (oplata.Gak == null)
             return new GenerateDocumentResult(false, null, "ГАК не найден");
 
+        var zavKafedroy = await GetZavKafedroyAsync(oplata.Gak.KafedraID, ct);
+
         try
         {
             var filePath = documentType switch
             {
-                DocumentType.Dogovor => _documentGenerator.GenerateDogovor(oplata.Person, oplata, oplata.Gak, outputPath),
-                DocumentType.Akt => _documentGenerator.GenerateAkt(oplata.Person, oplata, oplata.Gak, outputPath),
+                DocumentType.Dogovor => _documentGenerator.GenerateDogovor(oplata.Person, oplata, oplata.Gak, zavKafedroy, outputPath),
+                DocumentType.Akt => _documentGenerator.GenerateAkt(oplata.Person, oplata, oplata.Gak, zavKafedroy, outputPath),
                 DocumentType.Zayavlenie => _documentGenerator.GenerateZayavlenie(oplata.Person, oplata, outputPath),
                 _ => throw new ArgumentException("Неизвестный тип документа")
             };
@@ -73,6 +88,7 @@ public class GenerateDocumentHandler
         var oplata = await _context.Oplata
             .Include(o => o.Person)
             .Include(o => o.Gak)
+                .ThenInclude(g => g!.Kafedra)
             .FirstOrDefaultAsync(o => o.Id == oplataId, ct);
 
         if (oplata == null)
@@ -84,9 +100,11 @@ public class GenerateDocumentHandler
         if (oplata.Gak == null)
             return new GenerateAllDocumentsResult(false, null, "ГАК не найден");
 
+        var zavKafedroy = await GetZavKafedroyAsync(oplata.Gak.KafedraID, ct);
+
         try
         {
-            var result = _documentGenerator.GenerateAllDocuments(oplata.Person, oplata, oplata.Gak, outputPath);
+            var result = _documentGenerator.GenerateAllDocuments(oplata.Person, oplata, oplata.Gak, zavKafedroy, outputPath);
 
             if (result.DogovorPath != null)
             {
@@ -114,11 +132,18 @@ public class GenerateDocumentHandler
         var oplatas = await _context.Oplata
             .Include(o => o.Person)
             .Include(o => o.Gak)
+                .ThenInclude(g => g!.Kafedra)
             .Where(o => o.GakId == gakId)
             .ToListAsync(ct);
 
         if (!oplatas.Any())
             return new GenerateBatchResult(0, 0, new List<string> { "Записи оплаты для данного ГАК не найдены" });
+
+        // Получаем завкафедрой один раз для всех документов
+        var firstOplata = oplatas.First();
+        var zavKafedroy = firstOplata.Gak != null
+            ? await GetZavKafedroyAsync(firstOplata.Gak.KafedraID, ct)
+            : "";
 
         var successCount = 0;
         var errors = new List<string>();
@@ -142,11 +167,11 @@ public class GenerateDocumentHandler
                 switch (documentType)
                 {
                     case DocumentType.Dogovor:
-                        _documentGenerator.GenerateDogovor(oplata.Person, oplata, oplata.Gak, outputPath);
+                        _documentGenerator.GenerateDogovor(oplata.Person, oplata, oplata.Gak, zavKafedroy, outputPath);
                         oplata.IsDogovorGenerated = true;
                         break;
                     case DocumentType.Akt:
-                        _documentGenerator.GenerateAkt(oplata.Person, oplata, oplata.Gak, outputPath);
+                        _documentGenerator.GenerateAkt(oplata.Person, oplata, oplata.Gak, zavKafedroy, outputPath);
                         break;
                     case DocumentType.Zayavlenie:
                         _documentGenerator.GenerateZayavlenie(oplata.Person, oplata, outputPath);

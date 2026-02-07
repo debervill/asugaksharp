@@ -130,7 +130,6 @@ public partial class App : Application
         services.AddTransient<Features.NapravleniePodgotovki.NapravleniePodgotovkiWindow>();
         services.AddTransient<Features.ProfilPodgotovki.ProfilPodgotovkiWindow>();
         services.AddTransient<Features.Oplata.OplataWindow>();
-        services.AddTransient<Features.Oplata.OplataManagementWindow>();
         services.AddTransient<Features.Docs.DocsWindow>();
         services.AddTransient<Features.Komissiya.KomissiyaWindow>();
     }

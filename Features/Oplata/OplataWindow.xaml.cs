@@ -4,7 +4,6 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Microsoft.Win32;
 using asugaksharp.Features.Kafedra;
 using asugaksharp.Features.Gak;
 using asugaksharp.Features.Komissiya;
@@ -47,7 +46,6 @@ public partial class OplataWindow : Window
         _generateDocumentHandler = generateDocumentHandler;
 
         DataGridOplata.ItemsSource = _oplataRows;
-        DataGridOplata.SelectionChanged += DataGridOplata_SelectionChanged;
 
         Loaded += async (s, e) => await LoadKafedrasAsync();
     }
@@ -223,34 +221,10 @@ public partial class OplataWindow : Window
         ButtonDocuments.IsEnabled = false;
     }
 
-    private void DataGridOplata_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        UpdateMenuSelectedPersonState();
-    }
-
-    private void UpdateMenuSelectedPersonState()
-    {
-        var isRowSelected = DataGridOplata.SelectedItem is OplataRowDto row && row.OplataId != null;
-        MenuSelectedPerson.IsEnabled = isRowSelected;
-
-        // Обновляем заголовок подменю с именем выбранного человека
-        if (isRowSelected && DataGridOplata.SelectedItem is OplataRowDto selectedRow)
-        {
-            MenuSelectedPerson.Header = $"Документы для: {selectedRow.PersonName}";
-        }
-        else
-        {
-            MenuSelectedPerson.Header = "Документы для выбранного... (выберите строку)";
-        }
-    }
-
     private void ButtonDocuments_Click(object sender, RoutedEventArgs e)
     {
         if (sender is Button button && button.ContextMenu != null)
         {
-            // Обновляем состояние подменю перед открытием
-            UpdateMenuSelectedPersonState();
-
             button.ContextMenu.PlacementTarget = button;
             button.ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
             button.ContextMenu.IsOpen = true;
@@ -290,16 +264,6 @@ public partial class OplataWindow : Window
         await GenerateDocumentsForGakAsync(DocumentType.Dogovor);
     }
 
-    private async void GenerateAkts_Click(object sender, RoutedEventArgs e)
-    {
-        await GenerateDocumentsForGakAsync(DocumentType.Akt);
-    }
-
-    private async void GenerateZayavleniya_Click(object sender, RoutedEventArgs e)
-    {
-        await GenerateDocumentsForGakAsync(DocumentType.Zayavlenie);
-    }
-
     private async Task GenerateDocumentsForGakAsync(DocumentType? documentType)
     {
         if (_currentGakId == Guid.Empty)
@@ -312,8 +276,6 @@ public partial class OplataWindow : Window
         var documentTypeName = documentType switch
         {
             DocumentType.Dogovor => "договоров",
-            DocumentType.Akt => "актов",
-            DocumentType.Zayavlenie => "заявлений",
             _ => "всех документов"
         };
 
@@ -323,19 +285,9 @@ public partial class OplataWindow : Window
 
             if (documentType == null)
             {
-                // Генерируем все типы документов
-                var results = new List<GenerateBatchResult>();
-                foreach (var docType in new[] { DocumentType.Dogovor, DocumentType.Akt, DocumentType.Zayavlenie })
-                {
-                    var result = await _generateDocumentHandler.ExecuteForGakAsync(_currentGakId, docType, outputPath);
-                    results.Add(result);
-                }
-
-                var totalSuccess = results.Sum(r => r.SuccessCount);
-                var totalCount = results.Sum(r => r.TotalCount);
-                var allErrors = results.SelectMany(r => r.Errors).ToList();
-
-                ShowGenerationResult(totalSuccess, totalCount, allErrors, "всех документов", outputPath);
+                // Генерируем договоры
+                var result = await _generateDocumentHandler.ExecuteForGakAsync(_currentGakId, DocumentType.Dogovor, outputPath);
+                ShowGenerationResult(result.SuccessCount, result.TotalCount, result.Errors, "договоров", outputPath);
             }
             else
             {
@@ -372,128 +324,6 @@ public partial class OplataWindow : Window
             {
                 Process.Start("explorer.exe", outputPath);
             }
-        }
-    }
-
-    private async void GenerateAllForSelected_Click(object sender, RoutedEventArgs e)
-    {
-        if (DataGridOplata.SelectedItem is not OplataRowDto selectedRow)
-        {
-            MessageBox.Show("Выберите запись в таблице", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
-        }
-
-        if (selectedRow.OplataId == null)
-        {
-            MessageBox.Show("Сначала сохраните данные (кнопка 'Сохранить всё')", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
-        }
-
-        var outputPath = GetOrCreateOutputPath();
-
-        try
-        {
-            Mouse.OverrideCursor = Cursors.Wait;
-            var result = await _generateDocumentHandler.ExecuteAllAsync(selectedRow.OplataId.Value, outputPath);
-
-            if (result.Success && result.Documents != null)
-            {
-                var message = "Сгенерированы документы:\n";
-                if (result.Documents.DogovorPath != null) message += $"- Договор\n";
-                if (result.Documents.AktPath != null) message += $"- Акт\n";
-                if (result.Documents.ZayavleniePath != null) message += $"- Заявление\n";
-
-                if (result.Documents.HasErrors)
-                {
-                    message += $"\nОшибки:\n{string.Join("\n", result.Documents.Errors)}";
-                }
-
-                var dialogResult = MessageBox.Show(
-                    message + "\n\nОткрыть папку?",
-                    "Готово",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Information);
-
-                if (dialogResult == MessageBoxResult.Yes)
-                {
-                    Process.Start("explorer.exe", outputPath);
-                }
-            }
-            else
-            {
-                MessageBox.Show($"Ошибка: {result.Error}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-        finally
-        {
-            Mouse.OverrideCursor = null;
-        }
-    }
-
-    private async void GenerateDogovorForSelected_Click(object sender, RoutedEventArgs e)
-    {
-        await GenerateDocumentForSelectedAsync(DocumentType.Dogovor);
-    }
-
-    private async void GenerateAktForSelected_Click(object sender, RoutedEventArgs e)
-    {
-        await GenerateDocumentForSelectedAsync(DocumentType.Akt);
-    }
-
-    private async void GenerateZayavlenieForSelected_Click(object sender, RoutedEventArgs e)
-    {
-        await GenerateDocumentForSelectedAsync(DocumentType.Zayavlenie);
-    }
-
-    private async Task GenerateDocumentForSelectedAsync(DocumentType documentType)
-    {
-        if (DataGridOplata.SelectedItem is not OplataRowDto selectedRow)
-        {
-            MessageBox.Show("Выберите запись в таблице", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
-        }
-
-        if (selectedRow.OplataId == null)
-        {
-            MessageBox.Show("Сначала сохраните данные (кнопка 'Сохранить всё')", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
-        }
-
-        var outputPath = GetOrCreateOutputPath();
-        var documentTypeName = documentType switch
-        {
-            DocumentType.Dogovor => "Договор",
-            DocumentType.Akt => "Акт",
-            DocumentType.Zayavlenie => "Заявление",
-            _ => "Документ"
-        };
-
-        try
-        {
-            Mouse.OverrideCursor = Cursors.Wait;
-            var result = await _generateDocumentHandler.ExecuteAsync(selectedRow.OplataId.Value, documentType, outputPath);
-
-            if (result.Success)
-            {
-                var dialogResult = MessageBox.Show(
-                    $"{documentTypeName} успешно сгенерирован.\n\nОткрыть файл?",
-                    "Готово",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Information);
-
-                if (dialogResult == MessageBoxResult.Yes && result.FilePath != null)
-                {
-                    Process.Start(new ProcessStartInfo(result.FilePath) { UseShellExecute = true });
-                }
-            }
-            else
-            {
-                MessageBox.Show($"Ошибка: {result.Error}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-        finally
-        {
-            Mouse.OverrideCursor = null;
         }
     }
 

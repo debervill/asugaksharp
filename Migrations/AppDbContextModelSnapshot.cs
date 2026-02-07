@@ -279,6 +279,9 @@ namespace asugaksharp.Migrations
                     b.Property<float>("NdflSumma")
                         .HasColumnType("REAL");
 
+                    b.Property<float>("ObshayaStoimostUslugPoDogovoru")
+                        .HasColumnType("REAL");
+
                     b.Property<Guid>("PersonId")
                         .HasColumnType("TEXT");
 
@@ -286,13 +289,10 @@ namespace asugaksharp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<float>("StoimostChasa")
-                        .HasColumnType("REAL");
-
                     b.Property<float>("StoimostAkademChasaSNalogami")
                         .HasColumnType("REAL");
 
-                    b.Property<float>("ObshayaStoimostUslugPoDogovoru")
+                    b.Property<float>("StoimostChasa")
                         .HasColumnType("REAL");
 
                     b.Property<float>("SummaBezNalogov")
