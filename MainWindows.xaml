@@ -21,6 +21,7 @@
                 <MenuItem Header="Профили подготовки" Click="MenuProfilPodgotovki_Click"/>
                 <MenuItem Header="Сотрудники" Click="MenuPerson_Click"/>
             </MenuItem>
+            <MenuItem Header="Студенты" Click="MenuStudent_Click"/>
             <MenuItem Header="Дипломники" Click="MenuDiplomnik_Click"/>
             <MenuItem Header="ГАК">
                 <MenuItem Header="Периоды заседаний" Click="MenuPeriodZasedania_Click"/>

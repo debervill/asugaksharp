@@ -269,6 +269,7 @@ asugaksharp2/
 ├── Features/
 │   ├── Kafedra/           # Фича: Кафедры
 │   ├── Person/            # Фича: Сотрудники
+│   ├── Student/           # Фича: Студенты
 │   ├── Diplomnik/         # Фича: Дипломники
 │   ├── Gak/               # Фича: Комиссии
 │   ├── Zasedanie/         # Фича: Заседания
@@ -296,6 +297,7 @@ asugaksharp2/
 |------|----------|----------|
 | Kafedra | Кафедры | Get, Create, Update, Delete |
 | Person | Сотрудники | Get, Create, Update, Delete |
+| Student | Студенты | Get, Create, Update, Delete |
 | Diplomnik | Дипломники | Get, Create, Update, Delete |
 | Gak | Комиссии ГАК | Get, Create, Update, Delete |
 | Zasedanie | Заседания | Get, Create, Update, Delete |

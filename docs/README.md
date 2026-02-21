@@ -67,6 +67,7 @@ asugaksharp2/
 ├── Features/               # Вертикальные срезы (VSA)
 │   ├── Kafedra/           # CRUD для кафедр
 │   ├── Person/            # CRUD для сотрудников
+│   ├── Student/           # CRUD для студентов
 │   ├── Diplomnik/         # CRUD для дипломников
 │   └── ...                # Остальные фичи
 ├── Infrastructure/         # Инфраструктурный слой

@@ -5,6 +5,7 @@ using asugaksharp.Features.NapravleniePodgotovki;
 using asugaksharp.Features.ProfilPodgotovki;
 using asugaksharp.Features.Person;
 using asugaksharp.Features.Diplomnik;
+using asugaksharp.Features.Student;
 using asugaksharp.Features.PeriodZasedania;
 using asugaksharp.Features.Gak;
 using asugaksharp.Features.Zasedanie;
@@ -31,6 +32,7 @@ public partial class MainWindows : Window
     private void MenuDocs_Click(object sender, RoutedEventArgs e) => ShowWindow<DocsWindow>();
     private void MenuProfilPodgotovki_Click(object sender, RoutedEventArgs e) => ShowWindow<ProfilPodgotovkiWindow>();
     private void MenuDiplomnik_Click(object sender, RoutedEventArgs e) => ShowWindow<DiplomnikWindow>();
+    private void MenuStudent_Click(object sender, RoutedEventArgs e) => ShowWindow<StudentWindow>();
     private void MenuPeriodZasedania_Click(object sender, RoutedEventArgs e) => ShowWindow<PeriodZasedaniaWindow>();
     private void MenuGak_Click(object sender, RoutedEventArgs e) => ShowWindow<GakWindow>();
     private void MenuZasedanie_Click(object sender, RoutedEventArgs e) => ShowWindow<ZasedanieWindow>();

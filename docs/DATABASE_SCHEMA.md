@@ -230,7 +230,7 @@
 
 ---
 
-### Diplomnik — Дипломник
+### Student — Студент
 
 | Поле | Тип | Описание |
 |------|-----|----------|
@@ -243,6 +243,15 @@
 | OrigVkr | float | Оригинальность ВКР (%) |
 | Srball | float | Средний балл |
 | PersonId | GUID FK | Научный руководитель |
+
+---
+
+### Diplomnik — Дипломник
+
+| Поле | Тип | Описание |
+|------|-----|----------|
+| Id | GUID | Первичный ключ |
+| StudentId | GUID FK | Ссылка на студента |
 | ZasedanieId | GUID FK | Ссылка на заседание |
 
 ---
@@ -319,7 +328,8 @@
 | Zasedanie ↔ Person | N:M | Через PersonZasedanie (с ролью) |
 | Zasedanie → Diplomnik | 1:N | На заседании много дипломников |
 | Zasedanie → Oplata | 1:N | На заседании много оплат |
-| Person → Diplomnik | 1:N | Руководитель у дипломников |
+| Person → Student | 1:N | Руководитель у студентов |
+| Student ↔ Diplomnik | 1:1 | Дипломник привязан к студенту |
 | Person → Docs | 1:N | У персоны много документов |
 | Person → Oplata | 1:N | У персоны много оплат |
 | NapravleniePodgotovki → ProfilPodgotovki | 1:N | У направления много профилей |

@@ -14,14 +14,8 @@ public class UpdateDiplomnikHandler
         if (entity == null)
             return false;
 
-        entity.FioImen = request.FioImen;
-        entity.FioRodit = request.FioRodit;
-        entity.Sex = request.Sex;
-        entity.Pages = request.Pages;
-        entity.Tema = request.Tema;
-        entity.OrigVkr = request.OrigVkr;
-        entity.Srball = request.Srball;
-        entity.PersonId = request.PersonId;
+        entity.StudentId = request.StudentId;
+        entity.ZasedanieId = request.ZasedanieId;
 
         await _context.SaveChangesAsync(ct);
         return true;

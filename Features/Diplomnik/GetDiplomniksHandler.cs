@@ -12,19 +12,24 @@ public class GetDiplomniksHandler
     {
         return await _context.Diplomnik
             .AsNoTracking()
-            .Include(d => d.Person)
-            .OrderBy(d => d.FioImen)
+            .Include(d => d.Student)
+            .ThenInclude(s => s.Person)
+            .Include(d => d.Zasedanie)
+            .OrderBy(d => d.Student != null ? d.Student.FioImen : string.Empty)
             .Select(d => new DiplomnikDto(
                 d.Id,
-                d.FioImen,
-                d.FioRodit,
-                d.Sex,
-                d.Pages,
-                d.Tema,
-                d.OrigVkr,
-                d.Srball,
-                d.PersonId,
-                d.Person != null ? d.Person.Name : null))
+                d.StudentId,
+                d.Student != null ? d.Student.FioImen : string.Empty,
+                d.Student != null ? d.Student.FioRodit : string.Empty,
+                d.Student != null ? d.Student.Sex : string.Empty,
+                d.Student != null ? d.Student.Pages : 0,
+                d.Student != null ? d.Student.Tema : string.Empty,
+                d.Student != null ? d.Student.OrigVkr : 0,
+                d.Student != null ? d.Student.Srball : 0,
+                d.Student != null ? d.Student.PersonId : Guid.Empty,
+                d.Student != null && d.Student.Person != null ? d.Student.Person.Name : null,
+                d.ZasedanieId,
+                d.Zasedanie != null ? $"{d.Zasedanie.NapravleniePodgotovki} ({d.Zasedanie.Date:dd.MM.yyyy})" : null))
             .ToListAsync(ct);
     }
 }

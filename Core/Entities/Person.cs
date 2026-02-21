@@ -40,8 +40,8 @@ namespace asugaksharp.Core.Entities
         //от таблицы докс
         public ICollection<Docs>? Docs { get; set; }
 
-        //от таблицы Дипломник
-        public ICollection<Diplomnik>? Diplomniks { get; set;}
+        //от таблицы Студент
+        public ICollection<Student>? Students { get; set;}
 
         //от таблицы оплата
 

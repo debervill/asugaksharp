@@ -7,6 +7,7 @@ using asugaksharp.Infrastructure.Persistence;
 using asugaksharp.Features.Kafedra;
 using asugaksharp.Features.Person;
 using asugaksharp.Features.Diplomnik;
+using asugaksharp.Features.Student;
 using asugaksharp.Features.Gak;
 using asugaksharp.Features.Zasedanie;
 using asugaksharp.Features.PeriodZasedania;
@@ -46,6 +47,7 @@ public partial class App : Application
         // Features
         services.AddKafedraFeatures();
         services.AddPersonFeatures();
+        services.AddStudentFeatures();
         services.AddDiplomnikFeatures();
         services.AddGakFeatures();
         services.AddZasedanieFeatures();

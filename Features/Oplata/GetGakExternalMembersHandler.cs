@@ -22,25 +22,27 @@ public class GetGakExternalMembersHandler
 
         var result = new List<OplataRowDto>();
 
-        // Председатель (если внешний)
+        // Председатель (если внешний) — коэффициент 1
         if (gak.Predsedatel != null && gak.Predsedatel.IsVneshniy)
         {
             result.Add(new OplataRowDto
             {
                 PersonId = gak.Predsedatel.Id,
                 PersonName = gak.Predsedatel.Name,
-                RolVGek = "Председатель"
+                RolVGek = "Председатель",
+                Koefficient = 1f
             });
         }
 
-        // Секретарь (если внешний)
+        // Секретарь (если внешний) — коэффициент 0.5
         if (gak.Sekretar != null && gak.Sekretar.IsVneshniy)
         {
             result.Add(new OplataRowDto
             {
                 PersonId = gak.Sekretar.Id,
                 PersonName = gak.Sekretar.Name,
-                RolVGek = "Секретарь"
+                RolVGek = "Секретарь",
+                Koefficient = 0.5f
             });
         }
 
@@ -49,11 +51,14 @@ public class GetGakExternalMembersHandler
         {
             foreach (var person in gak.Persons.Where(p => p.IsVneshniy))
             {
+                // Рецензент — коэффициент 4, иначе — 0.5
+                var isRecenzent = person.IsRecenzent;
                 result.Add(new OplataRowDto
                 {
                     PersonId = person.Id,
                     PersonName = person.Name,
-                    RolVGek = "Участник"
+                    RolVGek = isRecenzent ? "Рецензент" : "Участник",
+                    Koefficient = isRecenzent ? 4f : 0.5f
                 });
             }
         }

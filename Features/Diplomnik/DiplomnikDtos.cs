@@ -2,6 +2,7 @@ namespace asugaksharp.Features.Diplomnik;
 
 public record DiplomnikDto(
     Guid Id,
+    Guid StudentId,
     string FioImen,
     string FioRodit,
     string Sex,
@@ -10,25 +11,15 @@ public record DiplomnikDto(
     float OrigVkr,
     float Srball,
     Guid PersonId,
-    string? PersonName);
+    string? PersonName,
+    Guid ZasedanieId,
+    string? ZasedanieName);
 
 public record CreateDiplomnikRequest(
-    string FioImen,
-    string FioRodit,
-    string Sex,
-    int Pages,
-    string Tema,
-    float OrigVkr,
-    float Srball,
-    Guid PersonId);
+    Guid StudentId,
+    Guid ZasedanieId);
 
 public record UpdateDiplomnikRequest(
     Guid Id,
-    string FioImen,
-    string FioRodit,
-    string Sex,
-    int Pages,
-    string Tema,
-    float OrigVkr,
-    float Srball,
-    Guid PersonId);
+    Guid StudentId,
+    Guid ZasedanieId);

@@ -8,18 +8,9 @@ namespace asugaksharp.Core.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
-        public string FioImen { get; set; } = string.Empty;
-        public string FioRodit { get; set; } = string.Empty;
-        public string Sex { get; set; } = string.Empty;
-        public int Pages { get; set; }
-        public string Tema { get; set; } = string.Empty;                  
-        public float OrigVkr { get; set; }
-        public float Srball { get; set; }
-
-        //от таблицы Персон
-
-        public Guid PersonId { get; set; }
-        public Person? Person { get; set; }
+        // Привязка к студенту (1:1)
+        public Guid StudentId { get; set; }
+        public Student? Student { get; set; }
 
         //от таблицы Заседание
         public Guid ZasedanieId { get; set; }

@@ -12,6 +12,7 @@ public class AppDbContext : DbContext
     // DbSets для всех сущностей
     public DbSet<Kafedra> Kafedra { get; set; }
     public DbSet<Person> Person { get; set; }
+    public DbSet<Student> Student { get; set; }
     public DbSet<Diplomnik> Diplomnik { get; set; }
     public DbSet<Gak> Gak { get; set; }
     public DbSet<Zasedanie> Zasedanie { get; set; }
@@ -46,5 +47,11 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Gak>()
             .HasMany(g => g.Persons)
             .WithMany(p => p.Gaks);
+
+        modelBuilder.Entity<Diplomnik>()
+            .HasOne(d => d.Student)
+            .WithOne(s => s.Diplomnik)
+            .HasForeignKey<Diplomnik>(d => d.StudentId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

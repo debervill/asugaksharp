@@ -1,6 +1,6 @@
 using System.Windows;
-using System.Windows.Controls;
-
+using asugaksharp.Features.Student;
+using asugaksharp.Features.Zasedanie;
 namespace asugaksharp.Features.Diplomnik;
 
 public partial class DiplomnikWindow : Window
@@ -9,7 +9,8 @@ public partial class DiplomnikWindow : Window
     private readonly CreateDiplomnikHandler _createHandler;
     private readonly UpdateDiplomnikHandler _updateHandler;
     private readonly DeleteDiplomnikHandler _deleteHandler;
-    private readonly Person.GetPersonsHandler _getPersonsHandler;
+    private readonly GetZasedaniesHandler _getZasedaniesHandler;
+    private readonly GetStudentsHandler _getStudentsHandler;
 
     private Guid? _editingId = null;
 
@@ -18,7 +19,8 @@ public partial class DiplomnikWindow : Window
         CreateDiplomnikHandler createHandler,
         UpdateDiplomnikHandler updateHandler,
         DeleteDiplomnikHandler deleteHandler,
-        Person.GetPersonsHandler getPersonsHandler)
+        GetZasedaniesHandler getZasedaniesHandler,
+        GetStudentsHandler getStudentsHandler)
     {
         InitializeComponent();
 
@@ -26,7 +28,8 @@ public partial class DiplomnikWindow : Window
         _createHandler = createHandler;
         _updateHandler = updateHandler;
         _deleteHandler = deleteHandler;
-        _getPersonsHandler = getPersonsHandler;
+        _getZasedaniesHandler = getZasedaniesHandler;
+        _getStudentsHandler = getStudentsHandler;
 
         Loaded += async (s, e) => await LoadDataAsync();
     }
@@ -38,8 +41,11 @@ public partial class DiplomnikWindow : Window
             var data = await _getHandler.ExecuteAsync() ?? new List<DiplomnikDto>();
             DataGridDiplomniki.ItemsSource = data;
 
-            var persons = await _getPersonsHandler.ExecuteAsync() ?? new List<Person.PersonDto>();
-            ComboBoxPerson.ItemsSource = persons;
+            var students = await _getStudentsHandler.ExecuteAsync() ?? new List<StudentDto>();
+            ComboBoxStudent.ItemsSource = students;
+
+            var zasedanies = await _getZasedaniesHandler.ExecuteAsync() ?? new List<ZasedanieDto>();
+            ComboBoxZasedanie.ItemsSource = zasedanies;
         }
         catch (Exception ex)
         {
@@ -58,14 +64,8 @@ public partial class DiplomnikWindow : Window
         if (DataGridDiplomniki.SelectedItem is DiplomnikDto selected)
         {
             _editingId = selected.Id;
-            TextBoxFioImen.Text = selected.FioImen;
-            TextBoxFioRodit.Text = selected.FioRodit;
-            ComboBoxSex.Text = selected.Sex;
-            TextBoxPages.Text = selected.Pages.ToString();
-            TextBoxTema.Text = selected.Tema;
-            TextBoxOrigVkr.Text = selected.OrigVkr.ToString();
-            TextBoxSrball.Text = selected.Srball.ToString();
-            ComboBoxPerson.SelectedValue = selected.PersonId;
+            ComboBoxStudent.SelectedValue = selected.StudentId;
+            ComboBoxZasedanie.SelectedValue = selected.ZasedanieId;
         }
         else
         {
@@ -98,76 +98,34 @@ public partial class DiplomnikWindow : Window
 
     private async void SaveButton_Click(object sender, RoutedEventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(TextBoxFioImen.Text))
+        if (ComboBoxStudent.SelectedValue == null)
         {
-            MessageBox.Show("Введите ФИО (им.)", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Выберите студента", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
 
-        if (string.IsNullOrWhiteSpace(TextBoxFioRodit.Text))
+        if (ComboBoxZasedanie.SelectedValue == null)
         {
-            MessageBox.Show("Введите ФИО (род.)", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Выберите заседание", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
 
-        if (ComboBoxSex.SelectedItem == null)
-        {
-            MessageBox.Show("Выберите пол", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
-        }
-
-        if (!int.TryParse(TextBoxPages.Text, out int pages))
-        {
-            MessageBox.Show("Введите корректное количество страниц", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
-        }
-
-        if (!float.TryParse(TextBoxOrigVkr.Text, out float origVkr))
-        {
-            MessageBox.Show("Введите корректную оригинальность", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
-        }
-
-        if (!float.TryParse(TextBoxSrball.Text, out float srball))
-        {
-            MessageBox.Show("Введите корректный средний балл", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
-        }
-
-        if (ComboBoxPerson.SelectedValue == null)
-        {
-            MessageBox.Show("Выберите руководителя", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
-        }
-
-        var sex = ((ComboBoxItem)ComboBoxSex.SelectedItem).Content.ToString()!;
-        var personId = (Guid)ComboBoxPerson.SelectedValue;
+        var studentId = (Guid)ComboBoxStudent.SelectedValue;
+        var zasedanieId = (Guid)ComboBoxZasedanie.SelectedValue;
 
         if (_editingId.HasValue)
         {
             var request = new UpdateDiplomnikRequest(
                 _editingId.Value,
-                TextBoxFioImen.Text,
-                TextBoxFioRodit.Text,
-                sex,
-                pages,
-                TextBoxTema.Text,
-                origVkr,
-                srball,
-                personId);
+                studentId,
+                zasedanieId);
             await _updateHandler.ExecuteAsync(request);
         }
         else
         {
             var request = new CreateDiplomnikRequest(
-                TextBoxFioImen.Text,
-                TextBoxFioRodit.Text,
-                sex,
-                pages,
-                TextBoxTema.Text,
-                origVkr,
-                srball,
-                personId);
+                studentId,
+                zasedanieId);
             await _createHandler.ExecuteAsync(request);
         }
 
@@ -183,13 +141,7 @@ public partial class DiplomnikWindow : Window
     private void ClearForm()
     {
         _editingId = null;
-        TextBoxFioImen.Text = "";
-        TextBoxFioRodit.Text = "";
-        ComboBoxSex.SelectedIndex = -1;
-        TextBoxPages.Text = "";
-        TextBoxTema.Text = "";
-        TextBoxOrigVkr.Text = "";
-        TextBoxSrball.Text = "";
-        ComboBoxPerson.SelectedIndex = -1;
+        ComboBoxStudent.SelectedIndex = -1;
+        ComboBoxZasedanie.SelectedIndex = -1;
     }
 }
