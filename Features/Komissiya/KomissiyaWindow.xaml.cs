@@ -1,4 +1,3 @@
-﻿using System.Collections.ObjectModel;
 using System.Windows;
 using asugaksharp.Features.Kafedra;
 using asugaksharp.Features.Gak;
@@ -15,18 +14,8 @@ public partial class KomissiyaWindow : Window
     private readonly GetGakKomissiyaHandler _getGakKomissiyaHandler;
     private readonly SaveGakKomissiyaHandler _saveGakKomissiyaHandler;
 
-    // Доступные сотрудники (разделены по ролям)
-    private ObservableCollection<KomissiyaPersonDto> _availablePredsedateli = new();
-    private ObservableCollection<KomissiyaPersonDto> _availableSecretari = new();
-    private ObservableCollection<KomissiyaPersonDto> _availableSotrudniki = new();
+    private readonly KomissiyaViewModel _viewModel = new();
     private List<GakDto> _gaksByKafedra = new();
-
-    // Назначенные в комиссию
-    private KomissiyaPersonDto? _predsedatel = null;
-    private KomissiyaPersonDto? _sekretar = null;
-    private ObservableCollection<KomissiyaPersonDto> _chleny = new();
-
-    private bool _hasChanges = false;
 
     public KomissiyaWindow(
         GetKafedrasHandler getKafedrasHandler,
@@ -45,10 +34,12 @@ public partial class KomissiyaWindow : Window
         _getGakKomissiyaHandler = getGakKomissiyaHandler;
         _saveGakKomissiyaHandler = saveGakKomissiyaHandler;
 
-        ListBoxPredsedateli.ItemsSource = _availablePredsedateli;
-        ListBoxSecretari.ItemsSource = _availableSecretari;
-        ListBoxSotrudniki.ItemsSource = _availableSotrudniki;
-        ListBoxChleny.ItemsSource = _chleny;
+        ListBoxPredsedateli.ItemsSource = _viewModel.AvailablePredsedateli;
+        ListBoxSecretari.ItemsSource = _viewModel.AvailableSecretari;
+        ListBoxSotrudniki.ItemsSource = _viewModel.AvailableSotrudniki;
+        ListBoxChleny.ItemsSource = _viewModel.Chleny;
+
+        _viewModel.StateChanged += UpdateUI;
 
         Loaded += async (s, e) => await LoadKafedrasAsync();
     }
@@ -70,23 +61,19 @@ public partial class KomissiyaWindow : Window
             _gaksByKafedra = await _getGaksByKafedraHandler.ExecuteAsync(kafedra.Id);
             ComboBoxGak.ItemsSource = _gaksByKafedra;
             ComboBoxGak.SelectedItem = null;
-            ClearAll();
+            _viewModel.Clear();
         }
     }
 
     private void ComboBoxPeriodZasedania_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
     {
         if (ComboBoxPeriodZasedania.SelectedItem is PeriodZasedaniaDto period)
-        {
             ComboBoxGak.ItemsSource = _gaksByKafedra.Where(g => g.PeriodZasedaniaId == period.Id).ToList();
-        }
         else
-        {
             ComboBoxGak.ItemsSource = _gaksByKafedra;
-        }
 
         ComboBoxGak.SelectedItem = null;
-        ClearAll();
+        _viewModel.Clear();
     }
 
     private async void LoadButton_Click(object sender, RoutedEventArgs e)
@@ -103,89 +90,10 @@ public partial class KomissiyaWindow : Window
             return;
         }
 
-        await LoadDataAsync(kafedra.Id, gak.Id);
-        SetHasChanges(false);
+        var allPersons = await _getPersonsByKafedraHandler.ExecuteAsync(kafedra.Id);
+        var komissiya = await _getGakKomissiyaHandler.ExecuteAsync(gak.Id);
+        _viewModel.LoadKomissiya(allPersons, komissiya);
     }
-
-    private async Task LoadDataAsync(Guid kafedraId, Guid gakId)
-    {
-        // Загружаем всех сотрудников кафедры
-        var allPersons = await _getPersonsByKafedraHandler.ExecuteAsync(kafedraId);
-
-        // Загружаем текущий состав комиссии
-        var komissiya = await _getGakKomissiyaHandler.ExecuteAsync(gakId);
-
-        // Собираем ID уже назначенных в комиссию
-        var assignedIds = new HashSet<Guid>();
-        if (komissiya.Predsedatel != null) assignedIds.Add(komissiya.Predsedatel.Id);
-        if (komissiya.Sekretar != null) assignedIds.Add(komissiya.Sekretar.Id);
-        foreach (var chlen in komissiya.Chleny) assignedIds.Add(chlen.Id);
-
-        // Заполняем текущий состав комиссии
-        _predsedatel = komissiya.Predsedatel;
-        _sekretar = komissiya.Sekretar;
-
-        _chleny.Clear();
-        foreach (var chlen in komissiya.Chleny)
-            _chleny.Add(chlen);
-
-        // Распределяем доступных сотрудников по категориям
-        _availablePredsedateli.Clear();
-        _availableSecretari.Clear();
-        _availableSotrudniki.Clear();
-
-        foreach (var person in allPersons)
-        {
-            if (assignedIds.Contains(person.Id))
-                continue;
-
-            if (person.IsPredsed)
-                _availablePredsedateli.Add(person);
-
-            if (person.IsSecretar)
-                _availableSecretari.Add(person);
-
-            // Все сотрудники могут быть членами комиссии
-            _availableSotrudniki.Add(person);
-        }
-
-        UpdateUI();
-    }
-
-    private void UpdateUI()
-    {
-        // Обновляем отображение председателя
-        if (_predsedatel != null)
-        {
-            TextBlockPredsedatel.Text = _predsedatel.Name;
-            TextBlockPredsedatel.Foreground = System.Windows.Media.Brushes.Black;
-        }
-        else
-        {
-            TextBlockPredsedatel.Text = "(не назначен)";
-            TextBlockPredsedatel.Foreground = System.Windows.Media.Brushes.Gray;
-        }
-
-        // Обновляем отображение секретаря
-        if (_sekretar != null)
-        {
-            TextBlockSekretar.Text = _sekretar.Name;
-            TextBlockSekretar.Foreground = System.Windows.Media.Brushes.Black;
-        }
-        else
-        {
-            TextBlockSekretar.Text = "(не назначен)";
-            TextBlockSekretar.Foreground = System.Windows.Media.Brushes.Gray;
-        }
-
-        // Обновляем счётчик членов комиссии
-        var count = _chleny.Count;
-        var color = count >= 3 ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
-        TextBlockChlenCount.Text = $" ({count} из 3 минимум)";
-        TextBlockChlenCount.Foreground = color;
-    }
-
-    #region Председатель
 
     private void AddPredsedatel_Click(object sender, RoutedEventArgs e)
     {
@@ -195,51 +103,17 @@ public partial class KomissiyaWindow : Window
             return;
         }
 
-        if (_predsedatel != null)
-        {
-            MessageBox.Show("Председатель уже назначен. Сначала уберите текущего.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
-        }
-
-        _predsedatel = person;
-        _availablePredsedateli.Remove(person);
-
-        // Удаляем из других списков тоже
-        if (person.IsSecretar)
-        {
-            var inSecretari = _availableSecretari.FirstOrDefault(p => p.Id == person.Id);
-            if (inSecretari != null) _availableSecretari.Remove(inSecretari);
-        }
-        var inSotrudniki = _availableSotrudniki.FirstOrDefault(p => p.Id == person.Id);
-        if (inSotrudniki != null) _availableSotrudniki.Remove(inSotrudniki);
-
-        UpdateUI();
-        SetHasChanges(true);
+        var error = _viewModel.AssignPredsedatel(person);
+        if (error != null)
+            MessageBox.Show(error, "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
     }
 
     private void RemovePredsedatel_Click(object sender, RoutedEventArgs e)
     {
-        if (_predsedatel == null)
-        {
-            MessageBox.Show("Председатель не назначен", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
-        }
-
-        var person = _predsedatel;
-        _predsedatel = null;
-
-        // Возвращаем в списки
-        _availablePredsedateli.Add(person);
-        if (person.IsSecretar) _availableSecretari.Add(person);
-        _availableSotrudniki.Add(person);
-
-        UpdateUI();
-        SetHasChanges(true);
+        var error = _viewModel.UnassignPredsedatel();
+        if (error != null)
+            MessageBox.Show(error, "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
     }
-
-    #endregion
-
-    #region Секретарь
 
     private void AddSekretar_Click(object sender, RoutedEventArgs e)
     {
@@ -249,51 +123,17 @@ public partial class KomissiyaWindow : Window
             return;
         }
 
-        if (_sekretar != null)
-        {
-            MessageBox.Show("Секретарь уже назначен. Сначала уберите текущего.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
-        }
-
-        _sekretar = person;
-        _availableSecretari.Remove(person);
-
-        // Удаляем из других списков тоже
-        if (person.IsPredsed)
-        {
-            var inPredsedateli = _availablePredsedateli.FirstOrDefault(p => p.Id == person.Id);
-            if (inPredsedateli != null) _availablePredsedateli.Remove(inPredsedateli);
-        }
-        var inSotrudniki = _availableSotrudniki.FirstOrDefault(p => p.Id == person.Id);
-        if (inSotrudniki != null) _availableSotrudniki.Remove(inSotrudniki);
-
-        UpdateUI();
-        SetHasChanges(true);
+        var error = _viewModel.AssignSekretar(person);
+        if (error != null)
+            MessageBox.Show(error, "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
     }
 
     private void RemoveSekretar_Click(object sender, RoutedEventArgs e)
     {
-        if (_sekretar == null)
-        {
-            MessageBox.Show("Секретарь не назначен", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
-        }
-
-        var person = _sekretar;
-        _sekretar = null;
-
-        // Возвращаем в списки
-        _availableSecretari.Add(person);
-        if (person.IsPredsed) _availablePredsedateli.Add(person);
-        _availableSotrudniki.Add(person);
-
-        UpdateUI();
-        SetHasChanges(true);
+        var error = _viewModel.UnassignSekretar();
+        if (error != null)
+            MessageBox.Show(error, "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
     }
-
-    #endregion
-
-    #region Члены комиссии
 
     private void AddChlen_Click(object sender, RoutedEventArgs e)
     {
@@ -303,23 +143,7 @@ public partial class KomissiyaWindow : Window
             return;
         }
 
-        _chleny.Add(person);
-        _availableSotrudniki.Remove(person);
-
-        // Удаляем из других списков тоже
-        if (person.IsPredsed)
-        {
-            var inPredsedateli = _availablePredsedateli.FirstOrDefault(p => p.Id == person.Id);
-            if (inPredsedateli != null) _availablePredsedateli.Remove(inPredsedateli);
-        }
-        if (person.IsSecretar)
-        {
-            var inSecretari = _availableSecretari.FirstOrDefault(p => p.Id == person.Id);
-            if (inSecretari != null) _availableSecretari.Remove(inSecretari);
-        }
-
-        UpdateUI();
-        SetHasChanges(true);
+        _viewModel.AddChlen(person);
     }
 
     private void RemoveChlen_Click(object sender, RoutedEventArgs e)
@@ -330,18 +154,8 @@ public partial class KomissiyaWindow : Window
             return;
         }
 
-        _chleny.Remove(person);
-
-        // Возвращаем в списки
-        _availableSotrudniki.Add(person);
-        if (person.IsPredsed) _availablePredsedateli.Add(person);
-        if (person.IsSecretar) _availableSecretari.Add(person);
-
-        UpdateUI();
-        SetHasChanges(true);
+        _viewModel.RemoveChlen(person);
     }
-
-    #endregion
 
     private async void SaveButton_Click(object sender, RoutedEventArgs e)
     {
@@ -351,61 +165,67 @@ public partial class KomissiyaWindow : Window
             return;
         }
 
-        // Валидация
-        var errors = new List<string>();
-
-        if (_predsedatel == null)
-            errors.Add("Не назначен председатель");
-
-        if (_sekretar == null)
-            errors.Add("Не назначен секретарь");
-
-        if (_chleny.Count < 3)
-            errors.Add($"Недостаточно членов комиссии (назначено {_chleny.Count}, требуется минимум 3)");
-
+        var errors = _viewModel.Validate();
         if (errors.Count > 0)
         {
             MessageBox.Show(
-                "Невозможно сохранить комиссию:\n\n" + string.Join("\n", errors.Select(e => "• " + e)),
+                "Невозможно сохранить комиссию:\n\n" + string.Join("\n", errors.Select(err => "• " + err)),
                 "Ошибка валидации",
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
             return;
         }
 
+        ButtonSave.IsEnabled = false;
         try
         {
-            var request = new SaveGakKomissiyaRequest(
-                gak.Id,
-                _predsedatel!.Id,
-                _sekretar!.Id,
-                _chleny.Select(c => c.Id).ToList());
-
+            var request = _viewModel.CreateSaveRequest(gak.Id);
             await _saveGakKomissiyaHandler.ExecuteAsync(request);
-            SetHasChanges(false);
+            _viewModel.MarkSaved();
             MessageBox.Show("Комиссия сохранена", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         catch (Exception ex)
         {
             MessageBox.Show($"Ошибка сохранения: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+        finally
+        {
+            ButtonSave.IsEnabled = _viewModel.HasChanges;
+        }
     }
 
-    private void SetHasChanges(bool value)
+    private void UpdateUI()
     {
-        _hasChanges = value;
-        ButtonSave.IsEnabled = value;
-    }
+        // Председатель
+        if (_viewModel.Predsedatel != null)
+        {
+            TextBlockPredsedatel.Text = _viewModel.Predsedatel.Name;
+            TextBlockPredsedatel.Foreground = System.Windows.Media.Brushes.Black;
+        }
+        else
+        {
+            TextBlockPredsedatel.Text = "(не назначен)";
+            TextBlockPredsedatel.Foreground = System.Windows.Media.Brushes.Gray;
+        }
 
-    private void ClearAll()
-    {
-        _predsedatel = null;
-        _sekretar = null;
-        _chleny.Clear();
-        _availablePredsedateli.Clear();
-        _availableSecretari.Clear();
-        _availableSotrudniki.Clear();
-        UpdateUI();
-        SetHasChanges(false);
+        // Секретарь
+        if (_viewModel.Sekretar != null)
+        {
+            TextBlockSekretar.Text = _viewModel.Sekretar.Name;
+            TextBlockSekretar.Foreground = System.Windows.Media.Brushes.Black;
+        }
+        else
+        {
+            TextBlockSekretar.Text = "(не назначен)";
+            TextBlockSekretar.Foreground = System.Windows.Media.Brushes.Gray;
+        }
+
+        // Счётчик членов комиссии
+        var count = _viewModel.Chleny.Count;
+        var color = count >= 3 ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
+        TextBlockChlenCount.Text = $" ({count} из 3 минимум)";
+        TextBlockChlenCount.Foreground = color;
+
+        ButtonSave.IsEnabled = _viewModel.HasChanges;
     }
 }

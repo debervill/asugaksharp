@@ -21,7 +21,8 @@
       "Bash(dotnet add package:*)",
       "Bash(move \"known bugs.md\" docs )",
       "Bash(move DATABASE_SCHEMA.md docs )",
-      "Bash(move TEMPLATE_LABELS.md docs)"
+      "Bash(move TEMPLATE_LABELS.md docs)",
+      "Bash(wc:*)"
     ]
   }
 }

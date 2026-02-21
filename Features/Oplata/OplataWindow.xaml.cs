@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -21,10 +20,7 @@ public partial class OplataWindow : Window
     private readonly SaveOplatasByGakHandler _saveOplatasByGakHandler;
     private readonly GenerateDocumentHandler _generateDocumentHandler;
 
-    private ObservableCollection<OplataRowDto> _oplataRows = new();
-    private GakInfoDto? _currentGakInfo;
-    private Guid _currentGakId;
-    private string _documentsOutputPath = string.Empty;
+    private readonly OplataViewModel _viewModel = new();
 
     public OplataWindow(
         GetKafedrasHandler getKafedrasHandler,
@@ -45,7 +41,8 @@ public partial class OplataWindow : Window
         _saveOplatasByGakHandler = saveOplatasByGakHandler;
         _generateDocumentHandler = generateDocumentHandler;
 
-        DataGridOplata.ItemsSource = _oplataRows;
+        DataGridOplata.ItemsSource = _viewModel.Rows;
+        _viewModel.StateChanged += UpdateUI;
 
         Loaded += async (s, e) => await LoadKafedrasAsync();
     }
@@ -63,7 +60,7 @@ public partial class OplataWindow : Window
             var gaks = await _getGaksByKafedraHandler.ExecuteAsync(kafedra.Id);
             ComboBoxGak.ItemsSource = gaks;
             ComboBoxGak.SelectedItem = null;
-            ClearAll();
+            _viewModel.Clear();
         }
     }
 
@@ -81,54 +78,18 @@ public partial class OplataWindow : Window
             return;
         }
 
-        await LoadDataAsync(gak.Id);
-    }
-
-    private async Task LoadDataAsync(Guid gakId)
-    {
-        _currentGakId = gakId;
-
-        // Загружаем информацию о ГАК
-        _currentGakInfo = await _getGakInfoHandler.ExecuteAsync(gakId);
-        if (_currentGakInfo != null)
-        {
-            TextBoxKolvoBudget.Text = _currentGakInfo.KolvoBudget.ToString();
-            TextBoxKolvoPlatka.Text = _currentGakInfo.KolvoPlatka.ToString();
-        }
-
-        _oplataRows.Clear();
-
-        // Сначала пробуем загрузить сохранённые расчёты
-        var savedOplatas = await _getOplatasByGakHandler.ExecuteAsync(gakId);
+        var gakInfo = await _getGakInfoHandler.ExecuteAsync(gak.Id);
+        var savedOplatas = await _getOplatasByGakHandler.ExecuteAsync(gak.Id);
 
         if (savedOplatas.Count > 0)
         {
-            // Есть сохранённые расчёты - загружаем их
-            foreach (var oplata in savedOplatas)
-            {
-                _oplataRows.Add(oplata);
-            }
+            _viewModel.LoadData(gak.Id, gakInfo, savedOplatas);
         }
         else
         {
-            // Нет сохранённых - создаём из внешних членов комиссии
-            var members = await _getGakExternalMembersHandler.ExecuteAsync(gakId);
-            foreach (var member in members)
-            {
-                // Устанавливаем количество студентов по умолчанию из ГАК
-                if (_currentGakInfo != null)
-                {
-                    member.KolvoBudget = _currentGakInfo.KolvoBudget;
-                    member.KolvoPlatka = _currentGakInfo.KolvoPlatka;
-                }
-                _oplataRows.Add(member);
-            }
+            var members = await _getGakExternalMembersHandler.ExecuteAsync(gak.Id);
+            _viewModel.LoadFromMembers(gak.Id, gakInfo, members);
         }
-
-        ButtonSaveAll.IsEnabled = _oplataRows.Count > 0;
-        ButtonDocuments.IsEnabled = _oplataRows.Count > 0;
-        _documentsOutputPath = string.Empty; // Сбрасываем путь при загрузке нового ГАК
-        UpdateTotals();
     }
 
     private void ApplyToAllButton_Click(object sender, RoutedEventArgs e)
@@ -139,86 +100,49 @@ public partial class OplataWindow : Window
             return;
         }
 
-        foreach (var row in _oplataRows)
-        {
-            row.StoimostChasa = stoimostChasa;
-            row.Recalculate();
-        }
-
-        UpdateTotals();
+        _viewModel.ApplyStoimostChasa(stoimostChasa);
         DataGridOplata.Items.Refresh();
     }
 
     private void DataGridOplata_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
     {
-        // После редактирования ячейки пересчитываем строку
         if (e.Row.Item is OplataRowDto row)
         {
             Dispatcher.BeginInvoke(new Action(() =>
             {
-                row.Recalculate();
-                UpdateTotals();
+                _viewModel.RecalculateRow(row);
             }), System.Windows.Threading.DispatcherPriority.Background);
         }
     }
 
-    private void UpdateTotals()
-    {
-        var totalNachisleno = _oplataRows.Sum(r => r.SummaBezNalogov);
-        var totalNdfl = _oplataRows.Sum(r => r.NdflSumma);
-        var totalEnp = _oplataRows.Sum(r => r.EnpSumma);
-        var totalKVyplate = _oplataRows.Sum(r => r.SummaKVyplate);
-
-        TextBoxTotalNachisleno.Text = totalNachisleno.ToString("F2");
-        TextBoxTotalNdfl.Text = totalNdfl.ToString("F2");
-        TextBoxTotalEnp.Text = totalEnp.ToString("F2");
-        TextBoxTotalKVyplate.Text = totalKVyplate.ToString("F2");
-    }
-
     private async void SaveAllButton_Click(object sender, RoutedEventArgs e)
     {
-        // Валидация
-        if (_oplataRows.Any(r => r.KolvoStudentov <= 0))
+        var errors = _viewModel.ValidateForSave();
+        if (errors.Count > 0)
         {
-            MessageBox.Show("Укажите количество студентов для всех членов комиссии", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(string.Join("\n", errors), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
 
-        if (_oplataRows.Any(r => r.StoimostChasa <= 0))
-        {
-            MessageBox.Show("Укажите стоимость часа для всех членов комиссии", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
-        }
-
+        ButtonSaveAll.IsEnabled = false;
         try
         {
-            await _saveOplatasByGakHandler.ExecuteAsync(_currentGakId, _oplataRows.ToList());
+            await _saveOplatasByGakHandler.ExecuteAsync(_viewModel.CurrentGakId, _viewModel.Rows.ToList());
             MessageBox.Show("Расчёт сохранён", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         catch (Exception ex)
         {
             MessageBox.Show($"Ошибка сохранения: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+        finally
+        {
+            ButtonSaveAll.IsEnabled = _viewModel.HasData;
+        }
     }
 
     private void CopyMenuItem_Click(object sender, RoutedEventArgs e)
     {
         ApplicationCommands.Copy.Execute(null, DataGridOplata);
-    }
-
-    private void ClearAll()
-    {
-        _oplataRows.Clear();
-        _currentGakInfo = null;
-        TextBoxKolvoBudget.Text = "";
-        TextBoxKolvoPlatka.Text = "";
-        TextBoxStoimostChasa.Text = "";
-        TextBoxTotalNachisleno.Text = "";
-        TextBoxTotalNdfl.Text = "";
-        TextBoxTotalEnp.Text = "";
-        TextBoxTotalKVyplate.Text = "";
-        ButtonSaveAll.IsEnabled = false;
-        ButtonDocuments.IsEnabled = false;
     }
 
     private void ButtonDocuments_Click(object sender, RoutedEventArgs e)
@@ -231,73 +155,43 @@ public partial class OplataWindow : Window
         }
     }
 
-    private string GetOrCreateOutputPath()
-    {
-        if (string.IsNullOrEmpty(_documentsOutputPath) || !Directory.Exists(_documentsOutputPath))
-        {
-            // Создаём папку для документов рядом с exe
-            var basePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "GeneratedDocuments");
-
-            // Добавляем папку для текущего ГАК
-            if (_currentGakInfo != null)
-            {
-                var gakFolder = $"ГАК_{_currentGakInfo.NomerPrikaza}_{DateTime.Now:yyyy-MM-dd}";
-                _documentsOutputPath = Path.Combine(basePath, gakFolder);
-            }
-            else
-            {
-                _documentsOutputPath = Path.Combine(basePath, DateTime.Now.ToString("yyyy-MM-dd_HH-mm"));
-            }
-
-            Directory.CreateDirectory(_documentsOutputPath);
-        }
-        return _documentsOutputPath;
-    }
-
     private async void GenerateAllDocuments_Click(object sender, RoutedEventArgs e)
     {
-        await GenerateDocumentsForGakAsync(null);
+        await GenerateDocumentsAsync(null);
     }
 
     private async void GenerateDogovors_Click(object sender, RoutedEventArgs e)
     {
-        await GenerateDocumentsForGakAsync(DocumentType.Dogovor);
+        await GenerateDocumentsAsync(DocumentType.Dogovor);
     }
 
-    private async Task GenerateDocumentsForGakAsync(DocumentType? documentType)
+    private async Task GenerateDocumentsAsync(DocumentType? documentType)
     {
-        if (_currentGakId == Guid.Empty)
+        if (_viewModel.CurrentGakId == Guid.Empty)
         {
             MessageBox.Show("Сначала загрузите данные ГАК", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
-        var outputPath = GetOrCreateOutputPath();
+        var outputPath = _viewModel.GetOrCreateOutputPath();
         var documentTypeName = documentType switch
         {
             DocumentType.Dogovor => "договоров",
             _ => "всех документов"
         };
 
+        ButtonDocuments.IsEnabled = false;
+        Mouse.OverrideCursor = Cursors.Wait;
         try
         {
-            Mouse.OverrideCursor = Cursors.Wait;
-
-            if (documentType == null)
-            {
-                // Генерируем договоры
-                var result = await _generateDocumentHandler.ExecuteForGakAsync(_currentGakId, DocumentType.Dogovor, outputPath);
-                ShowGenerationResult(result.SuccessCount, result.TotalCount, result.Errors, "договоров", outputPath);
-            }
-            else
-            {
-                var result = await _generateDocumentHandler.ExecuteForGakAsync(_currentGakId, documentType.Value, outputPath);
-                ShowGenerationResult(result.SuccessCount, result.TotalCount, result.Errors, documentTypeName, outputPath);
-            }
+            var docType = documentType ?? DocumentType.Dogovor;
+            var result = await _generateDocumentHandler.ExecuteForGakAsync(_viewModel.CurrentGakId, docType, outputPath);
+            ShowGenerationResult(result.SuccessCount, result.TotalCount, result.Errors, documentTypeName, outputPath);
         }
         finally
         {
             Mouse.OverrideCursor = null;
+            ButtonDocuments.IsEnabled = _viewModel.HasData;
         }
     }
 
@@ -321,21 +215,39 @@ public partial class OplataWindow : Window
                 MessageBoxImage.Information);
 
             if (result == MessageBoxResult.Yes)
-            {
                 Process.Start("explorer.exe", outputPath);
-            }
         }
     }
 
     private void OpenDocumentsFolder_Click(object sender, RoutedEventArgs e)
     {
         var basePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "GeneratedDocuments");
-
         if (!Directory.Exists(basePath))
-        {
             Directory.CreateDirectory(basePath);
-        }
 
         Process.Start("explorer.exe", basePath);
+    }
+
+    private void UpdateUI()
+    {
+        if (_viewModel.CurrentGakInfo != null)
+        {
+            TextBoxKolvoBudget.Text = _viewModel.CurrentGakInfo.KolvoBudget.ToString();
+            TextBoxKolvoPlatka.Text = _viewModel.CurrentGakInfo.KolvoPlatka.ToString();
+        }
+        else
+        {
+            TextBoxKolvoBudget.Text = "";
+            TextBoxKolvoPlatka.Text = "";
+        }
+
+        var totals = _viewModel.GetTotals();
+        TextBoxTotalNachisleno.Text = totals.TotalNachisleno.ToString("F2");
+        TextBoxTotalNdfl.Text = totals.TotalNdfl.ToString("F2");
+        TextBoxTotalEnp.Text = totals.TotalEnp.ToString("F2");
+        TextBoxTotalKVyplate.Text = totals.TotalKVyplate.ToString("F2");
+
+        ButtonSaveAll.IsEnabled = _viewModel.HasData;
+        ButtonDocuments.IsEnabled = _viewModel.HasData;
     }
 }
