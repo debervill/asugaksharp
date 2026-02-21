@@ -46,8 +46,15 @@ public partial class KomissiyaWindow : Window
 
     private async Task LoadKafedrasAsync()
     {
-        var kafedras = await _getKafedrasHandler.ExecuteAsync();
-        ComboBoxKafedra.ItemsSource = kafedras;
+        try
+        {
+            var kafedras = await _getKafedrasHandler.ExecuteAsync() ?? new List<KafedraDto>();
+            ComboBoxKafedra.ItemsSource = kafedras;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Ошибка загрузки кафедр: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     private async void ComboBoxKafedra_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

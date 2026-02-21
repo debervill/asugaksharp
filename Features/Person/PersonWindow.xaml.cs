@@ -40,18 +40,25 @@ public partial class PersonWindow : Window
 
     private async Task LoadDataAsync()
     {
-        var selectedFilterId = (ComboBoxKafedraFilter.SelectedItem as KafedraDto)?.Id;
+        try
+        {
+            var selectedFilterId = (ComboBoxKafedraFilter.SelectedItem as KafedraDto)?.Id;
 
-        _allPersons = await _getHandler.ExecuteAsync();
+            _allPersons = await _getHandler.ExecuteAsync() ?? new List<PersonDto>();
 
-        var kafedras = await _getKafedrasHandler.ExecuteAsync();
-        ComboBoxKafedra.ItemsSource = kafedras;
-        ComboBoxKafedraFilter.ItemsSource = kafedras;
+            var kafedras = await _getKafedrasHandler.ExecuteAsync() ?? new List<KafedraDto>();
+            ComboBoxKafedra.ItemsSource = kafedras;
+            ComboBoxKafedraFilter.ItemsSource = kafedras;
 
-        if (selectedFilterId.HasValue)
-            ComboBoxKafedraFilter.SelectedItem = kafedras.FirstOrDefault(k => k.Id == selectedFilterId.Value);
+            if (selectedFilterId.HasValue && kafedras.Count > 0)
+                ComboBoxKafedraFilter.SelectedItem = kafedras.FirstOrDefault(k => k.Id == selectedFilterId.Value);
 
-        ApplyFilter();
+            ApplyFilter();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Ошибка загрузки данных: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -147,7 +154,7 @@ public partial class PersonWindow : Window
 
     private void ApplyFilter()
     {
-        if (ComboBoxKafedraFilter.SelectedItem is KafedraDto selectedKafedra)
+        if (ComboBoxKafedraFilter.SelectedItem is KafedraDto selectedKafedra && _allPersons != null)
             DataGridItems.ItemsSource = _allPersons.Where(p => p.KafedraId == selectedKafedra.Id).ToList();
         else
             DataGridItems.ItemsSource = new List<PersonDto>();

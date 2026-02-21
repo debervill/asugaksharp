@@ -36,14 +36,21 @@ public partial class GakWindow : Window
 
     private async Task LoadDataAsync()
     {
-        var data = await _getHandler.ExecuteAsync();
-        DataGridGaks.ItemsSource = data;
+        try
+        {
+            var data = await _getHandler.ExecuteAsync() ?? new List<GakDto>();
+            DataGridGaks.ItemsSource = data;
 
-        _periods = await _getPeriodZasedaniasHandler.ExecuteAsync();
-        ComboBoxPeriodZasedania.ItemsSource = _periods;
+            _periods = await _getPeriodZasedaniasHandler.ExecuteAsync() ?? new List<PeriodZasedania.PeriodZasedaniaDto>();
+            ComboBoxPeriodZasedania.ItemsSource = _periods;
 
-        var kafedras = await _getKafedrasHandler.ExecuteAsync();
-        ComboBoxKafedra.ItemsSource = kafedras;
+            var kafedras = await _getKafedrasHandler.ExecuteAsync() ?? new List<Kafedra.KafedraDto>();
+            ComboBoxKafedra.ItemsSource = kafedras;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Ошибка загрузки данных: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)

@@ -33,11 +33,18 @@ public partial class DiplomnikWindow : Window
 
     private async Task LoadDataAsync()
     {
-        var data = await _getHandler.ExecuteAsync();
-        DataGridDiplomniki.ItemsSource = data;
+        try
+        {
+            var data = await _getHandler.ExecuteAsync() ?? new List<DiplomnikDto>();
+            DataGridDiplomniki.ItemsSource = data;
 
-        var persons = await _getPersonsHandler.ExecuteAsync();
-        ComboBoxPerson.ItemsSource = persons;
+            var persons = await _getPersonsHandler.ExecuteAsync() ?? new List<Person.PersonDto>();
+            ComboBoxPerson.ItemsSource = persons;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Ошибка загрузки данных: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)

@@ -32,11 +32,18 @@ public partial class ZasedanieWindow : Window
 
     private async Task LoadDataAsync()
     {
-        var data = await _getHandler.ExecuteAsync();
-        DataGridZasedanies.ItemsSource = data;
+        try
+        {
+            var data = await _getHandler.ExecuteAsync() ?? new List<ZasedanieDto>();
+            DataGridZasedanies.ItemsSource = data;
 
-        var gaks = await _getGaksHandler.ExecuteAsync();
-        ComboBoxGak.ItemsSource = gaks;
+            var gaks = await _getGaksHandler.ExecuteAsync() ?? new List<Gak.GakDto>();
+            ComboBoxGak.ItemsSource = gaks;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Ошибка загрузки данных: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)

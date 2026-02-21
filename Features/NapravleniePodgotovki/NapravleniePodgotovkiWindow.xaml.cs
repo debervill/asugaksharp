@@ -29,8 +29,15 @@ public partial class NapravleniePodgotovkiWindow : Window
 
     private async Task LoadDataAsync()
     {
-        var data = await _getHandler.ExecuteAsync();
-        DataGridItems.ItemsSource = data;
+        try
+        {
+            var data = await _getHandler.ExecuteAsync() ?? new List<NapravleniePodgotovkiDto>();
+            DataGridItems.ItemsSource = data;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Ошибка загрузки данных: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)

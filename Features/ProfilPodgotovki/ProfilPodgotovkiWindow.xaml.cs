@@ -32,11 +32,18 @@ public partial class ProfilPodgotovkiWindow : Window
 
     private async Task LoadDataAsync()
     {
-        var data = await _getHandler.ExecuteAsync();
-        DataGridProfilPodgotovkis.ItemsSource = data;
+        try
+        {
+            var data = await _getHandler.ExecuteAsync() ?? new List<ProfilPodgotovkiDto>();
+            DataGridProfilPodgotovkis.ItemsSource = data;
 
-        var napravleniePodgotovkis = await _getNapravleniePodgotovkisHandler.ExecuteAsync();
-        ComboBoxNapravleniePodgotovki.ItemsSource = napravleniePodgotovkis;
+            var napravleniePodgotovkis = await _getNapravleniePodgotovkisHandler.ExecuteAsync() ?? new List<NapravleniePodgotovki.NapravleniePodgotovkiDto>();
+            ComboBoxNapravleniePodgotovki.ItemsSource = napravleniePodgotovkis;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Ошибка загрузки данных: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)

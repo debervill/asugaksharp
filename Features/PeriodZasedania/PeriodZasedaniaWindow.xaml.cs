@@ -32,11 +32,18 @@ public partial class PeriodZasedaniaWindow : Window
 
     private async Task LoadDataAsync()
     {
-        var data = await _getHandler.ExecuteAsync();
-        DataGridPeriodZasedanias.ItemsSource = data;
+        try
+        {
+            var data = await _getHandler.ExecuteAsync() ?? new List<PeriodZasedaniaDto>();
+            DataGridPeriodZasedanias.ItemsSource = data;
 
-        var kafedras = await _getKafedrasHandler.ExecuteAsync();
-        ComboBoxKafedra.ItemsSource = kafedras;
+            var kafedras = await _getKafedrasHandler.ExecuteAsync() ?? new List<Kafedra.KafedraDto>();
+            ComboBoxKafedra.ItemsSource = kafedras;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Ошибка загрузки данных: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
