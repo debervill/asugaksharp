@@ -1,4 +1,5 @@
-﻿using asugaksharp.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using asugaksharp.Infrastructure.Persistence;
 
 namespace asugaksharp.Features.Kafedra;
 

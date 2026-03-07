@@ -10,13 +10,15 @@ public sealed record SeedTestDataResult(int KafedraAdded, int PersonsAdded, bool
 public sealed class SeedTestDataHandler
 {
     private const string TestDataMarker = "TEST_DATA";
-    private readonly AppDbContext _context;
+    private readonly IDbContextFactory<AppDbContext> _factory;
 
-    public SeedTestDataHandler(AppDbContext context) => _context = context;
+    public SeedTestDataHandler(IDbContextFactory<AppDbContext> factory) => _factory = factory;
 
     public async Task<SeedTestDataResult> ExecuteAsync(CancellationToken ct = default)
     {
-        if (await _context.Kafedra.AnyAsync(k => k.Description == TestDataMarker, ct))
+        await using var context = await _factory.CreateDbContextAsync(ct);
+
+        if (await context.Kafedra.AnyAsync(k => k.Description == TestDataMarker, ct))
             return new SeedTestDataResult(0, 0, true);
 
         var seeds = GetSeeds();
@@ -35,17 +37,17 @@ public sealed class SeedTestDataHandler
                 Email = seed.Email
             };
 
-            _context.Kafedra.Add(kafedra);
+            context.Kafedra.Add(kafedra);
 
             foreach (var personSeed in seed.Persons)
             {
                 globalIndex++;
-                _context.Person.Add(BuildPerson(kafedra.Id, seed.City, personSeed, globalIndex));
+                context.Person.Add(BuildPerson(kafedra.Id, seed.City, personSeed, globalIndex));
                 personsAdded++;
             }
         }
 
-        await _context.SaveChangesAsync(ct);
+        await context.SaveChangesAsync(ct);
         return new SeedTestDataResult(seeds.Count, personsAdded, false);
     }
 
