@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Дипломники" Height="600" Width="900"
+        Title="Дипломники" Height="760" Width="1020"
         WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -14,38 +14,42 @@
         </Grid.RowDefinitions>
 
         <!-- Панель инструментов -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-            <Button Content="Добавить" Width="100" Margin="0,0,5,0" Click="AddButton_Click"/>
-            <Button Content="Редактировать" Width="100" Margin="0,0,5,0" Click="EditButton_Click"/>
-            <Button Content="Удалить" Width="100" Margin="0,0,5,0" Click="DeleteButton_Click"/>
-            <Button Content="Обновить" Width="100" Click="RefreshButton_Click"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+            <Button Content="Добавить"      Width="100" Margin="0,0,5,0" Click="AddButton_Click"/>
+            <Button Content="Редактировать" Width="110" Margin="0,0,5,0" Click="EditButton_Click"/>
+            <Button Content="Удалить"       Width="100" Margin="0,0,5,0" Click="DeleteButton_Click"/>
+            <Button Content="Обновить"      Width="100" Click="RefreshButton_Click"/>
         </StackPanel>
 
-        <!-- Таблица данных -->
+        <!-- Таблица -->
         <DataGrid Grid.Row="1"
                   x:Name="DataGridDiplomniki"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   SelectionMode="Single"
-                  CanUserAddRows="False">
+                  CanUserAddRows="False"
+                  Margin="0,0,0,8">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ФИО (им.)" Binding="{Binding FioImen}" Width="*"/>
-                <DataGridTextColumn Header="ФИО (род.)" Binding="{Binding FioRodit}" Width="*"/>
-                <DataGridTextColumn Header="Пол" Binding="{Binding Sex}" Width="50"/>
-                <DataGridTextColumn Header="Страниц" Binding="{Binding Pages}" Width="70"/>
-                <DataGridTextColumn Header="Тема" Binding="{Binding Tema}" Width="*"/>
-                <DataGridTextColumn Header="Оригинальность" Binding="{Binding OrigVkr}" Width="100"/>
-                <DataGridTextColumn Header="Ср. балл" Binding="{Binding Srball}" Width="80"/>
-                <DataGridTextColumn Header="Руководитель" Binding="{Binding PersonName}" Width="*"/>
+                <DataGridTextColumn Header="ФИО (им.)"       Binding="{Binding FioImen}"              Width="160"/>
+                <DataGridTextColumn Header="ФИО (род.)"      Binding="{Binding FioRodit}"             Width="160"/>
+                <DataGridTextColumn Header="Пол"             Binding="{Binding Sex}"                  Width="40"/>
+                <DataGridTextColumn Header="Профиль"         Binding="{Binding ProfilPodgotovkiName}" Width="120"/>
+                <DataGridTextColumn Header="Тема"            Binding="{Binding Tema}"                 Width="*"/>
+                <DataGridTextColumn Header="Стр."            Binding="{Binding Pages}"                Width="45"/>
+                <DataGridTextColumn Header="Ориг.%"          Binding="{Binding OrigVkr}"              Width="55"/>
+                <DataGridTextColumn Header="Ср.балл"         Binding="{Binding Srball}"               Width="65"/>
+                <DataGridTextColumn Header="Руководитель"    Binding="{Binding PersonName}"           Width="140"/>
+                <DataGridTextColumn Header="Консультанты"    Binding="{Binding KonsultantyStr}"       Width="160"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Панель редактирования -->
-        <GroupBox Grid.Row="2" Header="Редактирование" Margin="0,10,0,0">
-            <Grid Margin="10">
+        <!-- Форма редактирования -->
+        <GroupBox Grid.Row="2" Header="Редактирование">
+            <Grid Margin="10,6,10,8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
@@ -55,41 +59,95 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="ФИО (им.):" VerticalAlignment="Center" Margin="0,0,10,5"/>
-                <TextBox Grid.Row="0" Grid.Column="1" x:Name="TextBoxFioImen" Margin="0,0,20,5"/>
+                <!-- Строка 0: ФИО -->
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="ФИО (им.):" VerticalAlignment="Center" Margin="0,0,8,5"/>
+                <TextBox   Grid.Row="0" Grid.Column="1" x:Name="TextBoxFioImen"
+                           LostFocus="TextBoxFioImen_LostFocus" Margin="0,0,0,5"/>
+                <TextBlock Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" Margin="0,0,8,5">
+                    <Run Text="ФИО (род.)"/>
+                </TextBlock>
+                <Grid Grid.Row="0" Grid.Column="4" Margin="0,0,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" x:Name="TextBoxFioRodit"
+                             TextChanged="TextBoxFioRodit_TextChanged"/>
+                    <Button  Grid.Column="1" Content="↻" Width="26" Margin="4,0,0,0"
+                             ToolTip="Сгенерировать из именительного"
+                             Click="BtnInflect_Click"/>
+                </Grid>
 
-                <TextBlock Grid.Row="0" Grid.Column="2" Text="ФИО (род.):" VerticalAlignment="Center" Margin="0,0,10,5"/>
-                <TextBox Grid.Row="0" Grid.Column="3" x:Name="TextBoxFioRodit" Margin="0,0,0,5"/>
-
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Пол:" VerticalAlignment="Center" Margin="0,0,10,5"/>
-                <ComboBox Grid.Row="1" Grid.Column="1" x:Name="ComboBoxSex" Margin="0,0,20,5">
+                <!-- Строка 1: Пол + Профиль -->
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Пол:" VerticalAlignment="Center" Margin="0,0,8,5"/>
+                <ComboBox  Grid.Row="1" Grid.Column="1" x:Name="ComboBoxSex" Margin="0,0,0,5"
+                           SelectionChanged="ComboBoxSex_SelectionChanged">
                     <ComboBoxItem Content="М"/>
                     <ComboBoxItem Content="Ж"/>
                 </ComboBox>
+                <TextBlock Grid.Row="1" Grid.Column="3" Text="Профиль подготовки:" VerticalAlignment="Center" Margin="0,0,8,5"/>
+                <ComboBox  Grid.Row="1" Grid.Column="4" x:Name="ComboBoxProfil"
+                           DisplayMemberPath="Name" SelectedValuePath="Id"
+                           Margin="0,0,0,5"/>
 
-                <TextBlock Grid.Row="1" Grid.Column="2" Text="Страниц:" VerticalAlignment="Center" Margin="0,0,10,5"/>
-                <TextBox Grid.Row="1" Grid.Column="3" x:Name="TextBoxPages" Margin="0,0,0,5"/>
+                <!-- Строка 2: Тема -->
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Тема ВКР:" VerticalAlignment="Center" Margin="0,0,8,5"/>
+                <TextBox   Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" x:Name="TextBoxTema"
+                           TextWrapping="Wrap" AcceptsReturn="False" Margin="0,0,0,5"/>
 
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="Тема:" VerticalAlignment="Center" Margin="0,0,10,5"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" x:Name="TextBoxTema" Margin="0,0,0,5"/>
+                <!-- Строка 3: Страниц + Оригинальность + Ср. балл -->
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Страниц:" VerticalAlignment="Center" Margin="0,0,8,5"/>
+                <TextBox   Grid.Row="3" Grid.Column="1" x:Name="TextBoxPages" Margin="0,0,0,5"/>
+                <TextBlock Grid.Row="3" Grid.Column="3" Text="Оригинальность %:" VerticalAlignment="Center" Margin="0,0,8,5"/>
+                <Grid      Grid.Row="3" Grid.Column="4" Margin="0,0,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" x:Name="TextBoxOrigVkr"/>
+                    <TextBlock Grid.Column="1" Text="  Ср. балл:" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="2" x:Name="TextBoxSrball" Margin="6,0,0,0"/>
+                </Grid>
 
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="Оригинальность %:" VerticalAlignment="Center" Margin="0,0,10,5"/>
-                <TextBox Grid.Row="3" Grid.Column="1" x:Name="TextBoxOrigVkr" Margin="0,0,20,5"/>
+                <!-- Строка 4: Руководитель -->
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="Руководитель:" VerticalAlignment="Center" Margin="0,0,8,5"/>
+                <ComboBox  Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4" x:Name="ComboBoxRukovoditel"
+                           DisplayMemberPath="Name" SelectedValuePath="Id"
+                           Margin="0,0,0,5"/>
 
-                <TextBlock Grid.Row="3" Grid.Column="2" Text="Ср. балл:" VerticalAlignment="Center" Margin="0,0,10,5"/>
-                <TextBox Grid.Row="3" Grid.Column="3" x:Name="TextBoxSrball" Margin="0,0,0,5"/>
+                <!-- Строка 5-7: Консультанты -->
+                <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="5"
+                           Text="Консультанты (необязательно, до 5):"
+                           FontWeight="SemiBold" Margin="0,4,0,4"/>
 
-                <TextBlock Grid.Row="4" Grid.Column="0" Text="Руководитель:" VerticalAlignment="Center" Margin="0,0,10,5"/>
-                <ComboBox Grid.Row="4" Grid.Column="1" x:Name="ComboBoxPerson"
-                          DisplayMemberPath="Name"
-                          SelectedValuePath="Id"
-                          Margin="0,0,20,5"/>
+                <TextBlock Grid.Row="6" Grid.Column="0" Text="Консультант 1:" VerticalAlignment="Center" Margin="0,0,8,5"/>
+                <ComboBox  Grid.Row="6" Grid.Column="1" x:Name="ComboBoxK1"
+                           DisplayMemberPath="Name" SelectedValuePath="Id" Margin="0,0,0,5"/>
+                <TextBlock Grid.Row="6" Grid.Column="3" Text="Консультант 2:" VerticalAlignment="Center" Margin="0,0,8,5"/>
+                <ComboBox  Grid.Row="6" Grid.Column="4" x:Name="ComboBoxK2"
+                           DisplayMemberPath="Name" SelectedValuePath="Id" Margin="0,0,0,5"/>
 
-                <StackPanel Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                <TextBlock Grid.Row="7" Grid.Column="0" Text="Консультант 3:" VerticalAlignment="Center" Margin="0,0,8,5"/>
+                <ComboBox  Grid.Row="7" Grid.Column="1" x:Name="ComboBoxK3"
+                           DisplayMemberPath="Name" SelectedValuePath="Id" Margin="0,0,0,5"/>
+                <TextBlock Grid.Row="7" Grid.Column="3" Text="Консультант 4:" VerticalAlignment="Center" Margin="0,0,8,5"/>
+                <ComboBox  Grid.Row="7" Grid.Column="4" x:Name="ComboBoxK4"
+                           DisplayMemberPath="Name" SelectedValuePath="Id" Margin="0,0,0,5"/>
+
+                <!-- Строка 8: Консультант 5 + кнопки -->
+                <TextBlock Grid.Row="8" Grid.Column="0" Text="Консультант 5:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                <ComboBox  Grid.Row="8" Grid.Column="1" x:Name="ComboBoxK5"
+                           DisplayMemberPath="Name" SelectedValuePath="Id"/>
+                <StackPanel Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="2"
+                            Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Content="Сохранить" Width="100" Margin="0,0,5,0" Click="SaveButton_Click"/>
-                    <Button Content="Отмена" Width="100" Click="CancelButton_Click"/>
+                    <Button Content="Отмена"    Width="100" Click="CancelButton_Click"/>
                 </StackPanel>
             </Grid>
         </GroupBox>

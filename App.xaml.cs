@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.IO;
 using System.Windows;
 using System.Windows.Markup;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,6 +37,55 @@ public partial class App : Application
         var services = new ServiceCollection();
         ConfigureServices(services);
         ServiceProvider = services.BuildServiceProvider();
+    }
+
+    protected override async void OnStartup(StartupEventArgs e)
+    {
+        base.OnStartup(e);
+
+        using var scope = ServiceProvider.CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+        var pending = (await context.Database.GetPendingMigrationsAsync()).ToList();
+        if (pending.Count > 0)
+        {
+            var dbFile = "asugak.db";
+            var isNew = !File.Exists(dbFile);
+
+            var message = isNew
+                ? "База данных не найдена.\n\nСоздать новую базу данных?"
+                : $"База данных устарела — требуется применить {pending.Count} миграц. Обновить?";
+
+            var result = MessageBox.Show(
+                message,
+                "База данных",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.No)
+            {
+                Shutdown();
+                return;
+            }
+
+            try
+            {
+                await context.Database.MigrateAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Не удалось создать базу данных:\n{ex.Message}",
+                    "Ошибка",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                Shutdown();
+                return;
+            }
+        }
+
+        var mainWindow = ServiceProvider.GetRequiredService<MainWindows>();
+        mainWindow.Show();
     }
 
     private void ConfigureServices(IServiceCollection services)
@@ -121,6 +171,7 @@ public partial class App : Application
         services.AddTransient<SeedTestDataHandler>();
 
         // Windows
+        services.AddTransient<MainWindows>();
         services.AddTransient<Features.Kafedra.KafedraWindow>();
         services.AddTransient<Features.Person.PersonWindow>();
         services.AddTransient<Features.Diplomnik.DiplomnikWindow>();
@@ -132,5 +183,6 @@ public partial class App : Application
         services.AddTransient<Features.Oplata.OplataWindow>();
         services.AddTransient<Features.Docs.DocsWindow>();
         services.AddTransient<Features.Komissiya.KomissiyaWindow>();
+        services.AddTransient<Features.Zasedanie.RaspisanieWindow>();
     }
 }

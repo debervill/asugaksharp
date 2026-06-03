@@ -93,6 +93,13 @@ public partial class MainWindows : Window
         window.ShowDialog();
     }
 
+    private void MenuRaspisanie_Click(object sender, RoutedEventArgs e)
+    {
+        var window = App.ServiceProvider.GetRequiredService<Features.Zasedanie.RaspisanieWindow>();
+        window.Owner = this;
+        window.ShowDialog();
+    }
+
     private void MenuKomissiya_Click(object sender, RoutedEventArgs e)
     {
         var window = App.ServiceProvider.GetRequiredService<KomissiyaWindow>();

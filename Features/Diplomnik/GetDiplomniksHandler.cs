@@ -10,21 +10,32 @@ public class GetDiplomniksHandler
 
     public async Task<List<DiplomnikDto>> ExecuteAsync(CancellationToken ct = default)
     {
-        return await _context.Diplomnik
+        var list = await _context.Diplomnik
             .AsNoTracking()
             .Include(d => d.Person)
+            .Include(d => d.ProfilPodgotovki)
+            .Include(d => d.Konsultanty!)
+                .ThenInclude(dk => dk.Person)
             .OrderBy(d => d.FioImen)
-            .Select(d => new DiplomnikDto(
-                d.Id,
-                d.FioImen,
-                d.FioRodit,
-                d.Sex,
-                d.Pages,
-                d.Tema,
-                d.OrigVkr,
-                d.Srball,
-                d.PersonId,
-                d.Person != null ? d.Person.Name : null))
             .ToListAsync(ct);
+
+        return list.Select(d => new DiplomnikDto(
+            d.Id,
+            d.FioImen,
+            d.FioRodit,
+            d.Sex,
+            d.Pages,
+            d.Tema,
+            d.OrigVkr,
+            d.Srball,
+            d.PersonId,
+            d.Person?.Name,
+            d.ProfilPodgotovkiId,
+            d.ProfilPodgotovki?.Name,
+            d.Konsultanty?
+                .OrderBy(dk => dk.SortOrder)
+                .Select(dk => new KonsultantInfo(dk.PersonId, dk.Person?.Name ?? string.Empty))
+                .ToList() ?? new List<KonsultantInfo>()
+        )).ToList();
     }
 }

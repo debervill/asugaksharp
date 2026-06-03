@@ -1,5 +1,7 @@
 namespace asugaksharp.Features.Diplomnik;
 
+public record KonsultantInfo(Guid PersonId, string PersonName);
+
 public record DiplomnikDto(
     Guid Id,
     string FioImen,
@@ -10,7 +12,15 @@ public record DiplomnikDto(
     float OrigVkr,
     float Srball,
     Guid PersonId,
-    string? PersonName);
+    string? PersonName,
+    Guid? ProfilPodgotovkiId,
+    string? ProfilPodgotovkiName,
+    List<KonsultantInfo> Konsultanty)
+{
+    public string KonsultantyStr => Konsultanty.Count == 0
+        ? string.Empty
+        : string.Join(", ", Konsultanty.Select(k => k.PersonName));
+}
 
 public record CreateDiplomnikRequest(
     string FioImen,
@@ -20,7 +30,9 @@ public record CreateDiplomnikRequest(
     string Tema,
     float OrigVkr,
     float Srball,
-    Guid PersonId);
+    Guid PersonId,
+    Guid? ProfilPodgotovkiId,
+    List<Guid> KonsultantIds);
 
 public record UpdateDiplomnikRequest(
     Guid Id,
@@ -31,4 +43,6 @@ public record UpdateDiplomnikRequest(
     string Tema,
     float OrigVkr,
     float Srball,
-    Guid PersonId);
+    Guid PersonId,
+    Guid? ProfilPodgotovkiId,
+    List<Guid> KonsultantIds);
