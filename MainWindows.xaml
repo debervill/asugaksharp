@@ -27,6 +27,7 @@
                 <MenuItem Header="Комиссии ГАК" Click="MenuGak_Click"/>
                 <MenuItem Header="Формирование комиссии" Click="MenuKomissiya_Click"/>
                 <MenuItem Header="Заседания" Click="MenuZasedanie_Click"/>
+                <MenuItem Header="Расписание" Click="MenuRaspisanie_Click"/>
             </MenuItem>
             <MenuItem Header="Оплата" Click="MenuOplata_Click"/>
             <MenuItem Header="Документы" Click="MenuDocs_Click"/>

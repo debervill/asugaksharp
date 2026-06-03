@@ -22,6 +22,23 @@ public class UpdateDiplomnikHandler
         entity.OrigVkr = request.OrigVkr;
         entity.Srball = request.Srball;
         entity.PersonId = request.PersonId;
+        entity.ProfilPodgotovkiId = request.ProfilPodgotovkiId;
+
+        var existing = await _context.DiplomnikKonsultant
+            .Where(dk => dk.DiplomnikId == request.Id)
+            .ToListAsync(ct);
+        _context.DiplomnikKonsultant.RemoveRange(existing);
+
+        for (int i = 0; i < request.KonsultantIds.Count; i++)
+        {
+            _context.DiplomnikKonsultant.Add(new Core.Entities.DiplomnikKonsultant
+            {
+                Id = Guid.NewGuid(),
+                DiplomnikId = entity.Id,
+                PersonId = request.KonsultantIds[i],
+                SortOrder = i + 1
+            });
+        }
 
         await _context.SaveChangesAsync(ct);
         return true;

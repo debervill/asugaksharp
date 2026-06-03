@@ -19,12 +19,24 @@ public class CreateDiplomnikHandler
             Tema = request.Tema,
             OrigVkr = request.OrigVkr,
             Srball = request.Srball,
-            PersonId = request.PersonId
+            PersonId = request.PersonId,
+            ProfilPodgotovkiId = request.ProfilPodgotovkiId
         };
 
         _context.Diplomnik.Add(entity);
-        await _context.SaveChangesAsync(ct);
 
+        for (int i = 0; i < request.KonsultantIds.Count; i++)
+        {
+            _context.DiplomnikKonsultant.Add(new Core.Entities.DiplomnikKonsultant
+            {
+                Id = Guid.NewGuid(),
+                DiplomnikId = entity.Id,
+                PersonId = request.KonsultantIds[i],
+                SortOrder = i + 1
+            });
+        }
+
+        await _context.SaveChangesAsync(ct);
         return entity.Id;
     }
 }
