@@ -17,6 +17,7 @@ using asugaksharp.Features.Oplata;
 using asugaksharp.Features.Docs;
 using asugaksharp.Features.Komissiya;
 using asugaksharp.Features.TestData;
+using asugaksharp.Features.Protocol;
 
 namespace asugaksharp;
 
@@ -167,6 +168,9 @@ public partial class App : Application
         services.AddTransient<GetGakKomissiyaHandler>();
         services.AddTransient<SaveGakKomissiyaHandler>();
 
+        // Protocol
+        services.AddTransient<GenerateProtocolHandler>();
+
         // Test data
         services.AddTransient<SeedTestDataHandler>();
 
@@ -184,5 +188,6 @@ public partial class App : Application
         services.AddTransient<Features.Docs.DocsWindow>();
         services.AddTransient<Features.Komissiya.KomissiyaWindow>();
         services.AddTransient<Features.Zasedanie.RaspisanieWindow>();
+        services.AddTransient<Features.Protocol.ProtocolWindow>();
     }
 }

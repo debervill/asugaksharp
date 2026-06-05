@@ -21,13 +21,15 @@ public class UpdateDiplomnikHandler
         entity.Tema = request.Tema;
         entity.OrigVkr = request.OrigVkr;
         entity.Srball = request.Srball;
+        entity.Otsenka = request.Otsenka;
+        entity.VidVkr = request.VidVkr;
         entity.PersonId = request.PersonId;
         entity.ProfilPodgotovkiId = request.ProfilPodgotovkiId;
 
-        var existing = await _context.DiplomnikKonsultant
+        var existingK = await _context.DiplomnikKonsultant
             .Where(dk => dk.DiplomnikId == request.Id)
             .ToListAsync(ct);
-        _context.DiplomnikKonsultant.RemoveRange(existing);
+        _context.DiplomnikKonsultant.RemoveRange(existingK);
 
         for (int i = 0; i < request.KonsultantIds.Count; i++)
         {
@@ -36,6 +38,22 @@ public class UpdateDiplomnikHandler
                 Id = Guid.NewGuid(),
                 DiplomnikId = entity.Id,
                 PersonId = request.KonsultantIds[i],
+                SortOrder = i + 1
+            });
+        }
+
+        var existingR = await _context.DiplomnikRetsenzent
+            .Where(dr => dr.DiplomnikId == request.Id)
+            .ToListAsync(ct);
+        _context.DiplomnikRetsenzent.RemoveRange(existingR);
+
+        for (int i = 0; i < request.RetsenzentIds.Count; i++)
+        {
+            _context.DiplomnikRetsenzent.Add(new Core.Entities.DiplomnikRetsenzent
+            {
+                Id = Guid.NewGuid(),
+                DiplomnikId = entity.Id,
+                PersonId = request.RetsenzentIds[i],
                 SortOrder = i + 1
             });
         }

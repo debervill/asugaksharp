@@ -105,12 +105,6 @@ public partial class PeriodZasedaniaWindow : Window
             return;
         }
 
-        if (string.IsNullOrWhiteSpace(TextBoxPrimechanie.Text))
-        {
-            MessageBox.Show("Введите примечание", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
-        }
-
         if (ComboBoxKafedra.SelectedValue == null)
         {
             MessageBox.Show("Выберите кафедру", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -120,6 +114,7 @@ public partial class PeriodZasedaniaWindow : Window
         var dateStart = DateOnly.FromDateTime(DatePickerDateStart.SelectedDate.Value);
         var dateEnd = DateOnly.FromDateTime(DatePickerDateEnd.SelectedDate.Value);
         var kafedraId = (Guid)ComboBoxKafedra.SelectedValue;
+        var primechanie = string.IsNullOrWhiteSpace(TextBoxPrimechanie.Text) ? null : TextBoxPrimechanie.Text.Trim();
 
         if (_editingId.HasValue)
         {
@@ -128,7 +123,7 @@ public partial class PeriodZasedaniaWindow : Window
                 TextBoxName.Text,
                 dateStart,
                 dateEnd,
-                TextBoxPrimechanie.Text,
+                primechanie,
                 kafedraId);
             await _updateHandler.ExecuteAsync(request);
         }
@@ -138,7 +133,7 @@ public partial class PeriodZasedaniaWindow : Window
                 TextBoxName.Text,
                 dateStart,
                 dateEnd,
-                TextBoxPrimechanie.Text,
+                primechanie,
                 kafedraId);
             await _createHandler.ExecuteAsync(request);
         }

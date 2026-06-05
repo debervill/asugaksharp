@@ -13,7 +13,6 @@ public class CreateProfilPodgotovkiHandler
         {
             Id = Guid.NewGuid(),
             Name = request.Name,
-            ShifrPodgot = request.ShifrPodgot,
             NapravleniePodgotovkiID = request.NapravleniePodgotovkiId
         };
 

@@ -30,6 +30,7 @@
                 <MenuItem Header="Расписание" Click="MenuRaspisanie_Click"/>
             </MenuItem>
             <MenuItem Header="Оплата" Click="MenuOplata_Click"/>
+            <MenuItem Header="Протоколы" Click="MenuProtokol_Click"/>
             <MenuItem Header="Документы" Click="MenuDocs_Click"/>
             <MenuItem Header="Справка">
                 <MenuItem Header="Метки шаблонов" Click="MenuHelpLabels_Click"/>

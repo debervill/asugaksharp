@@ -1,0 +1,617 @@
+{
+  "C:\\Programing\\asugaksharp\\.claude\\settings.local.json": {
+    "mtime": 1780512203.5245204,
+    "ast_hash": "cdea17539ee256ea688fca080789d651",
+    "semantic_hash": "cdea17539ee256ea688fca080789d651"
+  },
+  "C:\\Programing\\asugaksharp\\App.xaml.cs": {
+    "mtime": 1780512203.5262623,
+    "ast_hash": "b96a74bae6d64c12d7464e26d1dff7c6",
+    "semantic_hash": "b96a74bae6d64c12d7464e26d1dff7c6"
+  },
+  "C:\\Programing\\asugaksharp\\Core\\Entities\\Diplomnik.cs": {
+    "mtime": 1780512203.5282614,
+    "ast_hash": "b8ce9231ca6e67959b973df2af549a0f",
+    "semantic_hash": "b8ce9231ca6e67959b973df2af549a0f"
+  },
+  "C:\\Programing\\asugaksharp\\Core\\Entities\\Docs.cs": {
+    "mtime": 1780512203.5282614,
+    "ast_hash": "6ad4be7cb9ba47e3a6db4aeb09fae30b",
+    "semantic_hash": "6ad4be7cb9ba47e3a6db4aeb09fae30b"
+  },
+  "C:\\Programing\\asugaksharp\\Core\\Entities\\Gak.cs": {
+    "mtime": 1780512203.5282614,
+    "ast_hash": "dc7bf4ae4fe2168661fd613c0f5f9075",
+    "semantic_hash": "dc7bf4ae4fe2168661fd613c0f5f9075"
+  },
+  "C:\\Programing\\asugaksharp\\Core\\Entities\\Kafedra.cs": {
+    "mtime": 1780512203.5282614,
+    "ast_hash": "2d61b1fdff21f3a0205708d8a3030263",
+    "semantic_hash": "2d61b1fdff21f3a0205708d8a3030263"
+  },
+  "C:\\Programing\\asugaksharp\\Core\\Entities\\NapravleniePodgotovki.cs": {
+    "mtime": 1780512203.5297709,
+    "ast_hash": "7667b9e2424da3d389d8ea8ab107ff0a",
+    "semantic_hash": "7667b9e2424da3d389d8ea8ab107ff0a"
+  },
+  "C:\\Programing\\asugaksharp\\Core\\Entities\\Normativ.cs": {
+    "mtime": 1780512203.5297709,
+    "ast_hash": "11de73ba576b792b7a714655a471ec1e",
+    "semantic_hash": "11de73ba576b792b7a714655a471ec1e"
+  },
+  "C:\\Programing\\asugaksharp\\Core\\Entities\\Oplata.cs": {
+    "mtime": 1780512203.5310812,
+    "ast_hash": "dfbb98230b18db9a85c65cbb8e72e0c5",
+    "semantic_hash": "dfbb98230b18db9a85c65cbb8e72e0c5"
+  },
+  "C:\\Programing\\asugaksharp\\Core\\Entities\\PeriodZasedania.cs": {
+    "mtime": 1780512203.5310812,
+    "ast_hash": "2638290f02c20360ac30e7244cc79405",
+    "semantic_hash": "2638290f02c20360ac30e7244cc79405"
+  },
+  "C:\\Programing\\asugaksharp\\Core\\Entities\\Person.cs": {
+    "mtime": 1780512203.5310812,
+    "ast_hash": "913403974884603fccc7625c334ff025",
+    "semantic_hash": "913403974884603fccc7625c334ff025"
+  },
+  "C:\\Programing\\asugaksharp\\Core\\Entities\\PersonZasedanie.cs": {
+    "mtime": 1780512203.5320966,
+    "ast_hash": "aabb6c40289cb7a8b5273ab15572bf0a",
+    "semantic_hash": "aabb6c40289cb7a8b5273ab15572bf0a"
+  },
+  "C:\\Programing\\asugaksharp\\Core\\Entities\\ProfilPodgotovki.cs": {
+    "mtime": 1780512203.5320966,
+    "ast_hash": "6c1ec744f4a4df26359ceaea77418384",
+    "semantic_hash": "6c1ec744f4a4df26359ceaea77418384"
+  },
+  "C:\\Programing\\asugaksharp\\Core\\Entities\\Zasedanie.cs": {
+    "mtime": 1780512203.5320966,
+    "ast_hash": "2cb06e155fc18e921452c05ce32e69fb",
+    "semantic_hash": "2cb06e155fc18e921452c05ce32e69fb"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Diplomnik\\CreateDiplomnikHandler.cs": {
+    "mtime": 1780512203.5331006,
+    "ast_hash": "8ee3871d79533bd736b13b61a38cae02",
+    "semantic_hash": "8ee3871d79533bd736b13b61a38cae02"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Diplomnik\\DeleteDiplomnikHandler.cs": {
+    "mtime": 1780512203.5340922,
+    "ast_hash": "7c73c6eecfc29eeabc12ade29506aa2a",
+    "semantic_hash": "7c73c6eecfc29eeabc12ade29506aa2a"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Diplomnik\\DiplomnikDtos.cs": {
+    "mtime": 1780512203.5340922,
+    "ast_hash": "db10fc91199c9050b61506e93430d3d0",
+    "semantic_hash": "db10fc91199c9050b61506e93430d3d0"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Diplomnik\\DiplomnikWindow.xaml.cs": {
+    "mtime": 1780512203.5350926,
+    "ast_hash": "d626df706d7addc2fe4bf348db6331a0",
+    "semantic_hash": "d626df706d7addc2fe4bf348db6331a0"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Diplomnik\\GetDiplomniksHandler.cs": {
+    "mtime": 1780512203.5350926,
+    "ast_hash": "88dccf510a7d59a0f18cb4b58035b2ac",
+    "semantic_hash": "88dccf510a7d59a0f18cb4b58035b2ac"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Diplomnik\\UpdateDiplomnikHandler.cs": {
+    "mtime": 1780512203.536092,
+    "ast_hash": "255ebb91d16d304ef47afa5fcd58b9b4",
+    "semantic_hash": "255ebb91d16d304ef47afa5fcd58b9b4"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Docs\\CreateDocsHandler.cs": {
+    "mtime": 1780512203.536092,
+    "ast_hash": "b40cdd268cc13326276729d2dc824b5a",
+    "semantic_hash": "b40cdd268cc13326276729d2dc824b5a"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Docs\\DeleteDocsHandler.cs": {
+    "mtime": 1780512203.5370967,
+    "ast_hash": "31600a661ea89093fb31f3577ed17a03",
+    "semantic_hash": "31600a661ea89093fb31f3577ed17a03"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Docs\\DocsDtos.cs": {
+    "mtime": 1780512203.5370967,
+    "ast_hash": "c5115fa5af4fd8eedabaa97d4d76d9e0",
+    "semantic_hash": "c5115fa5af4fd8eedabaa97d4d76d9e0"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Docs\\DocsWindow.xaml.cs": {
+    "mtime": 1780512203.538092,
+    "ast_hash": "316663ad466fdca8c979fc49bf81fc9e",
+    "semantic_hash": "316663ad466fdca8c979fc49bf81fc9e"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Docs\\DocumentGenerator.cs": {
+    "mtime": 1780512203.538092,
+    "ast_hash": "65edd215c9e9816ab414282df3dd5b85",
+    "semantic_hash": "65edd215c9e9816ab414282df3dd5b85"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Docs\\GenerateDocumentHandler.cs": {
+    "mtime": 1780512203.5390925,
+    "ast_hash": "f2f8a839c8c92c68fa646ea8ef6e68b3",
+    "semantic_hash": "f2f8a839c8c92c68fa646ea8ef6e68b3"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Docs\\GetDocsHandler.cs": {
+    "mtime": 1780512203.5390925,
+    "ast_hash": "b8fcccc7a4f928156e9e4e45af8562db",
+    "semantic_hash": "b8fcccc7a4f928156e9e4e45af8562db"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Docs\\UpdateDocsHandler.cs": {
+    "mtime": 1780512203.5390925,
+    "ast_hash": "8843c9b0a0f080a58cb57b5d1c410e3e",
+    "semantic_hash": "8843c9b0a0f080a58cb57b5d1c410e3e"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Gak\\CreateGakHandler.cs": {
+    "mtime": 1780512203.5400925,
+    "ast_hash": "de720a69047d87b4083d03cd89fc1a59",
+    "semantic_hash": "de720a69047d87b4083d03cd89fc1a59"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Gak\\DeleteGakHandler.cs": {
+    "mtime": 1780512203.5400925,
+    "ast_hash": "4ef8c842a76882e93f8f21a3c215865c",
+    "semantic_hash": "4ef8c842a76882e93f8f21a3c215865c"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Gak\\GakDtos.cs": {
+    "mtime": 1780512203.5400925,
+    "ast_hash": "2ccd6ababd30780054570d8f35bf4f29",
+    "semantic_hash": "2ccd6ababd30780054570d8f35bf4f29"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Gak\\GakWindow.xaml.cs": {
+    "mtime": 1780512203.5414555,
+    "ast_hash": "85c50f25c8e19de64afea618d200c7f5",
+    "semantic_hash": "85c50f25c8e19de64afea618d200c7f5"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Gak\\GetGaksHandler.cs": {
+    "mtime": 1780512203.5414555,
+    "ast_hash": "6ff950be09611cd907f2ab126bc3b741",
+    "semantic_hash": "6ff950be09611cd907f2ab126bc3b741"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Gak\\UpdateGakHandler.cs": {
+    "mtime": 1780512203.5424552,
+    "ast_hash": "fa98de288857bd7a7e04c4a8dfa6ce7d",
+    "semantic_hash": "fa98de288857bd7a7e04c4a8dfa6ce7d"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Help\\HelpWindow.xaml.cs": {
+    "mtime": 1780512203.5434558,
+    "ast_hash": "a65ef7636523ad10319593f4729094e8",
+    "semantic_hash": "a65ef7636523ad10319593f4729094e8"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Kafedra\\CreateKafedraHandler.cs": {
+    "mtime": 1780512203.544099,
+    "ast_hash": "10e3e456508228263ffff30ce2dc67f8",
+    "semantic_hash": "10e3e456508228263ffff30ce2dc67f8"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Kafedra\\DeleteKafedraHandler.cs": {
+    "mtime": 1780512203.544099,
+    "ast_hash": "df4d01ee8d1e30c52aecd17ab9221f55",
+    "semantic_hash": "df4d01ee8d1e30c52aecd17ab9221f55"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Kafedra\\GetKafedrasHandler.cs": {
+    "mtime": 1780512203.544099,
+    "ast_hash": "a255db55ac3c0424429380e9e5fef801",
+    "semantic_hash": "a255db55ac3c0424429380e9e5fef801"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Kafedra\\KafedraDtos.cs": {
+    "mtime": 1780512203.5452747,
+    "ast_hash": "044244f47fd1b80f1a6c756a0ed1d020",
+    "semantic_hash": "044244f47fd1b80f1a6c756a0ed1d020"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Kafedra\\KafedraWindow.xaml.cs": {
+    "mtime": 1780512203.545643,
+    "ast_hash": "1125c362eb214daf446be32effc38d33",
+    "semantic_hash": "1125c362eb214daf446be32effc38d33"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Kafedra\\UpdateKafedraHandler.cs": {
+    "mtime": 1780512203.545643,
+    "ast_hash": "8d1bbccea6629a1721aa71a0c6a441b6",
+    "semantic_hash": "8d1bbccea6629a1721aa71a0c6a441b6"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Komissiya\\GetGakKomissiyaHandler.cs": {
+    "mtime": 1780512203.5467193,
+    "ast_hash": "96bd74f8be6d08c0ab5ef79961a16523",
+    "semantic_hash": "96bd74f8be6d08c0ab5ef79961a16523"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Komissiya\\GetGaksByKafedraHandler.cs": {
+    "mtime": 1780512203.5467193,
+    "ast_hash": "98b19b0e5aa02acfc51cefba85ed9cdb",
+    "semantic_hash": "98b19b0e5aa02acfc51cefba85ed9cdb"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Komissiya\\GetPersonsByKafedraHandler.cs": {
+    "mtime": 1780512203.5478556,
+    "ast_hash": "a8f375924710c6445679d943758e50e4",
+    "semantic_hash": "a8f375924710c6445679d943758e50e4"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Komissiya\\KomissiyaDtos.cs": {
+    "mtime": 1780512203.5478556,
+    "ast_hash": "f8743d1602dab9e07d213a6abfeca582",
+    "semantic_hash": "f8743d1602dab9e07d213a6abfeca582"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Komissiya\\KomissiyaWindow.xaml.cs": {
+    "mtime": 1780512203.5488534,
+    "ast_hash": "56ad1d5843533596c12e85f3847a0cdf",
+    "semantic_hash": "56ad1d5843533596c12e85f3847a0cdf"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Komissiya\\SaveGakKomissiyaHandler.cs": {
+    "mtime": 1780512203.5488534,
+    "ast_hash": "16a77c80c0ddc2ae99f12f20afcd85db",
+    "semantic_hash": "16a77c80c0ddc2ae99f12f20afcd85db"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\NapravleniePodgotovki\\CreateNapravleniePodgotovkiHandler.cs": {
+    "mtime": 1780512203.5504372,
+    "ast_hash": "b55835eea3a18342ebb22f1b1c1de254",
+    "semantic_hash": "b55835eea3a18342ebb22f1b1c1de254"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\NapravleniePodgotovki\\DeleteNapravleniePodgotovkiHandler.cs": {
+    "mtime": 1780512203.5504372,
+    "ast_hash": "f856bbaa7a267b554f28351e80a62c60",
+    "semantic_hash": "f856bbaa7a267b554f28351e80a62c60"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\NapravleniePodgotovki\\GetNapravleniePodgotovkisHandler.cs": {
+    "mtime": 1780512203.5504372,
+    "ast_hash": "21c3d0098d00c90582de4979ef4aa631",
+    "semantic_hash": "21c3d0098d00c90582de4979ef4aa631"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\NapravleniePodgotovki\\NapravleniePodgotovkiDtos.cs": {
+    "mtime": 1780512203.551445,
+    "ast_hash": "40f0ce6cd393cbcb3d9571d00896a43d",
+    "semantic_hash": "40f0ce6cd393cbcb3d9571d00896a43d"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\NapravleniePodgotovki\\NapravleniePodgotovkiWindow.xaml.cs": {
+    "mtime": 1780512203.5524483,
+    "ast_hash": "99786e3744335d427a4d4e0c95a1374e",
+    "semantic_hash": "99786e3744335d427a4d4e0c95a1374e"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\NapravleniePodgotovki\\UpdateNapravleniePodgotovkiHandler.cs": {
+    "mtime": 1780512203.5524483,
+    "ast_hash": "0a4aac99d1ac514774b0625158266b6c",
+    "semantic_hash": "0a4aac99d1ac514774b0625158266b6c"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Oplata\\CreateOplataHandler.cs": {
+    "mtime": 1780512203.553444,
+    "ast_hash": "0312a94918431386690decac15c6bcd9",
+    "semantic_hash": "0312a94918431386690decac15c6bcd9"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Oplata\\DeleteOplataHandler.cs": {
+    "mtime": 1780512203.553444,
+    "ast_hash": "6c974f49748917f8e147e41c1da9ddbf",
+    "semantic_hash": "6c974f49748917f8e147e41c1da9ddbf"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Oplata\\GetGakExternalMembersHandler.cs": {
+    "mtime": 1780512203.5544462,
+    "ast_hash": "3cf324e33959c3ffbab405055305c34b",
+    "semantic_hash": "3cf324e33959c3ffbab405055305c34b"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Oplata\\GetGakInfoHandler.cs": {
+    "mtime": 1780512203.5544462,
+    "ast_hash": "9860eb329a796b30d24adbc3158f4d05",
+    "semantic_hash": "9860eb329a796b30d24adbc3158f4d05"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Oplata\\GetOplatasByGakHandler.cs": {
+    "mtime": 1780512203.5544462,
+    "ast_hash": "4c968266f9d6f48baadd1e1c1c0e2fbd",
+    "semantic_hash": "4c968266f9d6f48baadd1e1c1c0e2fbd"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Oplata\\GetOplatasHandler.cs": {
+    "mtime": 1780512203.5554464,
+    "ast_hash": "f5326ab56cbf07a8af31a53e7bb7a761",
+    "semantic_hash": "f5326ab56cbf07a8af31a53e7bb7a761"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Oplata\\OplataDtos.cs": {
+    "mtime": 1780512203.5554464,
+    "ast_hash": "c83b504f0d52344bf61db03b895b890e",
+    "semantic_hash": "c83b504f0d52344bf61db03b895b890e"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Oplata\\OplataWindow.xaml.cs": {
+    "mtime": 1780512203.5564444,
+    "ast_hash": "93ed2d83b8252b62b77d5be24c1c65d0",
+    "semantic_hash": "93ed2d83b8252b62b77d5be24c1c65d0"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Oplata\\SaveOplatasByGakHandler.cs": {
+    "mtime": 1780512203.5564444,
+    "ast_hash": "8de3a6cdd2036f89bc4346d27b3ed1b0",
+    "semantic_hash": "8de3a6cdd2036f89bc4346d27b3ed1b0"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Oplata\\UpdateOplataHandler.cs": {
+    "mtime": 1780512203.5574446,
+    "ast_hash": "73f1b2dcb733037605c3a7fda1835b33",
+    "semantic_hash": "73f1b2dcb733037605c3a7fda1835b33"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\PeriodZasedania\\CreatePeriodZasedaniaHandler.cs": {
+    "mtime": 1780512203.5574446,
+    "ast_hash": "da9fdf2d75d425da9af8a0057f9d6edc",
+    "semantic_hash": "da9fdf2d75d425da9af8a0057f9d6edc"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\PeriodZasedania\\DeletePeriodZasedaniaHandler.cs": {
+    "mtime": 1780512203.5574446,
+    "ast_hash": "7d41e8ce47a1fd9019560dc7eb5ff170",
+    "semantic_hash": "7d41e8ce47a1fd9019560dc7eb5ff170"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\PeriodZasedania\\GetPeriodZasedaniasHandler.cs": {
+    "mtime": 1780512203.5584483,
+    "ast_hash": "f38579acc08fae94e20721d73beb7420",
+    "semantic_hash": "f38579acc08fae94e20721d73beb7420"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\PeriodZasedania\\PeriodZasedaniaDtos.cs": {
+    "mtime": 1780512203.5584483,
+    "ast_hash": "07abd70390fc2d6a0783d78c9ce7a0dd",
+    "semantic_hash": "07abd70390fc2d6a0783d78c9ce7a0dd"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\PeriodZasedania\\PeriodZasedaniaWindow.xaml.cs": {
+    "mtime": 1780512203.5594485,
+    "ast_hash": "079fc858b64ea1d4f66e2f24f086f547",
+    "semantic_hash": "079fc858b64ea1d4f66e2f24f086f547"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\PeriodZasedania\\UpdatePeriodZasedaniaHandler.cs": {
+    "mtime": 1780512203.5594485,
+    "ast_hash": "63eb6b65065f64a40f5ccbb9b5a96403",
+    "semantic_hash": "63eb6b65065f64a40f5ccbb9b5a96403"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Person\\CreatePersonHandler.cs": {
+    "mtime": 1780512203.5594485,
+    "ast_hash": "2d641efb1b29e9f6b96a8e426d4fe7fb",
+    "semantic_hash": "2d641efb1b29e9f6b96a8e426d4fe7fb"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Person\\DeletePersonHandler.cs": {
+    "mtime": 1780512203.5609539,
+    "ast_hash": "01fb9b11cb543ee2488138988f570d6e",
+    "semantic_hash": "01fb9b11cb543ee2488138988f570d6e"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Person\\GetPersonalDataHandler.cs": {
+    "mtime": 1780512203.5609539,
+    "ast_hash": "75e0893f61adb423b4e6ef195b3e49ca",
+    "semantic_hash": "75e0893f61adb423b4e6ef195b3e49ca"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Person\\GetPersonsHandler.cs": {
+    "mtime": 1780512203.5619633,
+    "ast_hash": "f4cc5991007bb9bc62ad3f6980472552",
+    "semantic_hash": "f4cc5991007bb9bc62ad3f6980472552"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Person\\PersonDtos.cs": {
+    "mtime": 1780512203.5619633,
+    "ast_hash": "331e058eabc37c0bc4982fdfb54092b4",
+    "semantic_hash": "331e058eabc37c0bc4982fdfb54092b4"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Person\\PersonWindow.xaml.cs": {
+    "mtime": 1780512203.5619633,
+    "ast_hash": "a43f9c5907bef33be2d8f258c54f579c",
+    "semantic_hash": "a43f9c5907bef33be2d8f258c54f579c"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Person\\PersonalDataDtos.cs": {
+    "mtime": 1780512203.56347,
+    "ast_hash": "98ee2839a0efd1b081f2aaa074df3a83",
+    "semantic_hash": "98ee2839a0efd1b081f2aaa074df3a83"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Person\\PersonalDataWindow.xaml.cs": {
+    "mtime": 1780512203.564476,
+    "ast_hash": "27b14a9a681baf45a35aa3822e7f62b2",
+    "semantic_hash": "27b14a9a681baf45a35aa3822e7f62b2"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Person\\UpdatePersonHandler.cs": {
+    "mtime": 1780512203.564476,
+    "ast_hash": "31a8f293ba36498b9a76b39479c31208",
+    "semantic_hash": "31a8f293ba36498b9a76b39479c31208"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Person\\UpdatePersonalDataHandler.cs": {
+    "mtime": 1780512203.564476,
+    "ast_hash": "422e9ea541b6e8608b313231037e14e5",
+    "semantic_hash": "422e9ea541b6e8608b313231037e14e5"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\ProfilPodgotovki\\CreateProfilPodgotovkiHandler.cs": {
+    "mtime": 1780512203.5654755,
+    "ast_hash": "175a76bff1cb1f05944a7bfd22be2d0f",
+    "semantic_hash": "175a76bff1cb1f05944a7bfd22be2d0f"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\ProfilPodgotovki\\DeleteProfilPodgotovkiHandler.cs": {
+    "mtime": 1780512203.5654755,
+    "ast_hash": "16f566b8871411eefc0a7ad83597a753",
+    "semantic_hash": "16f566b8871411eefc0a7ad83597a753"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\ProfilPodgotovki\\GetProfilPodgotovkisHandler.cs": {
+    "mtime": 1780512203.566593,
+    "ast_hash": "7411ebf59555b7d7a5537cbfc16403a4",
+    "semantic_hash": "7411ebf59555b7d7a5537cbfc16403a4"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\ProfilPodgotovki\\ProfilPodgotovkiDtos.cs": {
+    "mtime": 1780512203.566593,
+    "ast_hash": "614a69b31d88d064c45b7c6ccbc4b41f",
+    "semantic_hash": "614a69b31d88d064c45b7c6ccbc4b41f"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\ProfilPodgotovki\\ProfilPodgotovkiWindow.xaml.cs": {
+    "mtime": 1780512203.5677648,
+    "ast_hash": "e90f8e6e7d108e604ca8e8c3fa7a9281",
+    "semantic_hash": "e90f8e6e7d108e604ca8e8c3fa7a9281"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\ProfilPodgotovki\\UpdateProfilPodgotovkiHandler.cs": {
+    "mtime": 1780512203.5677648,
+    "ast_hash": "107b1813598e874bc8367131bd195bd0",
+    "semantic_hash": "107b1813598e874bc8367131bd195bd0"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\TestData\\SeedTestDataHandler.cs": {
+    "mtime": 1780512203.5687697,
+    "ast_hash": "2f19f90ce5bff7b2177a25c3cb4ecdb1",
+    "semantic_hash": "2f19f90ce5bff7b2177a25c3cb4ecdb1"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Zasedanie\\CreateZasedanieHandler.cs": {
+    "mtime": 1780512203.5687697,
+    "ast_hash": "91da059939ef94e033fa6678e0028201",
+    "semantic_hash": "91da059939ef94e033fa6678e0028201"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Zasedanie\\DeleteZasedanieHandler.cs": {
+    "mtime": 1780512203.5697744,
+    "ast_hash": "4295c0811743e4110034875ab2feef98",
+    "semantic_hash": "4295c0811743e4110034875ab2feef98"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Zasedanie\\GetZasedaniesHandler.cs": {
+    "mtime": 1780512203.5697744,
+    "ast_hash": "213bb9f8993aad19f9c5019d208c769a",
+    "semantic_hash": "213bb9f8993aad19f9c5019d208c769a"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Zasedanie\\UpdateZasedanieHandler.cs": {
+    "mtime": 1780512203.5697744,
+    "ast_hash": "679754c0665f702b32af9d55a9344446",
+    "semantic_hash": "679754c0665f702b32af9d55a9344446"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Zasedanie\\ZasedanieDtos.cs": {
+    "mtime": 1780512203.5697744,
+    "ast_hash": "8531f04bfa1efa9e053067d00b061ce0",
+    "semantic_hash": "8531f04bfa1efa9e053067d00b061ce0"
+  },
+  "C:\\Programing\\asugaksharp\\Features\\Zasedanie\\ZasedanieWindow.xaml.cs": {
+    "mtime": 1780512203.5712821,
+    "ast_hash": "9e27549139db5fa3bf20281c03b09c50",
+    "semantic_hash": "9e27549139db5fa3bf20281c03b09c50"
+  },
+  "C:\\Programing\\asugaksharp\\Infrastructure\\Persistence\\AppDbContext.cs": {
+    "mtime": 1780512203.573289,
+    "ast_hash": "707831e36b0d2316bdef94f5f5e2a278",
+    "semantic_hash": "707831e36b0d2316bdef94f5f5e2a278"
+  },
+  "C:\\Programing\\asugaksharp\\Infrastructure\\Persistence\\AppDbContextFactory.cs": {
+    "mtime": 1780512203.573289,
+    "ast_hash": "6572034c3ac8da1d9e3c4b7e3d367660",
+    "semantic_hash": "6572034c3ac8da1d9e3c4b7e3d367660"
+  },
+  "C:\\Programing\\asugaksharp\\MainWindows.xaml.cs": {
+    "mtime": 1780512203.5742874,
+    "ast_hash": "332ceab300be446aee85933f0163969b",
+    "semantic_hash": "332ceab300be446aee85933f0163969b"
+  },
+  "C:\\Programing\\asugaksharp\\Migrations\\20260126185120_InitialCreate.Designer.cs": {
+    "mtime": 1780512203.5752873,
+    "ast_hash": "a407801b85a32cd9d231661a2896ad21",
+    "semantic_hash": "a407801b85a32cd9d231661a2896ad21"
+  },
+  "C:\\Programing\\asugaksharp\\Migrations\\20260126185120_InitialCreate.cs": {
+    "mtime": 1780512203.5752873,
+    "ast_hash": "cc7814de3c25486e8023f47f1903c11f",
+    "semantic_hash": "cc7814de3c25486e8023f47f1903c11f"
+  },
+  "C:\\Programing\\asugaksharp\\Migrations\\20260127182151_AddKomissiyaToGak.Designer.cs": {
+    "mtime": 1780512203.576294,
+    "ast_hash": "eee488d73d5fa2938f0f74dbb89a4e1e",
+    "semantic_hash": "eee488d73d5fa2938f0f74dbb89a4e1e"
+  },
+  "C:\\Programing\\asugaksharp\\Migrations\\20260127182151_AddKomissiyaToGak.cs": {
+    "mtime": 1780512203.576294,
+    "ast_hash": "f94d021f81181523e13977542ec02840",
+    "semantic_hash": "f94d021f81181523e13977542ec02840"
+  },
+  "C:\\Programing\\asugaksharp\\Migrations\\20260127192945_AddPersonalDataToPerson.Designer.cs": {
+    "mtime": 1780512203.577293,
+    "ast_hash": "259ec025f93abd5c3bf398180725a0ad",
+    "semantic_hash": "259ec025f93abd5c3bf398180725a0ad"
+  },
+  "C:\\Programing\\asugaksharp\\Migrations\\20260127192945_AddPersonalDataToPerson.cs": {
+    "mtime": 1780512203.577293,
+    "ast_hash": "7d2983b850df5d690c4a5b0ec629e9ba",
+    "semantic_hash": "7d2983b850df5d690c4a5b0ec629e9ba"
+  },
+  "C:\\Programing\\asugaksharp\\Migrations\\20260127193626_AddPassportIssuedByToPerson.Designer.cs": {
+    "mtime": 1780512203.5782905,
+    "ast_hash": "479786a369b86508bae5bc1c0b9227a9",
+    "semantic_hash": "479786a369b86508bae5bc1c0b9227a9"
+  },
+  "C:\\Programing\\asugaksharp\\Migrations\\20260127193626_AddPassportIssuedByToPerson.cs": {
+    "mtime": 1780512203.5782905,
+    "ast_hash": "04a87f1642768827f5b5abb70cea1cdd",
+    "semantic_hash": "04a87f1642768827f5b5abb70cea1cdd"
+  },
+  "C:\\Programing\\asugaksharp\\Migrations\\20260204104228_UpdateOplataStructure.Designer.cs": {
+    "mtime": 1780512203.5782905,
+    "ast_hash": "449fc5b8d20792d04d3eb29be9a7c54d",
+    "semantic_hash": "449fc5b8d20792d04d3eb29be9a7c54d"
+  },
+  "C:\\Programing\\asugaksharp\\Migrations\\20260204104228_UpdateOplataStructure.cs": {
+    "mtime": 1780512203.5792875,
+    "ast_hash": "c6abfe4d892a516a3cbea7ddf1c08de4",
+    "semantic_hash": "c6abfe4d892a516a3cbea7ddf1c08de4"
+  },
+  "C:\\Programing\\asugaksharp\\Migrations\\20260205130000_AddStoimostAkademChasaSNalogamiToOplata.cs": {
+    "mtime": 1780512203.5792875,
+    "ast_hash": "6bcc4114f764bd286da099be8aff8ba3",
+    "semantic_hash": "6bcc4114f764bd286da099be8aff8ba3"
+  },
+  "C:\\Programing\\asugaksharp\\Migrations\\20260205133500_AddObshayaStoimostUslugPoDogovoruToOplata.cs": {
+    "mtime": 1780512203.5792875,
+    "ast_hash": "325ab83fb6d400f11119022f33941e53",
+    "semantic_hash": "325ab83fb6d400f11119022f33941e53"
+  },
+  "C:\\Programing\\asugaksharp\\Migrations\\20260205141000_AddOplataTotalsToOplata.cs": {
+    "mtime": 1780512203.5802927,
+    "ast_hash": "b9c0db88f6681f7ecdbbc518db17ee6f",
+    "semantic_hash": "b9c0db88f6681f7ecdbbc518db17ee6f"
+  },
+  "C:\\Programing\\asugaksharp\\Migrations\\AppDbContextModelSnapshot.cs": {
+    "mtime": 1780512203.5802927,
+    "ast_hash": "1dd3e0c031e0452145667b0050c63d11",
+    "semantic_hash": "1dd3e0c031e0452145667b0050c63d11"
+  },
+  "C:\\Programing\\asugaksharp\\appsettings.json": {
+    "mtime": 1780512203.5817988,
+    "ast_hash": "c02b936b0c48011d23267bd8b9901f1b",
+    "semantic_hash": "c02b936b0c48011d23267bd8b9901f1b"
+  },
+  "C:\\Programing\\asugaksharp\\asugaksharp.csproj": {
+    "mtime": 1780512203.5828087,
+    "ast_hash": "117d19ccd657fa44a9f526902db38b38",
+    "semantic_hash": "117d19ccd657fa44a9f526902db38b38"
+  },
+  "C:\\Programing\\asugaksharp\\asugaksharp.sln": {
+    "mtime": 1780512203.5828087,
+    "ast_hash": "eba1173b9323c953287eceebe9ebe3cd",
+    "semantic_hash": "eba1173b9323c953287eceebe9ebe3cd"
+  },
+  "C:\\Programing\\asugaksharp\\CLAUDE.md": {
+    "mtime": 1780512203.527261,
+    "ast_hash": "ba0666f88f39c74e75e82ad3536fe911",
+    "semantic_hash": "ba0666f88f39c74e75e82ad3536fe911"
+  },
+  "C:\\Programing\\asugaksharp\\docs\\ARCHITECTURE.md": {
+    "mtime": 1780512203.5840962,
+    "ast_hash": "c670cbb773ae4cfd72b524955d492711",
+    "semantic_hash": "c670cbb773ae4cfd72b524955d492711"
+  },
+  "C:\\Programing\\asugaksharp\\docs\\DATABASE.md": {
+    "mtime": 1780512203.5840962,
+    "ast_hash": "d338038a440f35409351cad7e2a9c362",
+    "semantic_hash": "d338038a440f35409351cad7e2a9c362"
+  },
+  "C:\\Programing\\asugaksharp\\docs\\DATABASE_SCHEMA.md": {
+    "mtime": 1780512203.5840962,
+    "ast_hash": "06d0307da7b59c04e418982eb37491ae",
+    "semantic_hash": "06d0307da7b59c04e418982eb37491ae"
+  },
+  "C:\\Programing\\asugaksharp\\docs\\DEVELOPMENT.md": {
+    "mtime": 1780512203.5851693,
+    "ast_hash": "b2b9e093f79b7812f2e2e785c79d3ace",
+    "semantic_hash": "b2b9e093f79b7812f2e2e785c79d3ace"
+  },
+  "C:\\Programing\\asugaksharp\\docs\\README.md": {
+    "mtime": 1780512203.5858593,
+    "ast_hash": "32ed0ecb0cbcf12b32ac20af15f4bf54",
+    "semantic_hash": "32ed0ecb0cbcf12b32ac20af15f4bf54"
+  },
+  "C:\\Programing\\asugaksharp\\docs\\TEMPLATE_HOWTO.md": {
+    "mtime": 1780512203.5858593,
+    "ast_hash": "0e1ef5729935a0dc97e7adbddd9afb6d",
+    "semantic_hash": "0e1ef5729935a0dc97e7adbddd9afb6d"
+  },
+  "C:\\Programing\\asugaksharp\\docs\\TEMPLATE_LABELS.md": {
+    "mtime": 1780512203.5858593,
+    "ast_hash": "1b40b5b69e186dc9fe940ddaebfd969d",
+    "semantic_hash": "1b40b5b69e186dc9fe940ddaebfd969d"
+  },
+  "C:\\Programing\\asugaksharp\\docs\\known bugs.md": {
+    "mtime": 1780512203.5868654,
+    "ast_hash": "42b2f738c93949f3d66b8cd598481128",
+    "semantic_hash": "42b2f738c93949f3d66b8cd598481128"
+  },
+  "C:\\Programing\\asugaksharp\\docs\\todo.md": {
+    "mtime": 1780512203.5868654,
+    "ast_hash": "74618eadfbd6f209b43150fc0283deb8",
+    "semantic_hash": "74618eadfbd6f209b43150fc0283deb8"
+  },
+  "C:\\Programing\\asugaksharp\\testData.txt": {
+    "mtime": 1780512203.5878706,
+    "ast_hash": "6766fb1e2d14ae7c6a34aa18e862e1d3",
+    "semantic_hash": "6766fb1e2d14ae7c6a34aa18e862e1d3"
+  }
+}

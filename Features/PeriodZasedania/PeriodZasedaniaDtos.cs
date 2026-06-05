@@ -5,7 +5,7 @@ public record PeriodZasedaniaDto(
     string Name,
     DateOnly DateStart,
     DateOnly DateEnd,
-    string Primechanie,
+    string? Primechanie,
     Guid KafedraId,
     string? KafedraName);
 
@@ -13,7 +13,7 @@ public record CreatePeriodZasedaniaRequest(
     string Name,
     DateOnly DateStart,
     DateOnly DateEnd,
-    string Primechanie,
+    string? Primechanie,
     Guid KafedraId);
 
 public record UpdatePeriodZasedaniaRequest(
@@ -21,5 +21,5 @@ public record UpdatePeriodZasedaniaRequest(
     string Name,
     DateOnly DateStart,
     DateOnly DateEnd,
-    string Primechanie,
+    string? Primechanie,
     Guid KafedraId);

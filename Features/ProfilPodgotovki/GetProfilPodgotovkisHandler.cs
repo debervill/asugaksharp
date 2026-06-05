@@ -13,11 +13,10 @@ public class GetProfilPodgotovkisHandler
         return await _context.ProfilPodgotovki
             .AsNoTracking()
             .Include(p => p.NapravleniePodgotovki)
-            .OrderBy(p => p.ShifrPodgot)
+            .OrderBy(p => p.Name)
             .Select(p => new ProfilPodgotovkiDto(
                 p.Id,
                 p.Name,
-                p.ShifrPodgot,
                 p.NapravleniePodgotovkiID,
                 p.NapravleniePodgotovki != null ? p.NapravleniePodgotovki.Nazvanie : null))
             .ToListAsync(ct);

@@ -21,7 +21,32 @@
       "Bash(dotnet add package:*)",
       "Bash(move \"known bugs.md\" docs )",
       "Bash(move DATABASE_SCHEMA.md docs )",
-      "Bash(move TEMPLATE_LABELS.md docs)"
+      "Bash(move TEMPLATE_LABELS.md docs)",
+      "Bash(dotnet tool *)",
+      "Bash(dotnet package *)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "PowerShell(Stop-Process *)",
+      "Bash(Select-String -Pattern \"error\")",
+      "Bash(dotnet list *)",
+      "Bash(find bin/Debug/net8.0-windows/Templates -name \"*.pdf\")",
+      "Bash(ls \"bin/Debug/net8.0-windows/Templates/\")",
+      "Bash(dotnet script *)",
+      "Bash(dotnet-ildasm \"C:/Users/Danamir/.nuget/packages/itext/9.6.0/lib/netstandard2.0/itext.forms.dll\")",
+      "Bash(powershell -Command ' *)",
+      "Bash(Start-Process *)",
+      "PowerShell(Get-Process *)",
+      "Bash(dotnet run *)",
+      "Bash(Get-ChildItem \"C:\\\\Programing\\\\asugaksharp\\\\Core\\\\Entities\" -Filter \"*.cs\")",
+      "Bash(Select-Object Name)",
+      "Bash(git stash *)",
+      "Bash(dotnet restore *)",
+      "Bash(Remove-Item *)",
+      "Bash(git checkout *)",
+      "PowerShell(Copy-Item *)",
+      "Bash(git commit *)"
     ]
   }
 }

@@ -12,7 +12,7 @@ namespace asugaksharp.Core.Entities
 
         public DateOnly DateStart { get; set; }
         public DateOnly DateEnd { get; set; }
-        public string Primechanie { get; set; } = string.Empty;
+        public string? Primechanie { get; set; }
 
         //1 ко многим к таблице гэк
         public ICollection<Gak>? Gaks { get; set; }
