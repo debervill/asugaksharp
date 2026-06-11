@@ -125,6 +125,8 @@ public partial class App : Application
         services.AddTransient<CreateZasedanieHandler>();
         services.AddTransient<UpdateZasedanieHandler>();
         services.AddTransient<DeleteZasedanieHandler>();
+        services.AddTransient<GetDiplomniksForDistributionHandler>();
+        services.AddTransient<AssignDiplomnikHandler>();
 
         // PeriodZasedania
         services.AddTransient<GetPeriodZasedaniasHandler>();
@@ -188,6 +190,7 @@ public partial class App : Application
         services.AddTransient<Features.Docs.DocsWindow>();
         services.AddTransient<Features.Komissiya.KomissiyaWindow>();
         services.AddTransient<Features.Zasedanie.RaspisanieWindow>();
+        services.AddTransient<Features.Zasedanie.RaspredelenieDiplomnikovWindow>();
         services.AddTransient<Features.Protocol.ProtocolWindow>();
     }
 }

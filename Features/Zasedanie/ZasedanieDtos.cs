@@ -6,7 +6,10 @@ public record ZasedanieDto(
     string Kvalificacia,
     DateOnly Date,
     Guid GakId,
-    string? GakNomerPrikaza);
+    string? GakNomerPrikaza)
+{
+    public string DisplayText => $"{Date:dd.MM.yyyy}  {NapravleniePodgotovki} ({Kvalificacia})";
+}
 
 public record CreateZasedanieRequest(
     string NapravleniePodgotovki,
