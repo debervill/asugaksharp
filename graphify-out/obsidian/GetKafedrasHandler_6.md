@@ -1,0 +1,17 @@
+---
+source_file: "C:/Programing/asugaksharp/Features/Person/PersonWindow.xaml.cs"
+type: "code"
+community: "Community 8"
+location: "L12"
+tags:
+  - graphify/code
+  - graphify/EXTRACTED
+  - community/Community_8
+---
+
+# GetKafedrasHandler
+
+## Connections
+- [[PersonWindow]] - `references` [EXTRACTED]
+
+#graphify/code #graphify/EXTRACTED #community/Community_8

@@ -1,0 +1,16 @@
+---
+source_file: "asugaksharp.csproj"
+type: "code"
+community: "Community 22"
+tags:
+  - graphify/code
+  - graphify/EXTRACTED
+  - community/Community_22
+---
+
+# Microsoft.Extensions.DependencyInjection (9.0.0)
+
+## Connections
+- [[asugaksharp.csproj]] - `imports` [EXTRACTED]
+
+#graphify/code #graphify/EXTRACTED #community/Community_22

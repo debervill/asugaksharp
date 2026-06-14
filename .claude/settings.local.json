@@ -26,7 +26,12 @@
       "Bash(git merge *)",
       "Bash(git restore *)",
       "Bash(git checkout *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "PowerShell(dotnet build *)",
+      "Bash(Remove-Item *)"
     ]
   }
 }
