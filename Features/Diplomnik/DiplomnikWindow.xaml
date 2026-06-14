@@ -9,20 +9,30 @@
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Панель инструментов -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
             <Button Content="Добавить"      Width="100" Margin="0,0,5,0" Click="AddButton_Click"/>
             <Button Content="Редактировать" Width="110" Margin="0,0,5,0" Click="EditButton_Click"/>
             <Button Content="Удалить"       Width="100" Margin="0,0,5,0" Click="DeleteButton_Click"/>
             <Button Content="Обновить"      Width="100" Click="RefreshButton_Click"/>
         </StackPanel>
 
+        <!-- Фильтр по кафедре -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,8">
+            <TextBlock Text="Кафедра:" VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="SemiBold"/>
+            <ComboBox x:Name="ComboBoxKafedraFilter" Width="320" DisplayMemberPath="Name"
+                      SelectionChanged="ComboBoxKafedraFilter_SelectionChanged"/>
+            <TextBlock x:Name="TextFilterCount" VerticalAlignment="Center" Margin="12,0,0,0"
+                       Foreground="Gray" FontStyle="Italic"/>
+        </StackPanel>
+
         <!-- Таблица -->
-        <DataGrid Grid.Row="1"
+        <DataGrid Grid.Row="2"
                   x:Name="DataGridDiplomniki"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
@@ -33,6 +43,7 @@
                 <DataGridTextColumn Header="ФИО (им.)"       Binding="{Binding FioImen}"              Width="160"/>
                 <DataGridTextColumn Header="ФИО (род.)"      Binding="{Binding FioRodit}"             Width="160"/>
                 <DataGridTextColumn Header="Пол"             Binding="{Binding Sex}"                  Width="40"/>
+                <DataGridTextColumn Header="Кафедра"         Binding="{Binding KafedraName}"          Width="120"/>
                 <DataGridTextColumn Header="Профиль"         Binding="{Binding ProfilPodgotovkiName}" Width="120"/>
                 <DataGridTextColumn Header="Тема"            Binding="{Binding Tema}"                 Width="*"/>
                 <DataGridTextColumn Header="Стр."            Binding="{Binding Pages}"                Width="45"/>
@@ -45,7 +56,7 @@
         </DataGrid>
 
         <!-- Форма редактирования -->
-        <GroupBox Grid.Row="2" Header="Редактирование">
+        <GroupBox Grid.Row="3" Header="Редактирование">
             <Grid Margin="10,6,10,8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>

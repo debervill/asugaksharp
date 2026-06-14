@@ -2,6 +2,7 @@ using System.IO;
 using System.Windows;
 using Microsoft.Win32;
 using asugaksharp.Features.Diplomnik;
+using asugaksharp.Features.Kafedra;
 
 namespace asugaksharp.Features.Protocol;
 
@@ -9,14 +10,19 @@ public partial class ProtocolWindow : Window
 {
     private readonly GetDiplomniksHandler _getDiplomniksHandler;
     private readonly GenerateProtocolHandler _generateHandler;
+    private readonly GetKafedrasHandler _getKafedrasHandler;
+
+    private List<DiplomnikDto> _allDiplomniki = new();
 
     public ProtocolWindow(
         GetDiplomniksHandler getDiplomniksHandler,
-        GenerateProtocolHandler generateHandler)
+        GenerateProtocolHandler generateHandler,
+        GetKafedrasHandler getKafedrasHandler)
     {
         InitializeComponent();
         _getDiplomniksHandler = getDiplomniksHandler;
         _generateHandler = generateHandler;
+        _getKafedrasHandler = getKafedrasHandler;
 
         TextBoxFolder.Text = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Протоколы");
         Loaded += async (_, _) => await LoadDataAsync();
@@ -24,9 +30,35 @@ public partial class ProtocolWindow : Window
 
     private async Task LoadDataAsync()
     {
-        var diplomniks = await _getDiplomniksHandler.ExecuteAsync();
-        DataGridDiplomniki.ItemsSource = diplomniks;
-        TextStatus.Text = $"Всего дипломников: {diplomniks.Count}";
+        var selectedKafedraId = (ComboBoxKafedraFilter.SelectedItem as KafedraDto)?.Id;
+
+        _allDiplomniki = await _getDiplomniksHandler.ExecuteAsync();
+
+        var kafedras = await _getKafedrasHandler.ExecuteAsync();
+        ComboBoxKafedraFilter.ItemsSource = kafedras;
+        if (selectedKafedraId.HasValue)
+            ComboBoxKafedraFilter.SelectedItem = kafedras.FirstOrDefault(k => k.Id == selectedKafedraId.Value);
+
+        ApplyFilter();
+    }
+
+    private void ComboBoxKafedraFilter_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        => ApplyFilter();
+
+    private void ApplyFilter()
+    {
+        if (ComboBoxKafedraFilter.SelectedItem is not KafedraDto selected)
+        {
+            DataGridDiplomniki.ItemsSource = new List<DiplomnikDto>();
+            TextFilterCount.Text = "";
+            TextStatus.Text = "";
+            return;
+        }
+
+        var filtered = _allDiplomniki.Where(d => d.KafedraId == selected.Id).ToList();
+        DataGridDiplomniki.ItemsSource = filtered;
+        TextFilterCount.Text = $"{filtered.Count} дипломников";
+        TextStatus.Text = $"Кафедра: {selected.Name} — {filtered.Count} дипломников";
     }
 
     private async void BtnRefresh_Click(object sender, RoutedEventArgs e)

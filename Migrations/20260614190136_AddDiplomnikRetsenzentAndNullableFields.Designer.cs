@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using asugaksharp.Infrastructure.Persistence;
 
@@ -10,9 +11,11 @@ using asugaksharp.Infrastructure.Persistence;
 namespace asugaksharp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260614190136_AddDiplomnikRetsenzentAndNullableFields")]
+    partial class AddDiplomnikRetsenzentAndNullableFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
@@ -77,9 +80,6 @@ namespace asugaksharp.Migrations
 
                     b.Property<Guid?>("ZasedanieId")
                         .HasColumnType("TEXT");
-
-                    b.Property<int?>("ZasedanieOrder")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

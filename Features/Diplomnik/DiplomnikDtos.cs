@@ -19,7 +19,9 @@ public record DiplomnikDto(
     Guid? ProfilPodgotovkiId,
     string? ProfilPodgotovkiName,
     List<KonsultantInfo> Konsultanty,
-    List<RetsenzentInfo> Retsenzenty)
+    List<RetsenzentInfo> Retsenzenty,
+    Guid? KafedraId = null,
+    string? KafedraName = null)
 {
     public string KonsultantyStr => Konsultanty.Count == 0
         ? string.Empty

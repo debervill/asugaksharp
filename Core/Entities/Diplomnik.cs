@@ -29,6 +29,7 @@ namespace asugaksharp.Core.Entities
         // Заседание
         public Guid? ZasedanieId { get; set; }
         public Zasedanie? Zasedanie { get; set; }
+        public int? ZasedanieOrder { get; set; }
 
         // Консультанты
         public ICollection<DiplomnikKonsultant>? Konsultanty { get; set; }

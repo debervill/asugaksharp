@@ -12,7 +12,7 @@ public class GetZasedaniesHandler
     {
         return await _context.Zasedanie
             .AsNoTracking()
-            .Include(z => z.Gak)
+            .Include(z => z.Gak).ThenInclude(g => g!.Kafedra)
             .OrderBy(z => z.Date)
             .Select(z => new ZasedanieDto(
                 z.Id,
@@ -20,7 +20,9 @@ public class GetZasedaniesHandler
                 z.Kvalificacia,
                 z.Date,
                 z.GakID,
-                z.Gak != null ? z.Gak.NomerPrikaza : null))
+                z.Gak != null ? z.Gak.NomerPrikaza : null,
+                z.Gak != null ? z.Gak.KafedraID : null,
+                z.Gak != null && z.Gak.Kafedra != null ? z.Gak.Kafedra.Name : null))
             .ToListAsync(ct);
     }
 }

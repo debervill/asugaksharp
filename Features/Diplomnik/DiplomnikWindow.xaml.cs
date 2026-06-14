@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using asugaksharp.Core;
+using asugaksharp.Features.Kafedra;
 using asugaksharp.Features.Person;
 using asugaksharp.Features.ProfilPodgotovki;
 using NPetrovichLite;
@@ -15,12 +16,15 @@ public partial class DiplomnikWindow : Window
     private readonly DeleteDiplomnikHandler _deleteHandler;
     private readonly GetPersonsHandler _getPersonsHandler;
     private readonly GetProfilPodgotovkisHandler _getProfilHandler;
+    private readonly GetKafedrasHandler _getKafedrasHandler;
 
     private ComboBox[] _konsultantBoxes = null!;
     private ComboBox[] _retsenzentBoxes = null!;
     private Guid? _editingId;
     private bool _fioRoditAutoFilled;
     private bool _suppressFioRoditChanged;
+    private List<DiplomnikDto> _allDiplomniki = new();
+    private List<PersonDto> _allPersons = new();
 
     public DiplomnikWindow(
         GetDiplomniksHandler getHandler,
@@ -28,7 +32,8 @@ public partial class DiplomnikWindow : Window
         UpdateDiplomnikHandler updateHandler,
         DeleteDiplomnikHandler deleteHandler,
         GetPersonsHandler getPersonsHandler,
-        GetProfilPodgotovkisHandler getProfilHandler)
+        GetProfilPodgotovkisHandler getProfilHandler,
+        GetKafedrasHandler getKafedrasHandler)
     {
         InitializeComponent();
 
@@ -38,6 +43,7 @@ public partial class DiplomnikWindow : Window
         _deleteHandler = deleteHandler;
         _getPersonsHandler = getPersonsHandler;
         _getProfilHandler = getProfilHandler;
+        _getKafedrasHandler = getKafedrasHandler;
 
         _konsultantBoxes = new[] { ComboBoxK1, ComboBoxK2, ComboBoxK3, ComboBoxK4, ComboBoxK5 };
         _retsenzentBoxes = new[] { ComboBoxR1, ComboBoxR2 };
@@ -47,18 +53,52 @@ public partial class DiplomnikWindow : Window
 
     private async Task LoadDataAsync()
     {
-        var diplomniks = await _getHandler.ExecuteAsync();
-        DataGridDiplomniki.ItemsSource = diplomniks;
+        var selectedKafedraId = (ComboBoxKafedraFilter.SelectedItem as KafedraDto)?.Id;
 
-        var persons = await _getPersonsHandler.ExecuteAsync();
-        ComboBoxRukovoditel.ItemsSource = persons;
+        _allDiplomniki = await _getHandler.ExecuteAsync();
+
+        var kafedras = await _getKafedrasHandler.ExecuteAsync();
+        ComboBoxKafedraFilter.ItemsSource = kafedras;
+        if (selectedKafedraId.HasValue)
+            ComboBoxKafedraFilter.SelectedItem = kafedras.FirstOrDefault(k => k.Id == selectedKafedraId.Value);
+
+        _allPersons = await _getPersonsHandler.ExecuteAsync();
         foreach (var box in _konsultantBoxes)
-            box.ItemsSource = persons;
+            box.ItemsSource = _allPersons;
         foreach (var box in _retsenzentBoxes)
-            box.ItemsSource = persons;
+            box.ItemsSource = _allPersons;
 
         var profils = await _getProfilHandler.ExecuteAsync();
         ComboBoxProfil.ItemsSource = profils;
+
+        ApplyFilter();
+    }
+
+    private void ComboBoxKafedraFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        => ApplyFilter();
+
+    private void ApplyFilter()
+    {
+        if (ComboBoxKafedraFilter.SelectedItem is not KafedraDto selected)
+        {
+            DataGridDiplomniki.ItemsSource = new List<DiplomnikDto>();
+            ComboBoxRukovoditel.ItemsSource = _allPersons;
+            foreach (var box in _konsultantBoxes) box.ItemsSource = _allPersons;
+            foreach (var box in _retsenzentBoxes) box.ItemsSource = _allPersons;
+            TextFilterCount.Text = "";
+            return;
+        }
+
+        var filtered = _allDiplomniki.Where(d => d.KafedraId == selected.Id).ToList();
+        DataGridDiplomniki.ItemsSource = filtered;
+        TextFilterCount.Text = $"{filtered.Count} дипломников";
+
+        var kafedraPersons = _allPersons.Where(p => p.KafedraId == selected.Id).ToList();
+        ComboBoxRukovoditel.ItemsSource = kafedraPersons;
+        foreach (var box in _konsultantBoxes)
+            box.ItemsSource = kafedraPersons;
+        foreach (var box in _retsenzentBoxes)
+            box.ItemsSource = kafedraPersons;
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)

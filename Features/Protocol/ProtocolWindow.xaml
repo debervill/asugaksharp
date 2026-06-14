@@ -9,21 +9,31 @@
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Панель инструментов -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
             <Button Content="Обновить" Width="100" Margin="0,0,5,0" Click="BtnRefresh_Click"/>
             <Button Content="Выделить всех" Width="120" Margin="0,0,5,0" Click="BtnSelectAll_Click"/>
             <Button Content="Снять выделение" Width="130" Margin="0,0,5,0" Click="BtnDeselectAll_Click"/>
             <Button Content="Диагностика шаблонов" Width="160" Click="BtnDiagnose_Click"/>
         </StackPanel>
 
+        <!-- Фильтр по кафедре -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,8">
+            <TextBlock Text="Кафедра:" VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="SemiBold"/>
+            <ComboBox x:Name="ComboBoxKafedraFilter" Width="320" DisplayMemberPath="Name"
+                      SelectionChanged="ComboBoxKafedraFilter_SelectionChanged"/>
+            <TextBlock x:Name="TextFilterCount" VerticalAlignment="Center" Margin="12,0,0,0"
+                       Foreground="Gray" FontStyle="Italic"/>
+        </StackPanel>
+
         <!-- Таблица дипломников -->
-        <DataGrid Grid.Row="1"
+        <DataGrid Grid.Row="2"
                   x:Name="DataGridDiplomniki"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
@@ -40,7 +50,7 @@
         </DataGrid>
 
         <!-- Выбор папки -->
-        <GroupBox Grid.Row="2" Header="Папка для сохранения" Margin="0,0,0,8">
+        <GroupBox Grid.Row="3" Header="Папка для сохранения" Margin="0,0,0,8">
             <Grid Margin="6,4,6,4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -52,7 +62,7 @@
         </GroupBox>
 
         <!-- Кнопки генерации + статус -->
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>

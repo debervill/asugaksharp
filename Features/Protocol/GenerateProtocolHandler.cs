@@ -109,12 +109,30 @@ public class GenerateProtocolHandler
 
         var temaLines = SplitToLines(d.Tema, 80, 3);
 
+        // Время выступления: начало в 10:00, по 15 минут на студента
+        TimeOnly? timeStart = null, timeEnd = null;
+        if (d.ZasedanieOrder.HasValue)
+        {
+            var baseTime = new TimeOnly(10, 0);
+            timeStart = baseTime.AddMinutes((d.ZasedanieOrder.Value - 1) * 15);
+            timeEnd   = baseTime.AddMinutes(d.ZasedanieOrder.Value * 15);
+        }
+
         var fields = new Dictionary<string, string?>
         {
+            // Номер протокола = порядковый номер дипломника в ГЭК
+            ["fill_1"]      = d.ZasedanieOrder?.ToString(),
+
             // Дата заседания
             ["undefined"]   = date?.Day.ToString(),
             ["undefined_2"] = date.HasValue ? RussianMonth(date.Value.Month) : null,
             ["undefined_3"] = date?.Year.ToString(),
+
+            // Время выступления (пусто если порядковый номер не задан)
+            ["fill_5"]      = timeStart?.Hour.ToString(),
+            ["fill_6"]      = timeStart?.Minute.ToString("D2"),
+            ["fill_7"]      = timeEnd?.Hour.ToString(),
+            ["fill_8"]      = timeEnd?.Minute.ToString("D2"),
 
             // Студент
             ["fill_10"]     = d.FioImen,

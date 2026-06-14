@@ -1,0 +1,131 @@
+<Window x:Class="asugaksharp.Features.Zasedanie.RaspredelenieDiplomnikovWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Распределение дипломников по заседаниям"
+        Height="720" Width="1000"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResize">
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 1. Выбор кафедры -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+            <TextBlock Text="Кафедра:" VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="SemiBold" Width="90"/>
+            <ComboBox x:Name="ComboBoxKafedra" Width="500"
+                      DisplayMemberPath="Name" SelectedValuePath="Id"
+                      SelectionChanged="ComboBoxKafedra_SelectionChanged"/>
+        </StackPanel>
+
+        <!-- 2. Выбор заседания (фильтруется по кафедре) -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,8">
+            <TextBlock Text="Заседание:" VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="SemiBold" Width="90"/>
+            <ComboBox x:Name="ComboBoxZasedanie" Width="500"
+                      DisplayMemberPath="DisplayText" SelectedValuePath="Id"
+                      SelectionChanged="ComboBoxZasedanie_SelectionChanged"/>
+        </StackPanel>
+
+        <!-- 3. Фильтры по дипломникам -->
+        <Grid Grid.Row="2" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="240"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="180"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Фильтры:" VerticalAlignment="Center" FontWeight="SemiBold"/>
+
+            <TextBlock Grid.Column="1" Text="Направление:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+            <ComboBox Grid.Column="2" x:Name="ComboBoxFilterNapravlenie"
+                      DisplayMemberPath="Name" SelectedValuePath="Id"
+                      SelectionChanged="Filter_Changed"/>
+
+            <TextBlock Grid.Column="4" Text="Вид ВКР:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+            <ComboBox Grid.Column="5" x:Name="ComboBoxFilterVidVkr"
+                      SelectionChanged="Filter_Changed"/>
+        </Grid>
+
+        <!-- 4. Два списка -->
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="36"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Левый список: не распределены -->
+            <DockPanel Grid.Column="0">
+                <TextBlock DockPanel.Dock="Top" x:Name="TextUnassignedHeader"
+                           Text="Не распределены" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                <ListBox x:Name="ListUnassigned" SelectionMode="Extended"
+                         MouseDoubleClick="ListUnassigned_DoubleClick">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,2">
+                                <TextBlock Text="{Binding FioImen}" FontWeight="SemiBold"/>
+                                <TextBlock Text="{Binding NapravlenieName}" Foreground="Gray" FontSize="11"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+
+            <!-- Кнопки → ← -->
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Content="→" Width="40" Margin="0,0,0,8" Click="AssignButton_Click"
+                        ToolTip="Назначить в заседание"/>
+                <Button Content="←" Width="40" Click="UnassignButton_Click"
+                        ToolTip="Убрать из заседания"/>
+            </StackPanel>
+
+            <!-- Правый список: в заседании (с порядковыми номерами) -->
+            <DockPanel Grid.Column="2">
+                <TextBlock DockPanel.Dock="Top" x:Name="TextAssignedHeader"
+                           Text="В заседании" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                <ListBox x:Name="ListAssigned" SelectionMode="Single"
+                         MouseDoubleClick="ListAssigned_DoubleClick">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,2">
+                                <TextBlock FontWeight="SemiBold">
+                                    <Run Text="{Binding Number}"/><Run Text=".  "/><Run Text="{Binding Data.FioImen}"/>
+                                </TextBlock>
+                                <TextBlock Text="{Binding Data.NapravlenieName}" Foreground="Gray" FontSize="11"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+
+            <!-- Кнопки ↑↓ для переставновки -->
+            <StackPanel Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="4,0,0,0">
+                <Button Content="↑" Width="28" Margin="0,0,0,6" Click="MoveUp_Click"
+                        ToolTip="Переместить вверх"/>
+                <Button Content="↓" Width="28" Click="MoveDown_Click"
+                        ToolTip="Переместить вниз"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Статус + кнопка сохранить -->
+        <Grid Grid.Row="4" Margin="0,8,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" x:Name="TextStatus" Foreground="Gray"
+                       VerticalAlignment="Center" FontStyle="Italic"/>
+            <Button Grid.Column="1" x:Name="BtnSaveOrder" Content="Сохранить порядок"
+                    Padding="12,4" Click="BtnSaveOrder_Click"
+                    ToolTip="Сохранить порядковые номера дипломников в ГЭК"/>
+        </Grid>
+    </Grid>
+</Window>

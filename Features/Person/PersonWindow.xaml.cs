@@ -66,8 +66,8 @@ public partial class PersonWindow : Window
         {
             _editingId = selected.Id;
             TextBoxName.Text = selected.Name;
-            TextBoxStepen.Text = selected.Stepen;
-            TextBoxZvanie.Text = selected.Zvanie;
+            ComboBoxStepen.Text = selected.Stepen;
+            ComboBoxZvanie.Text = selected.Zvanie;
             TextBoxDolgnost.Text = selected.Dolgnost;
             CheckBoxPredsed.IsChecked = selected.IsPredsed;
             CheckBoxZavKaf.IsChecked = selected.IsZavKaf;
@@ -126,8 +126,8 @@ public partial class PersonWindow : Window
             var request = new UpdatePersonRequest(
                 _editingId.Value,
                 TextBoxName.Text,
-                TextBoxStepen.Text ?? "",
-                TextBoxZvanie.Text ?? "",
+                ComboBoxStepen.Text.Trim(),
+                ComboBoxZvanie.Text.Trim(),
                 TextBoxDolgnost.Text ?? "",
                 CheckBoxPredsed.IsChecked ?? false,
                 CheckBoxZavKaf.IsChecked ?? false,
@@ -141,8 +141,8 @@ public partial class PersonWindow : Window
         {
             var request = new CreatePersonRequest(
                 TextBoxName.Text,
-                TextBoxStepen.Text ?? "",
-                TextBoxZvanie.Text ?? "",
+                ComboBoxStepen.Text.Trim(),
+                ComboBoxZvanie.Text.Trim(),
                 TextBoxDolgnost.Text ?? "",
                 CheckBoxPredsed.IsChecked ?? false,
                 CheckBoxZavKaf.IsChecked ?? false,
@@ -166,8 +166,8 @@ public partial class PersonWindow : Window
     {
         _editingId = null;
         TextBoxName.Text = "";
-        TextBoxStepen.Text = "";
-        TextBoxZvanie.Text = "";
+        ComboBoxStepen.Text = "без степени";
+        ComboBoxZvanie.Text = "б/з";
         TextBoxDolgnost.Text = "";
         CheckBoxPredsed.IsChecked = false;
         CheckBoxZavKaf.IsChecked = false;

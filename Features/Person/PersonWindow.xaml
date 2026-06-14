@@ -67,10 +67,26 @@
                 <ComboBox Grid.Row="0" Grid.Column="3" x:Name="ComboBoxKafedra" DisplayMemberPath="Name" Margin="0,0,0,5"/>
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Степень:" VerticalAlignment="Center" Margin="0,0,10,5"/>
-                <TextBox Grid.Row="1" Grid.Column="1" x:Name="TextBoxStepen" Margin="0,0,20,5"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" x:Name="ComboBoxStepen" IsEditable="True" Margin="0,0,20,5">
+                    <ComboBoxItem Content="без степени"/>
+                    <ComboBoxItem Content="к.т.н."/>
+                    <ComboBoxItem Content="д.т.н."/>
+                    <ComboBoxItem Content="к.э.н."/>
+                    <ComboBoxItem Content="д.э.н."/>
+                    <ComboBoxItem Content="к.ф.-м.н."/>
+                    <ComboBoxItem Content="д.ф.-м.н."/>
+                    <ComboBoxItem Content="к.п.н."/>
+                    <ComboBoxItem Content="д.п.н."/>
+                </ComboBox>
 
                 <TextBlock Grid.Row="1" Grid.Column="2" Text="Звание:" VerticalAlignment="Center" Margin="0,0,10,5"/>
-                <TextBox Grid.Row="1" Grid.Column="3" x:Name="TextBoxZvanie" Margin="0,0,0,5"/>
+                <ComboBox Grid.Row="1" Grid.Column="3" x:Name="ComboBoxZvanie" IsEditable="True" Margin="0,0,0,5">
+                    <ComboBoxItem Content="б/з"/>
+                    <ComboBoxItem Content="доцент"/>
+                    <ComboBoxItem Content="профессор"/>
+                    <ComboBoxItem Content="ст.н.с."/>
+                    <ComboBoxItem Content="академик РАН"/>
+                </ComboBox>
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Должность:" VerticalAlignment="Center" Margin="0,0,10,5"/>
                 <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" x:Name="TextBoxDolgnost" Margin="0,0,0,5"/>

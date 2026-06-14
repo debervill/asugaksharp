@@ -30,6 +30,7 @@ public partial class MainWindows : Window
         window.ShowDialog();
     }
 
+    
     private void MenuNapravlenie_Click(object sender, RoutedEventArgs e)
     {
         var window = App.ServiceProvider.GetRequiredService<NapravleniePodgotovkiWindow>();
@@ -102,7 +103,9 @@ public partial class MainWindows : Window
 
     private void MenuRaspredelenie_Click(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show("Функция недоступна в этой ветке.", "Недоступно", MessageBoxButton.OK, MessageBoxImage.Information);
+        var window = App.ServiceProvider.GetRequiredService<Features.Zasedanie.RaspredelenieDiplomnikovWindow>();
+        window.Owner = this;
+        window.ShowDialog();
     }
 
     private void MenuProtokol_Click(object sender, RoutedEventArgs e)

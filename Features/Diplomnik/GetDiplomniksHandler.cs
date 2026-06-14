@@ -12,7 +12,7 @@ public class GetDiplomniksHandler
     {
         var list = await _context.Diplomnik
             .AsNoTracking()
-            .Include(d => d.Person)
+            .Include(d => d.Person).ThenInclude(p => p!.Kafedra)
             .Include(d => d.ProfilPodgotovki)
             .Include(d => d.Konsultanty!)
                 .ThenInclude(dk => dk.Person)
@@ -43,7 +43,9 @@ public class GetDiplomniksHandler
             d.Retsenzenty?
                 .OrderBy(dr => dr.SortOrder)
                 .Select(dr => new RetsenzentInfo(dr.PersonId, dr.Person?.Name ?? string.Empty))
-                .ToList() ?? new List<RetsenzentInfo>()
+                .ToList() ?? new List<RetsenzentInfo>(),
+            d.Person?.KafedraID,
+            d.Person?.Kafedra?.Name
         )).ToList();
     }
 }
