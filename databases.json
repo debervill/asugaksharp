@@ -1,0 +1,7 @@
+{
+  "databases": [
+    { "name": "Разработка", "path": "asugak_dev.db" },
+    { "name": "Продуктив", "path": "asugak.db" }
+  ],
+  "lastSelected": 0
+}

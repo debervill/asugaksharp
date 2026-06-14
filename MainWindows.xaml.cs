@@ -102,9 +102,7 @@ public partial class MainWindows : Window
 
     private void MenuRaspredelenie_Click(object sender, RoutedEventArgs e)
     {
-        var window = App.ServiceProvider.GetRequiredService<Features.Zasedanie.RaspredelenieDiplomnikovWindow>();
-        window.Owner = this;
-        window.ShowDialog();
+        MessageBox.Show("Функция недоступна в этой ветке.", "Недоступно", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void MenuProtokol_Click(object sender, RoutedEventArgs e)

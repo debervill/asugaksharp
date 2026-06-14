@@ -46,7 +46,8 @@
       "Bash(Remove-Item *)",
       "Bash(git checkout *)",
       "PowerShell(Copy-Item *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(git ls-tree *)"
     ]
   }
 }

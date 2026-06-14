@@ -18,6 +18,7 @@ using asugaksharp.Features.Docs;
 using asugaksharp.Features.Komissiya;
 using asugaksharp.Features.TestData;
 using asugaksharp.Features.Protocol;
+using asugaksharp.Features.DatabaseSelection;
 
 namespace asugaksharp;
 
@@ -27,22 +28,33 @@ public partial class App : Application
 
     public App()
     {
-        // Устанавливаем русскую культуру (запятая как разделитель дробной части)
         var culture = new CultureInfo("ru-RU");
         CultureInfo.DefaultThreadCurrentCulture = culture;
         CultureInfo.DefaultThreadCurrentUICulture = culture;
         FrameworkElement.LanguageProperty.OverrideMetadata(
             typeof(FrameworkElement),
             new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(culture.IetfLanguageTag)));
-
-        var services = new ServiceCollection();
-        ConfigureServices(services);
-        ServiceProvider = services.BuildServiceProvider();
     }
 
     protected override async void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+
+        ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+        var dbWindow = new DatabaseSelectionWindow();
+        if (dbWindow.ShowDialog() != true)
+        {
+            Shutdown();
+            return;
+        }
+
+        var connectionString = dbWindow.SelectedConnectionString;
+        var selectedDbName = dbWindow.SelectedName;
+
+        var services = new ServiceCollection();
+        ConfigureServices(services, connectionString);
+        ServiceProvider = services.BuildServiceProvider();
 
         using var scope = ServiceProvider.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -50,12 +62,12 @@ public partial class App : Application
         var pending = (await context.Database.GetPendingMigrationsAsync()).ToList();
         if (pending.Count > 0)
         {
-            var dbFile = "asugak.db";
-            var isNew = !File.Exists(dbFile);
+            var dbPath = dbWindow.SelectedPath;
+            var isNew = !File.Exists(dbPath);
 
             var message = isNew
-                ? "База данных не найдена.\n\nСоздать новую базу данных?"
-                : $"База данных устарела — требуется применить {pending.Count} миграц. Обновить?";
+                ? $"База данных «{selectedDbName}» не найдена.\n\nСоздать новую базу данных?"
+                : $"База данных «{selectedDbName}» устарела — требуется применить {pending.Count} миграц. Обновить?";
 
             var result = MessageBox.Show(
                 message,
@@ -85,14 +97,15 @@ public partial class App : Application
             }
         }
 
+        ShutdownMode = ShutdownMode.OnMainWindowClose;
         var mainWindow = ServiceProvider.GetRequiredService<MainWindows>();
         mainWindow.Show();
     }
 
-    private void ConfigureServices(IServiceCollection services)
+    private void ConfigureServices(IServiceCollection services, string connectionString)
     {
         services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlite("Data Source=asugak.db"));
+            options.UseSqlite(connectionString));
 
         // Kafedra
         services.AddTransient<GetKafedrasHandler>();
@@ -125,9 +138,6 @@ public partial class App : Application
         services.AddTransient<CreateZasedanieHandler>();
         services.AddTransient<UpdateZasedanieHandler>();
         services.AddTransient<DeleteZasedanieHandler>();
-        services.AddTransient<GetDiplomniksForDistributionHandler>();
-        services.AddTransient<AssignDiplomnikHandler>();
-
         // PeriodZasedania
         services.AddTransient<GetPeriodZasedaniasHandler>();
         services.AddTransient<CreatePeriodZasedaniaHandler>();
@@ -190,7 +200,6 @@ public partial class App : Application
         services.AddTransient<Features.Docs.DocsWindow>();
         services.AddTransient<Features.Komissiya.KomissiyaWindow>();
         services.AddTransient<Features.Zasedanie.RaspisanieWindow>();
-        services.AddTransient<Features.Zasedanie.RaspredelenieDiplomnikovWindow>();
         services.AddTransient<Features.Protocol.ProtocolWindow>();
     }
 }
