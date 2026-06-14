@@ -142,7 +142,7 @@ public class GenerateProtocolHandler
 
             // Решение
             ["fill_16_2"]   = d.Otsenka,
-            ["fill_17_2"]   = d.FioImen,
+            ["fill_17_2"]   = ShortName(predsedatel),
 
             // Подписи (краткое ФИО)
             ["fill_18_2"]   = ShortName(predsedatel),
@@ -169,7 +169,13 @@ public class GenerateProtocolHandler
 
         var napravlenie  = d.ProfilPodgotovki?.NapravleniePodgotovki?.Nazvanie ?? "";
         var profil       = d.ProfilPodgotovki?.Name ?? "";
+        var (profilLine1Kval, profilLine2Kval) = SplitAtWidth(profil, 45);
         var kvalificacia = d.Zasedanie?.Kvalificacia ?? "";
+
+        var allCommission = new List<string>();
+        if (!string.IsNullOrEmpty(predsedatel)) allCommission.Add(predsedatel);
+        allCommission.AddRange(members);
+        var commissionLines = SplitCommissionToLines(allCommission, 65, 5);
 
         var fields = new Dictionary<string, string?>
         {
@@ -181,18 +187,18 @@ public class GenerateProtocolHandler
             // Студент
             ["Text9"]  = d.FioImen,
             ["Text10"] = napravlenie,
-            ["Text11"] = profil,
-            ["Text12"] = d.Tema,
+            ["Text11"] = profilLine1Kval,
+            ["Text12"] = profilLine2Kval,
 
             // Вид ВКР
             ["Text13"] = d.VidVkr,
 
-            // Председатель и члены комиссии
-            ["Text14"] = predsedatel,
-            ["Text15"] = members.Count > 0 ? members[0] : "",
-            ["Text16"] = members.Count > 1 ? members[1] : "",
-            ["Text17"] = members.Count > 2 ? members[2] : "",
-            ["Text18"] = members.Count > 3 ? members[3] : "",
+            // Комиссия: краткие ФИО через запятую, с переносом на следующую строку
+            ["Text14"] = commissionLines[0],
+            ["Text15"] = commissionLines[1],
+            ["Text16"] = commissionLines[2],
+            ["Text17"] = commissionLines[3],
+            ["Text18"] = commissionLines[4],
 
             // Решение
             ["Text19"] = d.FioRodit,   // "выдать диплом [ФИО в род.пад.]"
@@ -256,6 +262,34 @@ public class GenerateProtocolHandler
         if (idx < lineCount && sb.Length > 0)
             lines[idx] = sb.ToString();
 
+        return lines;
+    }
+
+    // Раскладывает список имён по строкам: имена идут через ", ", при переполнении — новая строка
+    private static string[] SplitCommissionToLines(List<string> names, int maxChars, int lineCount)
+    {
+        var lines = new string[lineCount];
+        if (names.Count == 0) return lines;
+        var sb = new System.Text.StringBuilder();
+        int idx = 0;
+        foreach (var name in names)
+        {
+            if (idx >= lineCount) break;
+            var sep = sb.Length > 0 ? ", " : "";
+            if (sb.Length > 0 && sb.Length + sep.Length + name.Length > maxChars)
+            {
+                lines[idx++] = sb.ToString();
+                sb.Clear();
+                sb.Append(name);
+            }
+            else
+            {
+                sb.Append(sep);
+                sb.Append(name);
+            }
+        }
+        if (idx < lineCount && sb.Length > 0)
+            lines[idx] = sb.ToString();
         return lines;
     }
 

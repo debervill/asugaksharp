@@ -19,6 +19,8 @@ public class CreateDiplomnikHandler
             Tema = request.Tema,
             OrigVkr = request.OrigVkr,
             Srball = request.Srball,
+            Otsenka = request.Otsenka,
+            VidVkr = request.VidVkr,
             PersonId = request.PersonId,
             ProfilPodgotovkiId = request.ProfilPodgotovkiId
         };
@@ -32,6 +34,17 @@ public class CreateDiplomnikHandler
                 Id = Guid.NewGuid(),
                 DiplomnikId = entity.Id,
                 PersonId = request.KonsultantIds[i],
+                SortOrder = i + 1
+            });
+        }
+
+        for (int i = 0; i < request.RetsenzentIds.Count; i++)
+        {
+            _context.DiplomnikRetsenzent.Add(new Core.Entities.DiplomnikRetsenzent
+            {
+                Id = Guid.NewGuid(),
+                DiplomnikId = entity.Id,
+                PersonId = request.RetsenzentIds[i],
                 SortOrder = i + 1
             });
         }

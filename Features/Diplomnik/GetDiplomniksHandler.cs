@@ -16,6 +16,8 @@ public class GetDiplomniksHandler
             .Include(d => d.ProfilPodgotovki)
             .Include(d => d.Konsultanty!)
                 .ThenInclude(dk => dk.Person)
+            .Include(d => d.Retsenzenty!)
+                .ThenInclude(dr => dr.Person)
             .OrderBy(d => d.FioImen)
             .ToListAsync(ct);
 
@@ -28,6 +30,8 @@ public class GetDiplomniksHandler
             d.Tema,
             d.OrigVkr,
             d.Srball,
+            d.Otsenka,
+            d.VidVkr,
             d.PersonId,
             d.Person?.Name,
             d.ProfilPodgotovkiId,
@@ -35,7 +39,11 @@ public class GetDiplomniksHandler
             d.Konsultanty?
                 .OrderBy(dk => dk.SortOrder)
                 .Select(dk => new KonsultantInfo(dk.PersonId, dk.Person?.Name ?? string.Empty))
-                .ToList() ?? new List<KonsultantInfo>()
+                .ToList() ?? new List<KonsultantInfo>(),
+            d.Retsenzenty?
+                .OrderBy(dr => dr.SortOrder)
+                .Select(dr => new RetsenzentInfo(dr.PersonId, dr.Person?.Name ?? string.Empty))
+                .ToList() ?? new List<RetsenzentInfo>()
         )).ToList();
     }
 }

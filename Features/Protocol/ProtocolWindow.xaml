@@ -1,0 +1,71 @@
+<Window x:Class="asugaksharp.Features.Protocol.ProtocolWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d"
+        Title="Генерация протоколов" Height="560" Width="820"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Панель инструментов -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+            <Button Content="Обновить" Width="100" Margin="0,0,5,0" Click="BtnRefresh_Click"/>
+            <Button Content="Выделить всех" Width="120" Margin="0,0,5,0" Click="BtnSelectAll_Click"/>
+            <Button Content="Снять выделение" Width="130" Margin="0,0,5,0" Click="BtnDeselectAll_Click"/>
+            <Button Content="Диагностика шаблонов" Width="160" Click="BtnDiagnose_Click"/>
+        </StackPanel>
+
+        <!-- Таблица дипломников -->
+        <DataGrid Grid.Row="1"
+                  x:Name="DataGridDiplomniki"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  SelectionMode="Extended"
+                  CanUserAddRows="False"
+                  Margin="0,0,0,8">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ФИО"           Binding="{Binding FioImen}"              Width="180"/>
+                <DataGridTextColumn Header="Профиль"       Binding="{Binding ProfilPodgotovkiName}" Width="130"/>
+                <DataGridTextColumn Header="Тема"          Binding="{Binding Tema}"                 Width="*"/>
+                <DataGridTextColumn Header="Оценка"        Binding="{Binding Otsenka}"              Width="110"/>
+                <DataGridTextColumn Header="Руководитель"  Binding="{Binding PersonName}"           Width="150"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Выбор папки -->
+        <GroupBox Grid.Row="2" Header="Папка для сохранения" Margin="0,0,0,8">
+            <Grid Margin="6,4,6,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" x:Name="TextBoxFolder" IsReadOnly="True" VerticalContentAlignment="Center"/>
+                <Button Grid.Column="1" Content="Обзор..." Width="80" Margin="6,0,0,0" Click="BtnBrowse_Click"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- Кнопки генерации + статус -->
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="TextStatus" Grid.Column="0"
+                       VerticalAlignment="Center" Foreground="Gray"
+                       TextWrapping="Wrap"/>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button Content="Сгенерировать выбранных" Width="180" Margin="0,0,8,0"
+                        Click="BtnGenerateSelected_Click"/>
+                <Button Content="Сгенерировать всех" Width="150"
+                        Click="BtnGenerateAll_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

@@ -46,10 +46,13 @@ namespace asugaksharp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<float>("OrigVkr")
+                    b.Property<float?>("OrigVkr")
                         .HasColumnType("REAL");
 
-                    b.Property<int>("Pages")
+                    b.Property<string>("Otsenka")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("Pages")
                         .HasColumnType("INTEGER");
 
                     b.Property<Guid>("PersonId")
@@ -62,14 +65,17 @@ namespace asugaksharp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<float>("Srball")
+                    b.Property<float?>("Srball")
                         .HasColumnType("REAL");
 
                     b.Property<string>("Tema")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("ZasedanieId")
+                    b.Property<string>("VidVkr")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("ZasedanieId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -105,6 +111,30 @@ namespace asugaksharp.Migrations
                     b.HasIndex("PersonId");
 
                     b.ToTable("DiplomnikKonsultant");
+                });
+
+            modelBuilder.Entity("asugaksharp.Core.Entities.DiplomnikRetsenzent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("DiplomnikId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("PersonId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DiplomnikId");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("DiplomnikRetsenzent");
                 });
 
             modelBuilder.Entity("asugaksharp.Core.Entities.Docs", b =>
@@ -379,7 +409,6 @@ namespace asugaksharp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Primechanie")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -498,10 +527,6 @@ namespace asugaksharp.Migrations
                     b.Property<Guid>("NapravleniePodgotovkiID")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ShifrPodgot")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NapravleniePodgotovkiID");
@@ -565,9 +590,7 @@ namespace asugaksharp.Migrations
 
                     b.HasOne("asugaksharp.Core.Entities.Zasedanie", "Zasedanie")
                         .WithMany("Diplomniks")
-                        .HasForeignKey("ZasedanieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ZasedanieId");
 
                     b.Navigation("Person");
 
@@ -580,6 +603,25 @@ namespace asugaksharp.Migrations
                 {
                     b.HasOne("asugaksharp.Core.Entities.Diplomnik", "Diplomnik")
                         .WithMany("Konsultanty")
+                        .HasForeignKey("DiplomnikId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("asugaksharp.Core.Entities.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Diplomnik");
+
+                    b.Navigation("Person");
+                });
+
+            modelBuilder.Entity("asugaksharp.Core.Entities.DiplomnikRetsenzent", b =>
+                {
+                    b.HasOne("asugaksharp.Core.Entities.Diplomnik", "Diplomnik")
+                        .WithMany("Retsenzenty")
                         .HasForeignKey("DiplomnikId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -728,6 +770,8 @@ namespace asugaksharp.Migrations
             modelBuilder.Entity("asugaksharp.Core.Entities.Diplomnik", b =>
                 {
                     b.Navigation("Konsultanty");
+
+                    b.Navigation("Retsenzenty");
                 });
 
             modelBuilder.Entity("asugaksharp.Core.Entities.Gak", b =>

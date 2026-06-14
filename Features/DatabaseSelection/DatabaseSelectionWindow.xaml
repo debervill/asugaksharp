@@ -1,0 +1,29 @@
+<Window x:Class="asugaksharp.Features.DatabaseSelection.DatabaseSelectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Выбор базы данных" Height="320" Width="500"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        ShowInTaskbar="True">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Выберите базу данных для работы:"
+                   FontSize="13" FontWeight="SemiBold"
+                   Margin="0,0,0,16"/>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="DatabasesPanel"/>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+            <Button Content="Отмена" Width="80" IsCancel="True" Click="CancelButton_Click" Margin="0,0,10,0"/>
+            <Button Content="ОК" Width="80" IsDefault="True" Click="OkButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -51,7 +51,6 @@ public partial class ProfilPodgotovkiWindow : Window
         {
             _editingId = selected.Id;
             TextBoxName.Text = selected.Name;
-            TextBoxShifrPodgot.Text = selected.ShifrPodgot;
             ComboBoxNapravleniePodgotovki.SelectedValue = selected.NapravleniePodgotovkiId;
         }
         else
@@ -91,12 +90,6 @@ public partial class ProfilPodgotovkiWindow : Window
             return;
         }
 
-        if (string.IsNullOrWhiteSpace(TextBoxShifrPodgot.Text))
-        {
-            MessageBox.Show("Введите шифр подготовки", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
-        }
-
         if (ComboBoxNapravleniePodgotovki.SelectedValue == null)
         {
             MessageBox.Show("Выберите направление подготовки", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -110,7 +103,6 @@ public partial class ProfilPodgotovkiWindow : Window
             var request = new UpdateProfilPodgotovkiRequest(
                 _editingId.Value,
                 TextBoxName.Text,
-                TextBoxShifrPodgot.Text,
                 napravleniePodgotovkiId);
             await _updateHandler.ExecuteAsync(request);
         }
@@ -118,7 +110,6 @@ public partial class ProfilPodgotovkiWindow : Window
         {
             var request = new CreateProfilPodgotovkiRequest(
                 TextBoxName.Text,
-                TextBoxShifrPodgot.Text,
                 napravleniePodgotovkiId);
             await _createHandler.ExecuteAsync(request);
         }
@@ -136,7 +127,6 @@ public partial class ProfilPodgotovkiWindow : Window
     {
         _editingId = null;
         TextBoxName.Text = "";
-        TextBoxShifrPodgot.Text = "";
         ComboBoxNapravleniePodgotovki.SelectedIndex = -1;
     }
 }

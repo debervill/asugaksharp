@@ -17,6 +17,7 @@ public partial class DiplomnikWindow : Window
     private readonly GetProfilPodgotovkisHandler _getProfilHandler;
 
     private ComboBox[] _konsultantBoxes = null!;
+    private ComboBox[] _retsenzentBoxes = null!;
     private Guid? _editingId;
     private bool _fioRoditAutoFilled;
     private bool _suppressFioRoditChanged;
@@ -39,6 +40,7 @@ public partial class DiplomnikWindow : Window
         _getProfilHandler = getProfilHandler;
 
         _konsultantBoxes = new[] { ComboBoxK1, ComboBoxK2, ComboBoxK3, ComboBoxK4, ComboBoxK5 };
+        _retsenzentBoxes = new[] { ComboBoxR1, ComboBoxR2 };
 
         Loaded += async (_, _) => await LoadDataAsync();
     }
@@ -51,6 +53,8 @@ public partial class DiplomnikWindow : Window
         var persons = await _getPersonsHandler.ExecuteAsync();
         ComboBoxRukovoditel.ItemsSource = persons;
         foreach (var box in _konsultantBoxes)
+            box.ItemsSource = persons;
+        foreach (var box in _retsenzentBoxes)
             box.ItemsSource = persons;
 
         var profils = await _getProfilHandler.ExecuteAsync();
@@ -76,10 +80,13 @@ public partial class DiplomnikWindow : Window
         TextBoxFioRodit.Text = selected.FioRodit;
 
         ComboBoxSex.SelectedIndex = selected.Sex == "М" ? 0 : selected.Sex == "Ж" ? 1 : -1;
-        TextBoxPages.Text = selected.Pages.ToString();
+        TextBoxPages.Text = selected.Pages?.ToString() ?? "";
         TextBoxTema.Text = selected.Tema;
-        TextBoxOrigVkr.Text = selected.OrigVkr.ToString();
-        TextBoxSrball.Text = selected.Srball.ToString();
+        TextBoxOrigVkr.Text = selected.OrigVkr?.ToString() ?? "";
+        TextBoxSrball.Text = selected.Srball?.ToString() ?? "";
+
+        SetComboBoxByContent(ComboBoxVidVkr, selected.VidVkr);
+        SetComboBoxByContent(ComboBoxOtsenka, selected.Otsenka);
 
         ComboBoxRukovoditel.SelectedValue = selected.PersonId;
         ComboBoxProfil.SelectedValue = selected.ProfilPodgotovkiId;
@@ -88,6 +95,13 @@ public partial class DiplomnikWindow : Window
         {
             _konsultantBoxes[i].SelectedValue = i < selected.Konsultanty.Count
                 ? selected.Konsultanty[i].PersonId
+                : null;
+        }
+
+        for (int i = 0; i < _retsenzentBoxes.Length; i++)
+        {
+            _retsenzentBoxes[i].SelectedValue = i < selected.Retsenzenty.Count
+                ? selected.Retsenzenty[i].PersonId
                 : null;
         }
     }
@@ -137,19 +151,28 @@ public partial class DiplomnikWindow : Window
             return;
         }
 
-        if (!int.TryParse(TextBoxPages.Text, out int pages))
+        int? pages = string.IsNullOrWhiteSpace(TextBoxPages.Text) ? null
+            : int.TryParse(TextBoxPages.Text, out int pagesVal) ? pagesVal
+            : (int?)null;
+        if (!string.IsNullOrWhiteSpace(TextBoxPages.Text) && pages == null)
         {
             MessageBox.Show("Введите корректное количество страниц", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
 
-        if (!float.TryParse(TextBoxOrigVkr.Text, out float origVkr))
+        float? origVkr = string.IsNullOrWhiteSpace(TextBoxOrigVkr.Text) ? null
+            : float.TryParse(TextBoxOrigVkr.Text, out float origVal) ? origVal
+            : (float?)null;
+        if (!string.IsNullOrWhiteSpace(TextBoxOrigVkr.Text) && origVkr == null)
         {
             MessageBox.Show("Введите корректную оригинальность", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
 
-        if (!float.TryParse(TextBoxSrball.Text, out float srball))
+        float? srball = string.IsNullOrWhiteSpace(TextBoxSrball.Text) ? null
+            : float.TryParse(TextBoxSrball.Text, out float srballVal) ? srballVal
+            : (float?)null;
+        if (!string.IsNullOrWhiteSpace(TextBoxSrball.Text) && srball == null)
         {
             MessageBox.Show("Введите корректный средний балл", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
@@ -163,6 +186,8 @@ public partial class DiplomnikWindow : Window
 
         var sex = ((ComboBoxItem)ComboBoxSex.SelectedItem).Content.ToString()!;
         var profilId = ComboBoxProfil.SelectedValue as Guid?;
+        var vidVkr = (ComboBoxVidVkr.SelectedItem as ComboBoxItem)?.Content.ToString();
+        var otsenka = (ComboBoxOtsenka.SelectedItem as ComboBoxItem)?.Content.ToString();
 
         var konsultantIds = _konsultantBoxes
             .Select(b => b.SelectedValue as Guid?)
@@ -170,6 +195,14 @@ public partial class DiplomnikWindow : Window
             .Select(id => id!.Value)
             .Distinct()
             .Take(5)
+            .ToList();
+
+        var retsenzentIds = _retsenzentBoxes
+            .Select(b => b.SelectedValue as Guid?)
+            .Where(id => id.HasValue)
+            .Select(id => id!.Value)
+            .Distinct()
+            .Take(2)
             .ToList();
 
         if (_editingId.HasValue)
@@ -181,8 +214,9 @@ public partial class DiplomnikWindow : Window
                 sex, pages,
                 TextBoxTema.Text.Trim(),
                 origVkr, srball,
+                otsenka, vidVkr,
                 rukovoditelId, profilId,
-                konsultantIds);
+                konsultantIds, retsenzentIds);
             await _updateHandler.ExecuteAsync(request);
         }
         else
@@ -193,8 +227,9 @@ public partial class DiplomnikWindow : Window
                 sex, pages,
                 TextBoxTema.Text.Trim(),
                 origVkr, srball,
+                otsenka, vidVkr,
                 rukovoditelId, profilId,
-                konsultantIds);
+                konsultantIds, retsenzentIds);
             await _createHandler.ExecuteAsync(request);
         }
 
@@ -244,6 +279,20 @@ public partial class DiplomnikWindow : Window
         return RussianNameInflector.ToDative(TextBoxFioImen.Text, gender);
     }
 
+    private static void SetComboBoxByContent(ComboBox box, string? value)
+    {
+        if (value == null) { box.SelectedIndex = -1; return; }
+        foreach (ComboBoxItem item in box.Items)
+        {
+            if (item.Content?.ToString() == value)
+            {
+                box.SelectedItem = item;
+                return;
+            }
+        }
+        box.SelectedIndex = -1;
+    }
+
     private void ClearForm()
     {
         _editingId = null;
@@ -255,9 +304,13 @@ public partial class DiplomnikWindow : Window
         TextBoxTema.Text = "";
         TextBoxOrigVkr.Text = "";
         TextBoxSrball.Text = "";
+        ComboBoxVidVkr.SelectedIndex = -1;
+        ComboBoxOtsenka.SelectedIndex = -1;
         ComboBoxRukovoditel.SelectedIndex = -1;
         ComboBoxProfil.SelectedIndex = -1;
         foreach (var box in _konsultantBoxes)
+            box.SelectedIndex = -1;
+        foreach (var box in _retsenzentBoxes)
             box.SelectedIndex = -1;
     }
 }

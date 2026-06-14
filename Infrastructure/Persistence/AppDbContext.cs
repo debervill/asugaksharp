@@ -23,6 +23,7 @@ public class AppDbContext : DbContext
     public DbSet<PersonZasedanie> PersonZasedanie { get; set; }
     public DbSet<Normativ> Normativ { get; set; }
     public DbSet<DiplomnikKonsultant> DiplomnikKonsultant { get; set; }
+    public DbSet<DiplomnikRetsenzent> DiplomnikRetsenzent { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -58,6 +59,18 @@ public class AppDbContext : DbContext
             .HasOne(dk => dk.Person)
             .WithMany()
             .HasForeignKey(dk => dk.PersonId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<DiplomnikRetsenzent>()
+            .HasOne(dr => dr.Diplomnik)
+            .WithMany(d => d.Retsenzenty)
+            .HasForeignKey(dr => dr.DiplomnikId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<DiplomnikRetsenzent>()
+            .HasOne(dr => dr.Person)
+            .WithMany()
+            .HasForeignKey(dr => dr.PersonId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

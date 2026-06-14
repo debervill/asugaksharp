@@ -15,7 +15,6 @@ public class UpdateProfilPodgotovkiHandler
             return false;
 
         entity.Name = request.Name;
-        entity.ShifrPodgot = request.ShifrPodgot;
         entity.NapravleniePodgotovkiID = request.NapravleniePodgotovkiId;
 
         await _context.SaveChangesAsync(ct);

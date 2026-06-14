@@ -100,6 +100,18 @@ public partial class MainWindows : Window
         window.ShowDialog();
     }
 
+    private void MenuRaspredelenie_Click(object sender, RoutedEventArgs e)
+    {
+        MessageBox.Show("Функция недоступна в этой ветке.", "Недоступно", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    private void MenuProtokol_Click(object sender, RoutedEventArgs e)
+    {
+        var window = App.ServiceProvider.GetRequiredService<Features.Protocol.ProtocolWindow>();
+        window.Owner = this;
+        window.ShowDialog();
+    }
+
     private void MenuKomissiya_Click(object sender, RoutedEventArgs e)
     {
         var window = App.ServiceProvider.GetRequiredService<KomissiyaWindow>();
@@ -158,7 +170,9 @@ public partial class MainWindows : Window
         }
 
         MessageBox.Show(
-            $"Добавлено кафедр: {result.KafedraAdded}\nДобавлено сотрудников: {result.PersonsAdded}",
+            $"Добавлено кафедр: {result.KafedraAdded}\n" +
+            $"Добавлено сотрудников: {result.PersonsAdded}\n" +
+            $"Добавлено дипломников: {result.DiplomnikAdded}",
             "Справка: тестовые данные",
             MessageBoxButton.OK,
             MessageBoxImage.Information);
