@@ -162,10 +162,6 @@ public class GenerateProtocolHandler
             ["fill_16_2"]   = d.Otsenka,
             ["fill_17_2"]   = ShortName(predsedatel),
 
-            // Подписи (краткое ФИО)
-            ["fill_18_2"]   = ShortName(predsedatel),
-            ["fill_19_2"]   = ShortName(sekretar),
-
             // Объём ВКР
             ["fill_21"]     = d.Pages?.ToString(),
         };
@@ -190,10 +186,7 @@ public class GenerateProtocolHandler
         var (profilLine1Kval, profilLine2Kval) = SplitAtWidth(profil, 45);
         var kvalificacia = d.Zasedanie?.Kvalificacia ?? "";
 
-        var allCommission = new List<string>();
-        if (!string.IsNullOrEmpty(predsedatel)) allCommission.Add(predsedatel);
-        allCommission.AddRange(members);
-        var commissionLines = SplitCommissionToLines(allCommission, 65, 5);
+        var memberLines = SplitCommissionToLines(members, 65, 4);
 
         var fields = new Dictionary<string, string?>
         {
@@ -211,21 +204,18 @@ public class GenerateProtocolHandler
             // Вид ВКР
             ["Text13"] = d.VidVkr,
 
-            // Комиссия: краткие ФИО через запятую, с переносом на следующую строку
-            ["Text14"] = commissionLines[0],
-            ["Text15"] = commissionLines[1],
-            ["Text16"] = commissionLines[2],
-            ["Text17"] = commissionLines[3],
-            ["Text18"] = commissionLines[4],
+            // Председатель — только председатель; Text15–Text18 — остальные члены
+            ["Text14"] = predsedatel,
+            ["Text15"] = memberLines[0],
+            ["Text16"] = memberLines[1],
+            ["Text17"] = memberLines[2],
+            ["Text18"] = memberLines[3],
 
             // Решение
             ["Text19"] = d.FioRodit,   // "выдать диплом [ФИО в род.пад.]"
             ["Text20"] = d.Otsenka,    // "с оценкой..."
             ["Text21"] = kvalificacia, // "присвоить квалификацию..."
 
-            // Подписи (краткое ФИО)
-            ["fill_2"] = ShortName(predsedatel),
-            ["fill_4"] = ShortName(sekretar),
         };
 
         FillPdf(TemplateKvalifikacia, outputPath, fields);
